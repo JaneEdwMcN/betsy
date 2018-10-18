@@ -5,3 +5,57 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'csv'
+
+USER_FILE = Rails.root.join('db', 'user_seeds.csv')
+
+user_failures = []
+CSV.foreach(USER_FILE, :headers => true) do |row|
+  user = User.new
+  user.name = row['name']
+  user.email = row['email']
+  successful = user.save
+  if !successful
+    user_failures << user
+  else
+    puts "User created: #{user.inspect}"
+  end
+end
+
+CATEGORY_FILE = Rails.root.join('db', 'category_seeds.csv')
+category_failures = []
+CSV.foreach(CATEGORY_FILE, :headers => true) do |row|
+  category = Category.new
+  category.name = row['name']
+  successful = category.save
+  if !successful
+    category_failures << category
+  else
+    puts "Category created: #{category.inspect}"
+  end
+end
+
+
+CREATURE_FILE = Rails.root.join('db', 'creature_seeds.csv')
+
+creature_failures = []
+CSV.foreach(CREATURE_FILE, :headers => true) do |row|
+  creature = Product.new
+  creature.name = row['name']
+  creature.stock_count = row['stock_count']
+  creature.description = row['description']
+  creature.price = row['price']
+  creature.photo_url = row['photo_url']
+  ids = User.pluck(:id)
+  random_record = User.find(ids.sample)
+    creature.user_id = random_record.id
+  ids = Category.pluck(:id)
+  random_record = Category.find(ids.sample)
+    creature.category_id = random_record.id
+  successful = creature.save
+    if !successful
+      creature_failures << creature
+    else
+      puts "Creature created: #{creature.inspect}"
+    end
+end
