@@ -43,7 +43,6 @@ class ProductsController < ApplicationController
      @product = Product.find_by(id: params[:product_id])
    end
 
-   head :not_found unless @product
  end
 
 end
