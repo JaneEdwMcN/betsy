@@ -1,27 +1,16 @@
 class SessionsController < ApplicationController
   def create
-    # auth_hash = request.env['omniauth.auth']
-    #
-    # user = User.find_by(uid: auth_hash[:uid], provider: 'github') ||
-    # User.create_from_github(auth_hash)
+    auth_hash = request.env['omniauth.auth']
 
-    user = User.find_by(username: params[:user][:name])
+    user = User.find_by(uid: auth_hash[:uid], provider: 'github') ||
+    User.create_from_github(auth_hash)
 
-    if user.nil?
-      user = User.create(name: params[:user][:name], email: params[:user][:email])
-
-      if user.save
-        session[:user_id] = user.id
-        flash[:success] = "#{ user.name } Successfully logged in!"
-        redirect_to root_path
-      else
-        flash[:warning] = "#{ user.name } Unable to log in!"
-        redirect_to root_path
-      end
-
-    else
+    if user
+      flash[:result_text] = "Logged in as returning user #{user.name}"
       session[:user_id] = user.id
-      flash[:success] = "#{ user.name } Successfully logged in!"
+      redirect_to root_path
+    else
+      flash[:error] = "Could not create new user account: #{user.errors.messages}"
       redirect_to root_path
     end
   end
