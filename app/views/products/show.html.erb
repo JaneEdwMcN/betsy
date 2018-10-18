@@ -1,0 +1,14 @@
+<% if @product.nil? %>
+<h1> 404 Not found</h1>
+<% else %>
+<h1><%=@product.name %></h1>
+<p><%= image_tag @product.photo_url %></p>
+<ul>
+  <li><%= @product.description %></li>
+  <li><%= @product.category.name %></li>
+  <li><%= @product.price %></li>
+  <li><%= @product.stock_count %></li>
+</ul>
+<% end %>
+<%# if logged in, allowed to edit product %>
+<%# Anyone can add review %>
