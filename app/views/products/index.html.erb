@@ -1,0 +1,23 @@
+<h2> Shop by Product </h2>
+
+<section class="product-container">
+  <% if @products %>
+  <% @products.each do |product| %>
+  <% if product.stock > 0 %>
+  <div class="product-box">
+
+    <%= image_tag product.image.url %>
+
+
+    <strong><%= link_to(product.name, product_path(product)) %></strong>
+    <li>
+      Price: <%=  %>
+    </li>
+    <li>
+       Average Rating: <%= '%.2f' % average_rating(product) %>
+    </li>
+  </div>
+  <% end %>
+  <% end %>
+  <% end %>
+</section>
