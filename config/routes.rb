@@ -3,6 +3,13 @@ Rails.application.routes.draw do
   get 'orders/create'
   get 'orders/edit'
   get 'orders/update'
+
+  post 'sessions/login', to: 'sessions#login', as: 'login'
+  get 'sessions/login', to: 'sessions#new'
+  delete 'sessions/destroy', to: 'sessions#destroy', as: 'logout'
+
+  # get "/auth/:provider/callback", to: "sessions#create"
+  
   resources :orders
 
   resources :products do
@@ -14,5 +21,5 @@ Rails.application.routes.draw do
   resources :categories
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-   
+
 end

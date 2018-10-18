@@ -7,4 +7,11 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
     # render_404 unless @user
   end
+
+
+   private
+
+   def user_params
+     return params.require(:user).permit(:name, :email)
+   end
 end
