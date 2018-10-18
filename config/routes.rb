@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
+  root "products#index"
+
   get 'orders/new'
   get 'orders/create'
   get 'orders/edit'
   get 'orders/update'
+
   resources :orders
 
   resources :products do
@@ -14,5 +17,5 @@ Rails.application.routes.draw do
   resources :categories
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-   
+
 end

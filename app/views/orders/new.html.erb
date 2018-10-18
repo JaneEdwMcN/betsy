@@ -1,2 +1,28 @@
-<h1>Orders#new</h1>
-<p>Find me in app/views/orders/new.html.erb</p>
+<section>
+  <%= form_with model: @order do |f| %>
+
+    <%= f.label :name, "Name: " %>
+    <%= f.text_field :name %>
+
+    <%= f.label :email, "Email: " %>
+    <%= f.text_field :email %>
+
+    <%= f.label :mailing_address, "Mailing Address: " %>
+    <%= f.text_field :mailing_address %>
+
+    <%= f.label :zip_code, "Zip Code: " %>
+    <%= f.text_field :zip_code %>
+
+    <%= f.label :cc_number, "Credit Card Number: " %>
+    <%= f.text_field :cc_number %>
+
+    <%= f.label :cc_expiration, "Credit Card Expiration: " %>
+    <%= f.text_field :cc_expiration %>
+
+    <%= f.label :cc_cvv, "Credit Card Security Code (cvv): " %>
+    <%= f.text_field :cc_cvv %>
+
+    <%= f.submit "Submit" %>
+
+  <% end %>
+</section>
