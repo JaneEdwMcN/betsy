@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'orders/new'
+  get 'orders/create'
+  get 'orders/edit'
+  get 'orders/update'
   resources :orders
 
   resources :products do
