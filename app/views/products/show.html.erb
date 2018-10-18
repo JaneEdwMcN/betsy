@@ -1,0 +1,16 @@
+<h1> <%= @product.name %> </h1>
+
+<%= image_tag @product.photo_url %>
+
+<%= link_to "Review Creature", new_product_review_path(@product.id), class: "btn btn-primary" %>
+
+<h3> Creature reviews: </h3>
+<% @product.reviews.each do |review| %>
+  <ul>
+    <li>
+      <p> Reviewer: <%= review.name %> </p>
+      <p> Rating: <%= review.rating %> </p>
+      <p> Review: <%= review.review %> </p>
+    </li>
+  </ul>
+<% end %>
