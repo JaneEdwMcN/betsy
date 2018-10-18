@@ -1,1 +1,16 @@
-<h1> review form goes here</h1>
+<h1> Review form goes here</h1>
+
+<%= form_with(model: @review, url: [@product, @review]) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :rating %>
+  <%= f.select :rating, [1, 2, 3, 4, 5] %>
+
+  <%= f.label :review %>
+  <%= f.text_field :review %>
+
+  <%= f.hidden_field :product_id, :value => @product.id %>
+
+  <%= f.submit class: "btn" %>
+<% end %>
