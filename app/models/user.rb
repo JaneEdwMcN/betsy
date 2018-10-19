@@ -16,7 +16,7 @@ class User < ApplicationRecord
     User.new(
       uid: auth_hash[:uid],
       provider: 'github',
-      username: auth_hash['info']['name'],
+      name: auth_hash['info']['name'],
       email: auth_hash['info']['email']
     )
   end
@@ -26,5 +26,5 @@ class User < ApplicationRecord
     user.save
     user
   end
-  
+
 end

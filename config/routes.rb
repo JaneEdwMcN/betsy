@@ -4,10 +4,11 @@ Rails.application.routes.draw do
   get 'orders/edit'
   get 'orders/update'
 
-  # post 'sessions/login', to: 'sessions#login', as: 'login'
-  # get 'sessions/login', to: 'sessions#new'
+  root "products#index"
+  
   get "/auth/:provider/callback", to: "sessions#create"
   delete 'sessions/destroy', to: 'sessions#destroy', as: 'logout'
+
 
   resources :orders
 
