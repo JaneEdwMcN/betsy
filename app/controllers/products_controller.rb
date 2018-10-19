@@ -35,10 +35,23 @@ class ProductsController < ApplicationController
   end
 
   def add_to_cart
-    id = @product.id
-    quantity = 1
+    id = @product.id.to_i
+    quantity = params[:quantity].to_i
+# session[:cart] = nil
+    session[:cart].each.with_index do |hash, index|
+      hash.each do |key, value|
+        if key == id.to_s
+          return session[:cart][index][key] = value + quantity
+          redirect_to product_path(@product.id)
+        end
+      end
+    end
+    
+    # # # # # @product.stock_count #something
     session[:cart] << { id => quantity}
+    flash[:success] = "Added to cart"
     redirect_to product_path(@product.id)
+
   end
 
   private
