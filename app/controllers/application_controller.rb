@@ -1,11 +1,16 @@
 class ApplicationController < ActionController::Base
   before_action :current_user
   before_action :find_user
+  before_action :build_cart
 
   helper_method :logged_in?
   helper_method :current_user
 
   private
+  def build_cart
+    session[:cart] = Array.new if !session[:cart]
+  end
+
   def logged_in?
     current_user.present?
   end
