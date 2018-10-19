@@ -5,18 +5,30 @@
 <p>Price: <%= @product.price %> </p>
 
 <% if @product.user != @current_user %>
-  <%= link_to "Review Creature", new_product_review_path(@product.id), class: "btn btn-primary" %>
+<%= link_to "Review Creature", new_product_review_path(@product.id), class: "btn btn-primary" %>
 <% end %>
-  <%= link_to "Add to Cart", add_to_cart_path(@product.id), class: "btn btn-primary" %>
+
+<%= form_with url: add_to_cart_path(@product.id), method: :get do |f| %>
+
+<% if @product.stock_count > 1 %>
+<%= f.label :quantity, "Quantity"%><br>
+<%= f.select :quantity, options_for_select([*1..@product.stock_count]) %>
+<% else %>
+<%= f.select :quantity, options_for_select([@product.stock_count]) %>
+<% end %>
+<%= f.submit "Add to Cart", class: "btn btn-primary"%>
+<% end %>
+<!-- <%= link_to "Add to Cart", add_to_cart_path(@product.id), class: "btn btn-primary" %> -->
+<p> <%= session[:cart] %>
 <br>
 <br>
 <h3> Creature reviews: </h3>
 <% @product.reviews.each do |review| %>
-  <ul>
-    <li>
-      <p> Reviewer: <%= review.name %> </p>
-      <p> Rating: <%= review.rating %> </p>
-      <p> Review: <%= review.review %> </p>
-    </li>
-  </ul>
+<ul>
+  <li>
+    <p> Reviewer: <%= review.name %> </p>
+    <p> Rating: <%= review.rating %> </p>
+    <p> Review: <%= review.review %> </p>
+  </li>
+</ul>
 <% end %>
