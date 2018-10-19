@@ -1,12 +1,14 @@
 <h1>Creature Parent</h1>
 <h2><%= @user.name %></h2>
 
-<ul>
-  <%= @user.products.each do |product_details| %>
-    <%= product_details.each do |product|%>
-      <li><%= product.name %><li>
+<section>
+  <h3>Creatures</h3>
+    <ul>
+      <% @user.products.each do |product| %>
+        <li><%= link_to "#{product.name}", product_path(product.id) %></li>
+        <% if logged_in? %>
+          <%= link_to "Edit", edit_product_path(product.id)%>
+        <% end %>
       <% end %>
-  <% end %>
-</ul>
-
-<p>View list of products with option to update and edit them<p>
+    </ul>
+<section>
