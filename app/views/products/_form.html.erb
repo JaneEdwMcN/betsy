@@ -1,47 +1,32 @@
-<%= render partial: "layouts/errors", locals: { model: @product} %>
-<h4>
-  <% page_title ||= "Product Changes" %>
-  <%= page_title %>
-</h4>
+<% if @current_user %>
 
-<%= form_for @product, html: { multipart: true } do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+  <%= form_with model: @product do |f|%>
 
-  <!--
-  Only show the author dropdown if we don't
-  already have one. Is this acutally good UX
-  design? Depends on the application!
-  -->
+    <h2><%= page_title %></h2>
 
-  <%= f.label :stock_count %>
-  <%= f.number_field :stock_count %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
 
-  <%= f.label :price %>
- <%= f.number_field :price %>
+    <%= f.label :stock_count %>
+    <%= f.text_field :stock_count %>
 
+    <%= f.label :price %>
+   <%= f.text_field :price %>
 
-  <%= f.hidden_field :user_id %>
+   <%= f.label :description %>
+   <%= f.text_area :description %>
 
-  <%= f.label :description %>
-  <%= f.text_area :description %>
+   <%= f.label :photo_url %>
+   <%= f.text_field :photo_url %>
 
-  <div class="add category">
+   <%= f.label :category_id %>
+   <%= f.select :category_id, Category.category_list %>
 
+    <%= f.hidden_field :user_id, :value => @current_user.id %>
 
-    Select a category from the list (Or create new category in 'Account' page)
+    <%= f.submit "Save Creature", class: "btn btn-primary" %>
 
-    <div>
-      <%= f.label :category %>
-      <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %>
-      </div>
-
-
-  </div>
-
-  <%= f.label :image %>
-  <%= f.file_field :image %>
-
-  <%= f.submit class: "button" %>
-
+  <% end %>
+<% else %>
+  <h3> Hi Animal Mom, sorry, you must be signed in to add inventory to your creature product line. </h3>
 <% end %>

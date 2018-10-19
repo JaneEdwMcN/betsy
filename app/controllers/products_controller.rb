@@ -6,13 +6,15 @@ class ProductsController < ApplicationController
  end
 
  def new
-   @product = Product.new(user_id: session[:user_id])
+   @product = Product.new
  end
 
  def create
    @product = Product.new(product_params)
+   category = Category.find_by(name: product_params[:category_id])
+   @product.category_id = category.id
    if @product.save
-     redirect_to products_path
+     redirect_to product_path(@product.id)
    else
      flash[:failure] = "failed to save"
      render :new, :status => :bad_request
@@ -34,7 +36,7 @@ class ProductsController < ApplicationController
 
  private
  def product_params
-   return params.require(:product).permit(:name, :price, :stock, :product_status, :user_id, :image, :description, category_ids: [])
+   return params.require(:product).permit(:name, :price, :stock_count, :user_id, :photo_url, :description, :category_id)
  end
 
  def find_product
