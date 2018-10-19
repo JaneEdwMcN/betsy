@@ -1,8 +1,9 @@
 <h1> <%= @product.name %> </h1>
 
 <%= image_tag @product.photo_url %>
-
-<%= link_to "Review Creature", new_product_review_path(@product.id), class: "btn btn-primary" %>
+<% if @product.user != @current_user %>
+  <%= link_to "Review Creature", new_product_review_path(@product.id), class: "btn btn-primary" %>
+<% end %>
 
 <h3> Creature reviews: </h3>
 <% @product.reviews.each do |review| %>
