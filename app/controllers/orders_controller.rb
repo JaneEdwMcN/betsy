@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-    @order.status = "paid"
+    @order.status = "pending"
 
     # session[:products].each do |key, value|
     #   # OrderProducts.new(key: value, order_id: @order.id)

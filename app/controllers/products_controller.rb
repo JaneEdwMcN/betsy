@@ -27,6 +27,9 @@ class ProductsController < ApplicationController
   def edit;end
 
   def update
+    @product.update(product_params)
+    category = Category.find_by(name: product_params[:category_id])
+    @product.category_id = category.id
     if @product.save
       redirect_to product_path(@product)
     else
@@ -46,7 +49,7 @@ class ProductsController < ApplicationController
         end
       end
     end
-    
+
     # # # # # @product.stock_count #something
     session[:cart] << { id => quantity}
     flash[:success] = "Added to cart"
