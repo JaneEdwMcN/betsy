@@ -61,6 +61,17 @@ class ProductsController < ApplicationController
     end
   end
 
+  def cart_view
+    @cart_items = []
+    session[:cart].each.with_index do |hash|
+      hash.each do |key, value|
+        cart_product = Product.find_by(id: key.to_i)
+        @cart_items << [cart_product, value]
+      end
+    end
+    render :cart
+  end
+
   private
   def product_params
     return params.require(:product).permit(:name, :price, :stock_count, :user_id, :photo_url, :description, :category_id)

@@ -1,0 +1,19 @@
+<section>
+  <% total = 0 %>
+  <% @cart_items.each do |cart_array| %>
+  <ul>
+    <li ><%= image_tag cart_array[0].photo_url, class: "cart-img"%></li>
+    <li><%= cart_array[0].name%></li>
+    <li>Price: $<%= cart_array[0].price%></li>
+    <li>Quantity: <%= cart_array[1]%></li>
+    <% total += (cart_array[1] * cart_array[0].price) %>
+    <li> Total: <%= cart_array[1] * cart_array[0].price %> </li>
+    <li>Update Quantity</li>
+    <li>Remove from Cart</li>
+  </ul>
+  <% end %>
+</section>
+<section>
+  <p>Cart Total: $<%= total %></p>
+  <p>Checkout Cart</p>
+</section>
