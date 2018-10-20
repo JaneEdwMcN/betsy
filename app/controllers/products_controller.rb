@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_product
+  before_action :find_product, only: [:show, :edit, :update]
 
   def index
     @products = Product.order(:name)
