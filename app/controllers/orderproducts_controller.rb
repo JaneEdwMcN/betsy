@@ -1,2 +1,0 @@
-class OrderproductsController < ApplicationController
-end
