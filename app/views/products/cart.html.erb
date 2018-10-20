@@ -1,19 +1,38 @@
 <section>
   <% total = 0 %>
+  <% if @cart_items.length > 0 %>
   <% @cart_items.each do |cart_array| %>
+  <% if cart_array[1] > 0 %>
+  <% product =  cart_array[0] %>
+  <% quantity = cart_array[1] %>
   <ul>
-    <li ><%= image_tag cart_array[0].photo_url, class: "cart-img"%></li>
-    <li><%= cart_array[0].name%></li>
-    <li>Price: $<%= cart_array[0].price%></li>
-    <li>Quantity: <%= cart_array[1]%></li>
-    <% total += (cart_array[1] * cart_array[0].price) %>
-    <li> Total: <%= cart_array[1] * cart_array[0].price %> </li>
+    <li ><%= image_tag product.photo_url, class: "cart-img"%></li>
+    <li><%= link_to product.name, product_path(product.id) %></li>
+    <li>Price: $<%= product.price%></li>
+    <li>Quantity: <%= quantity%></li>
+    <% total += (quantity * product.price) %>
+    <li> Total: $<%= quantity * product.price %> </li>
     <li>Update Quantity</li>
-    <li>Remove from Cart</li>
+    <%= form_with url: update_cart_path(product.id), method: :get do |f| %>
+    <% if product.stock_count > 1 %>
+    <%= f.label :quantity, "Update Quantity"%><br>
+    <%= f.select :quantity, options_for_select([*1..product.stock_count]) %>
+    <% else %>
+    <%= f.select :quantity, options_for_select([product.stock_count]) %>
+    <% end %>
+    <%= f.submit "Update Quantity", class: "btn btn-primary"%>
+    <% end %>
+    <li><%= link_to "Remove from Cart", remove_from_cart_path(product.id), class: "btn btn-primary"%></li>
   </ul>
+  <% end %>
   <% end %>
 </section>
 <section>
   <p>Cart Total: $<%= total %></p>
   <p>Checkout Cart</p>
 </section>
+<% else %>
+<section>
+  <h3>Your cart is empty</h3>
+</section>
+<% end %>

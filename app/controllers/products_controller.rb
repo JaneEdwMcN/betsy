@@ -40,25 +40,26 @@ class ProductsController < ApplicationController
   def add_to_cart
     id = @product.id.to_i
     quantity = params[:quantity].to_i
-
-    if quantity > @product.stock_count
-      flash[:failure] = "Failure to add to cart"
-      redirect_to product_path(@product.id)
-      return
-    else
-      session[:cart].each.with_index do |hash, index|
-        hash.each do |key, value|
-          if key == id.to_s
+    # session[:cart] = nil
+    session[:cart].each.with_index do |hash, index|
+      hash.each do |key, value|
+        if key == id.to_s
+          new_quantity = value + quantity
+          if new_quantity <= @product.stock_count
             session[:cart][index][key] = value + quantity
+            redirect_to product_path(@product.id)
+            return
+          else
+            flash[:failure] = "Failure to add to cart. Not enough stock."
             redirect_to product_path(@product.id)
             return
           end
         end
       end
-      session[:cart] << { id => quantity}
-      flash[:success] = "Added to cart"
-      redirect_to product_path(@product.id)
     end
+    session[:cart] << { id => quantity}
+    flash[:success] = "Added to cart"
+    redirect_to product_path(@product.id)
   end
 
   def cart_view
@@ -70,6 +71,34 @@ class ProductsController < ApplicationController
       end
     end
     render :cart
+  end
+
+  def update_quantity
+    id = @product.id.to_i
+    quantity = params[:quantity].to_i
+
+    session[:cart].each.with_index do |hash, index|
+      hash.each do |key, value|
+        if key == id.to_s
+          session[:cart][index][key] = quantity
+          flash[:success] = "Successfully updated cart."
+          redirect_to cart_path
+        end
+      end
+    end
+  end
+
+  def remove_from_cart
+    id = @product.id.to_i
+    session[:cart].each.with_index do |hash, index|
+      hash.each do |key, value|
+        if key == id.to_s
+          session[:cart][index][key] = 0
+          flash[:success] = "Successfully removed from cart."
+          redirect_to cart_path
+        end
+      end
+    end
   end
 
   private

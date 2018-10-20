@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   end
 
   get "/products/:id/add_to_cart", to: "products#add_to_cart", as: "add_to_cart"
-
+  get "/products/:id/update_cart", to: "products#update_quantity", as: "update_cart"
+  get "/products/:id/remove", to: "products#remove_from_cart", as: "remove_from_cart"
 
   resources :users, except: [:edit, :delete]
 

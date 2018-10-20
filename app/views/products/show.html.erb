@@ -9,7 +9,6 @@
 <% end %>
 
 <%= form_with url: add_to_cart_path(@product.id), method: :get do |f| %>
-
 <% if @product.stock_count > 1 %>
 <%= f.label :quantity, "Quantity"%><br>
 <%= f.select :quantity, options_for_select([*1..@product.stock_count]) %>
@@ -18,7 +17,7 @@
 <% end %>
 <%= f.submit "Add to Cart", class: "btn btn-primary"%>
 <% end %>
-<!-- <%= link_to "Add to Cart", add_to_cart_path(@product.id), class: "btn btn-primary" %> -->
+
 <p> <%= session[:cart] %>
 <br>
 <br>
