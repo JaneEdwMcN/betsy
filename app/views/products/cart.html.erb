@@ -12,15 +12,13 @@
     <li>Quantity: <%= quantity%></li>
     <% total += (quantity * product.price) %>
     <li> Total: $<%= quantity * product.price %> </li>
-    <li>Update Quantity</li>
     <%= form_with url: update_cart_path(product.id), method: :get do |f| %>
     <% if product.stock_count > 1 %>
-    <%= f.label :quantity, "Update Quantity"%><br>
-    <%= f.select :quantity, options_for_select([*1..product.stock_count]) %>
+    <li><%= f.select :quantity, options_for_select([*1..product.stock_count]) %>
     <% else %>
-    <%= f.select :quantity, options_for_select([product.stock_count]) %>
+    <li><%= f.select :quantity, options_for_select([product.stock_count]) %>
     <% end %>
-    <%= f.submit "Update Quantity", class: "btn btn-primary"%>
+    <%= f.submit "Update Quantity", class: "btn btn-primary"%> </li>
     <% end %>
     <li><%= link_to "Remove from Cart", remove_from_cart_path(product.id), class: "btn btn-primary"%></li>
   </ul>
