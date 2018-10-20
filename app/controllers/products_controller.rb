@@ -108,9 +108,12 @@ class ProductsController < ApplicationController
 
   def find_product
     @product = Product.find_by(id: params[:id])
-    if !@product
-      @product = Product.find_by(id: params[:product_id])
+    if @product.nil?
+      render :notfound, status: :not_found
     end
+    # if !@product
+    #   @product = Product.find_by(id: params[:product_id])
+    # end
 
   end
 
