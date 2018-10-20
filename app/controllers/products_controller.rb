@@ -40,21 +40,25 @@ class ProductsController < ApplicationController
   def add_to_cart
     id = @product.id.to_i
     quantity = params[:quantity].to_i
-# session[:cart] = nil
-    session[:cart].each.with_index do |hash, index|
-      hash.each do |key, value|
-        if key == id.to_s
-          return session[:cart][index][key] = value + quantity
-          redirect_to product_path(@product.id)
+
+    if quantity > @product.stock_count
+      flash[:failure] = "Failure to add to cart"
+      redirect_to product_path(@product.id)
+      return
+    else
+      session[:cart].each.with_index do |hash, index|
+        hash.each do |key, value|
+          if key == id.to_s
+            session[:cart][index][key] = value + quantity
+            redirect_to product_path(@product.id)
+            return
+          end
         end
       end
+      session[:cart] << { id => quantity}
+      flash[:success] = "Added to cart"
+      redirect_to product_path(@product.id)
     end
-
-    # # # # # @product.stock_count #something
-    session[:cart] << { id => quantity}
-    flash[:success] = "Added to cart"
-    redirect_to product_path(@product.id)
-
   end
 
   private
