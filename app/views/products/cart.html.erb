@@ -1,6 +1,6 @@
-<section>
+  <h1>Shopping Cart </h1>
   <% total = 0 %>
-  <% if @cart_items.length > 0 %>
+  <section>
   <% @cart_items.each do |cart_array| %>
   <% if cart_array[1] > 0 %>
   <% product =  cart_array[0] %>
@@ -27,6 +27,7 @@
   <% end %>
   <% end %>
 </section>
+<% if total > 0 %>
 <section>
   <p>Cart Total: $<%= total %></p>
   <p>Checkout Cart</p>
