@@ -1,13 +1,16 @@
 class UsersController < ApplicationController
+  before_action :find_user, only: [:show]
+
   def index
     @users = User.all
   end
 
-  def show
-    @user = User.find_by(id: params[:id])
-    # render_404 unless @user
-  end
+  def show ;end
 
+
+  def print_products
+    @user.products
+  end
 
    private
 

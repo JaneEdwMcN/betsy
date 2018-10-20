@@ -31,8 +31,12 @@
 
           <ul>
             <% if logged_in? %>
-              <li><%= link_to "Logged in as #{@current_user.name}", user_path(@current_user.id), class: "btn btn-primary" %></li>
-              <li><%= link_to "Log Out", logout_path, method: :delete, data: { confirm: "Are you sure you want to log out?" }, class: "btn btn-primary" %></li>
+              <ul>
+                <li><%= link_to "Logged in as #{@current_user.name}", user_path(@current_user.id) %></li>
+                <li><%= link_to "Log Out", logout_path, method: :delete, data: { confirm: "Are you sure you want to log out?" } %></li>
+                <li><%= link_to "Add Creature", new_product_path %></li>
+                <li><%= link_to "Add Category", new_category_path %></li>
+                <li><%= link_to "Fulfillment Page(dummy button)" %></li>
             <% else %>
               <li><%= link_to "Log In", "/auth/github", class: "btn btn-primary" %></li>
             <% end %>
