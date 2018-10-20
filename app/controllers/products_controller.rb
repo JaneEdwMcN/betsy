@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:show, :edit, :update]
+  before_action :find_product, only: [:show, :edit, :update, :add_to_cart]
 
   def index
     @products = Product.order(:name)
@@ -108,12 +108,12 @@ class ProductsController < ApplicationController
 
   def find_product
     @product = Product.find_by(id: params[:id])
+    if !@product
+      @product = Product.find_by(id: params[:product_id])
+    end
     if @product.nil?
       render :notfound, status: :not_found
     end
-    # if !@product
-    #   @product = Product.find_by(id: params[:product_id])
-    # end
 
   end
 
