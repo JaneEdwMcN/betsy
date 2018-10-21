@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  
+
   def create
     auth_hash = request.env['omniauth.auth']
 
@@ -7,11 +7,11 @@ class SessionsController < ApplicationController
     User.create_from_github(auth_hash)
 
     if user
-      flash[:result_text] = "Logged in as returning user #{user.name}"
+      flash[:success] = "Logged in as returning user #{user.name}"
       session[:user_id] = user.id
       redirect_to root_path
     else
-      flash[:error] = "Could not create new user account: #{user.errors.messages}"
+      flash[:danger] = "Could not create new user account: #{user.errors.messages}"
       redirect_to root_path
     end
   end

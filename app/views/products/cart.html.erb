@@ -12,7 +12,7 @@
     <li>Quantity: <%= quantity%></li>
     <% total += (quantity * product.price) %>
     <li> Total: $<%= quantity * product.price %> </li>
-    <%= form_with url: update_cart_path(product.id), method: :get do |f| %>
+    <%= form_with url: update_cart_path(product.id), method: :patch do |f| %>
     <% if product.stock_count > 1 %>
     <li><%= f.select :quantity, options_for_select([*1..product.stock_count]) %>
     <% else %>
