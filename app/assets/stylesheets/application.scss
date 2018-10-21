@@ -16,3 +16,18 @@
 @import "bootstrap";
 /* Import scss content */
 @import "**/*";
+
+.cart-img {
+  width: 150px;
+  height: 150px;
+}
+
+.notfound {
+   text-align: center;
+   align-self: center;
+   width: 70%;
+}
+
+.not_found {
+  font-size: 4rem;
+}

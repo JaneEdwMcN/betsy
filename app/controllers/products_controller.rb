@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :find_product
+  skip_before_action :find_product, only: [:index, :cart_view]
 
   def index
     @products = Product.order(:name)
@@ -14,9 +15,10 @@ class ProductsController < ApplicationController
     category = Category.find_by(name: product_params[:category_id])
     @product.category_id = category.id
     if @product.save
+      flash[:success] = "New creature added!"
       redirect_to product_path(@product.id)
     else
-      flash[:failure] = "failed to save"
+      flash[:danger] = "Failed to save creature."
       render :new, :status => :bad_request
     end
   end
@@ -27,7 +29,11 @@ class ProductsController < ApplicationController
   def edit;end
 
   def update
+    @product.update(product_params)
+    category = Category.find_by(name: product_params[:category_id])
+    @product.category_id = category.id
     if @product.save
+      flash[:success] = "Successfully updated creatures."
       redirect_to product_path(@product)
     else
       render :edit, :status => :bad_request
@@ -37,21 +43,66 @@ class ProductsController < ApplicationController
   def add_to_cart
     id = @product.id.to_i
     quantity = params[:quantity].to_i
-# session[:cart] = nil
+    # session[:cart] = nil
+    item = false
     session[:cart].each.with_index do |hash, index|
       hash.each do |key, value|
         if key == id.to_s
-          return session[:cart][index][key] = value + quantity
-          redirect_to product_path(@product.id)
+          item = true
+          new_quantity = value + quantity
+          if new_quantity <= @product.stock_count
+            session[:cart][index][key] = value + quantity
+            flash[:success] = "Added to cart"
+          else
+            flash[:warning] = "Failure to add to cart. Not enough stock."
+          end
         end
       end
     end
-    
-    # # # # # @product.stock_count #something
-    session[:cart] << { id => quantity}
-    flash[:success] = "Added to cart"
+    if item == false
+      session[:cart] << { id => quantity}
+      flash[:success] = "Added to cart"
+    end
     redirect_to product_path(@product.id)
+  end
 
+  def cart_view
+    @cart_items = []
+    session[:cart].each.with_index do |hash|
+      hash.each do |key, value|
+        cart_product = Product.find_by(id: key.to_i)
+        @cart_items << [cart_product, value]
+      end
+    end
+    render :cart
+  end
+
+  def update_quantity
+    id = @product.id.to_i
+    quantity = params[:quantity].to_i
+
+    session[:cart].each.with_index do |hash, index|
+      hash.each do |key, value|
+        if key == id.to_s
+          session[:cart][index][key] = quantity
+          flash[:success] = "Successfully updated cart."
+          redirect_to cart_path
+        end
+      end
+    end
+  end
+
+  def remove_from_cart
+    id = @product.id.to_i
+    session[:cart].each.with_index do |hash, index|
+      hash.each do |key, value|
+        if key == id.to_s
+          session[:cart][index][key] = 0
+          flash[:success] = "Successfully removed from cart."
+          redirect_to cart_path
+        end
+      end
+    end
   end
 
   private
@@ -64,7 +115,9 @@ class ProductsController < ApplicationController
     if !@product
       @product = Product.find_by(id: params[:product_id])
     end
-
+    if @product.nil?
+      render :notfound, status: :not_found
+    end
   end
 
 end

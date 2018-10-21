@@ -1,22 +1,17 @@
 class OrdersController < ApplicationController
+
   def new
     @order = Order.new
   end
 
   def create
-    @order = Order.new(order_params)
-    @order.status = "paid"
+    @order = Order.new
+    @order.status = "pending"
+    @order.save
+    Orderproduct.create_product_orders(@order.id, session[:cart])
+    @order.total_cost = @order.order_total
 
-    # session[:products].each do |key, value|
-    #   # OrderProducts.new(key: value, order_id: @order.id)
-    # end
-    #
-    # total_cost = 0
-    # @order.orderproducts.each do |orderproduct|
-    #   total_cost += (orderproduct.product.price * orderproduct.quantity)
-    # end
-    # @order.total_cost = total_cost
-
+    @order.update(order_params)
     if @order.save
       flash[:success] = 'Your purchase is complete!'
       redirect_to root_path
@@ -28,13 +23,13 @@ class OrdersController < ApplicationController
 
   # def edit; end
   #
-  # def update
-  #   if @order && @order.update(params[:status])
-  #     redirect_to order_path(@order.id)
-  #   elsif @order
-  #     render :edit, status: :bad_request
-  #   end
-  # end
+  def update
+    if @order && @order.update(params[:status])
+      redirect_to order_path(@order.id)
+    elsif @order
+      render :edit, status: :bad_request
+    end
+  end
 
   private
 
@@ -47,7 +42,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    return params.require(:order).permit(:name, :email, :mailing_address, :zip_code, :cc_number, :cc_expiration, :cc_cvv)
+    return params.require(:order).permit(:name, :email, :mailing_address, :zip_code, :cc_number, :cc_expiration, :cc_cvv, :total_cost)
   end
 
 end

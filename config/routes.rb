@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root "products#index"
-  
+  get "/products/cart", to: "products#cart_view", as: "cart"
+
   get "/auth/:provider/callback", to: "sessions#create"
   delete 'sessions/destroy', to: 'sessions#destroy', as: 'logout'
 
@@ -9,7 +10,10 @@ Rails.application.routes.draw do
   resources :products do
     resources :reviews, only: [:new, :create]
   end
-  get "/products/:id/add_to_cart", to: "products#add_to_cart", as: "add_to_cart"
+
+  post "/products/:id/add_to_cart", to: "products#add_to_cart", as: "add_to_cart"
+  patch "/products/:id/update_cart", to: "products#update_quantity", as: "update_cart"
+  get "/products/:id/remove", to: "products#remove_from_cart", as: "remove_from_cart"
 
   resources :users, except: [:edit, :delete]
 

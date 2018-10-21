@@ -26,6 +26,7 @@
               <li><%= link_to "All Products", products_path %></li>
               <li><%= link_to "By Seller", users_path %></li>
               <li><%= link_to "By Category", categories_path %></li>
+              <li><%= link_to "View Cart", cart_path %></li>
             </ul>
           </li>
 
@@ -48,13 +49,13 @@
     </nav>
 </header>
 
-<main>
-  <section class="flash">
-    <% flash.each do |name, message| %>
-    <div class="<%= name %>"><%= message %></div>
-    <% end %>
-  </section>
+<section class="alert">
+  <% flash.each do |name, message| %>
+  <div class="alert alert-<%= name %>"><%= message %></div>
+  <% end %>
+</section>
 
+<main>
   <%= yield %>
 </main>
 
