@@ -8,7 +8,7 @@
 <%= link_to "Review Creature", new_product_review_path(@product.id), class: "btn btn-primary" %>
 <% end %>
 
-<%= form_with url: add_to_cart_path(@product.id), method: :get do |f| %>
+<%= form_with url: add_to_cart_path(@product.id), method: :post do |f| %>
 <% if @product.stock_count > 1 %>
 <%= f.label :quantity, "Quantity"%><br>
 <%= f.select :quantity, options_for_select([*1..@product.stock_count]) %>

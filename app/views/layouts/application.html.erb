@@ -49,13 +49,13 @@
     </nav>
 </header>
 
-<main>
-  <section class="flash">
-    <% flash.each do |name, message| %>
-    <div class="<%= name %>"><%= message %></div>
-    <% end %>
-  </section>
+<section class="alert">
+  <% flash.each do |name, message| %>
+  <div class="alert alert-<%= name %>"><%= message %></div>
+  <% end %>
+</section>
 
+<main>
   <%= yield %>
 </main>
 

@@ -1,3 +1,4 @@
+require 'pry'
 class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :add_to_cart]
 
@@ -14,9 +15,10 @@ class ProductsController < ApplicationController
     category = Category.find_by(name: product_params[:category_id])
     @product.category_id = category.id
     if @product.save
+      flash[:success] = "New creature added!"
       redirect_to product_path(@product.id)
     else
-      flash[:failure] = "failed to save"
+      flash[:danger] = "Failed to save creature."
       render :new, :status => :bad_request
     end
   end
@@ -31,6 +33,7 @@ class ProductsController < ApplicationController
     category = Category.find_by(name: product_params[:category_id])
     @product.category_id = category.id
     if @product.save
+      flash[:success] = "Successfully updated creatures."
       redirect_to product_path(@product)
     else
       render :edit, :status => :bad_request
@@ -41,24 +44,25 @@ class ProductsController < ApplicationController
     id = @product.id.to_i
     quantity = params[:quantity].to_i
     # session[:cart] = nil
+    item = false
     session[:cart].each.with_index do |hash, index|
       hash.each do |key, value|
         if key == id.to_s
+          item = true
           new_quantity = value + quantity
           if new_quantity <= @product.stock_count
             session[:cart][index][key] = value + quantity
-            redirect_to product_path(@product.id)
-            return
+            flash[:success] = "Added to cart"
           else
-            flash[:failure] = "Failure to add to cart. Not enough stock."
-            redirect_to product_path(@product.id)
-            return
+            flash[:warning] = "Failure to add to cart. Not enough stock."
           end
         end
       end
     end
-    session[:cart] << { id => quantity}
-    flash[:success] = "Added to cart"
+    if item == false
+      session[:cart] << { id => quantity}
+      flash[:success] = "Added to cart"
+    end
     redirect_to product_path(@product.id)
   end
 
@@ -114,7 +118,6 @@ class ProductsController < ApplicationController
     if @product.nil?
       render :notfound, status: :not_found
     end
-
   end
 
 end
