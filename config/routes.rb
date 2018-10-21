@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root "products#index"
   get "/products/cart", to: "products#cart_view", as: "cart"
 
-  get "/auth/:provider/callback", to: "sessions#create"
+  get "/auth/:provider/callback", to: "sessions#create", as: "login"
   delete 'sessions/destroy', to: 'sessions#destroy', as: 'logout'
 
   resources :orders

@@ -2,7 +2,7 @@ require "test_helper"
 
 describe User do
   describe "relations" do
-    let(:kit) { users(:kit)  }
+    let(:kit) { users(:kit) }
 
     it "has a list of products" do
       kit.must_respond_to :products
@@ -43,7 +43,7 @@ describe User do
   end
 
   describe 'custom methods' do
-    describe 'total_revenue' do 
+    describe 'total_revenue' do
     end
     describe 'build_from_github(auth_hash)' do
     end

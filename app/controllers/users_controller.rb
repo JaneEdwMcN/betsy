@@ -5,8 +5,9 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  def show ;end
-# render_404 unless @user
+  def show
+    render :notfound, status: :not_found unless @user
+  end
 
   def print_products
     @user.products
