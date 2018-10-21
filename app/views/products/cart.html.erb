@@ -2,7 +2,6 @@
   <% total = 0 %>
   <section>
   <% @cart_items.each do |cart_array| %>
-  <% if cart_array[1] > 0 %>
   <% product =  cart_array[0] %>
   <% quantity = cart_array[1] %>
   <ul>
@@ -22,7 +21,6 @@
     <% end %>
     <li><%= link_to "Remove from Cart", remove_from_cart_path(product.id), class: "btn btn-primary"%></li>
   </ul>
-  <% end %>
   <% end %>
 </section>
 <% if total > 0 %>

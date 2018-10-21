@@ -97,7 +97,7 @@ class ProductsController < ApplicationController
     session[:cart].each.with_index do |hash, index|
       hash.each do |key, value|
         if key == id.to_s
-          session[:cart][index][key] = 0
+          session[:cart].delete_at(index)
           flash[:success] = "Successfully removed from cart."
           redirect_to cart_path
         end
