@@ -48,12 +48,13 @@ CSV.foreach(CREATURE_FILE, :headers => true) do |row|
   creature.description = row['description']
   creature.price = row['price']
   creature.photo_url = row['photo_url']
+  creature.category_id = row['category_id']
   ids = User.pluck(:id)
   random_record = User.find(ids.sample)
     creature.user_id = random_record.id
-  ids = Category.pluck(:id)
-  random_record = Category.find(ids.sample)
-    creature.category_id = random_record.id
+  # ids = Category.pluck(:id)
+  # random_record = Category.find(ids.sample)
+  #   creature.category_id = random_record.id
   successful = creature.save
     if !successful
       creature_failures << creature
