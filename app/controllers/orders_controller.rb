@@ -13,7 +13,10 @@ class OrdersController < ApplicationController
 
     @order.update(order_params)
     if @order.save
+      @order.reduce_stock
+      @order.status = "paid"
       flash[:success] = 'Your purchase is complete!'
+      session[:cart] = nil
       redirect_to root_path
     else
       flash.now[:danger] = 'Unable to complete order'

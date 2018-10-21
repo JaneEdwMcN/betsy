@@ -13,4 +13,10 @@ class Order < ApplicationRecord
     total_cost
   end
 
+  def reduce_stock
+    self.orderproducts.each do |item|
+      Product.adjust_stock_count(item.product_id, item.quantity)
+    end
+  end
+
 end
