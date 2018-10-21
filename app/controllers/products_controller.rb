@@ -44,24 +44,28 @@ class ProductsController < ApplicationController
     id = @product.id.to_i
     quantity = params[:quantity].to_i
     # session[:cart] = nil
-    item = false
-    session[:cart].each.with_index do |hash, index|
-      hash.each do |key, value|
-        if key == id.to_s
-          item = true
-          new_quantity = value + quantity
-          if new_quantity <= @product.stock_count
-            session[:cart][index][key] = value + quantity
-            flash[:success] = "Added to cart"
-          else
-            flash[:warning] = "Failure to add to cart. Not enough stock."
+    if [*1..@product.stock_count].include? (quantity)
+      item = false
+      session[:cart].each.with_index do |hash, index|
+        hash.each do |key, value|
+          if key == id.to_s
+            item = true
+            new_quantity = value + quantity
+            if new_quantity <= @product.stock_count
+              session[:cart][index][key] = value + quantity
+              flash[:success] = "Added to cart"
+            else
+              flash[:warning] = "Failure to add to cart. Not enough stock."
+            end
           end
         end
       end
-    end
-    if item == false
-      session[:cart] << { id => quantity}
-      flash[:success] = "Added to cart"
+      if item == false
+        session[:cart] << { id => quantity}
+        flash[:success] = "Added to cart"
+      end
+    else
+      flash[:warning] = "Failure to add to cart. Invalid quantity."
     end
     redirect_to product_path(@product.id)
   end
@@ -80,16 +84,19 @@ class ProductsController < ApplicationController
   def update_quantity
     id = @product.id.to_i
     quantity = params[:quantity].to_i
-
-    session[:cart].each.with_index do |hash, index|
-      hash.each do |key, value|
-        if key == id.to_s
-          session[:cart][index][key] = quantity
-          flash[:success] = "Successfully updated cart."
-          redirect_to cart_path
+    if [*1..@product.stock_count].include? (quantity)
+      session[:cart].each.with_index do |hash, index|
+        hash.each do |key, value|
+          if key == id.to_s
+            session[:cart][index][key] = quantity
+            flash[:success] = "Successfully updated cart."
+          end
         end
       end
+    else
+      flash[:warning] = "Failure to add to cart. Invalid quantity."
     end
+    redirect_to cart_path
   end
 
   def remove_from_cart
