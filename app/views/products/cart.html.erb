@@ -28,7 +28,7 @@
 <% if total > 0 %>
 <section>
   <p>Cart Total: $<%= total %></p>
-  <p>Checkout Cart</p>
+  <p><%= link_to "Checkout Cart", new_order_path %></p>
 </section>
 <% else %>
 <section>
