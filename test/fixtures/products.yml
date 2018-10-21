@@ -4,8 +4,26 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+product1:
+  name: nil
+  stock_count: nil
+  description: nil
+  price: 100
+  user: tan
+  category: nil
+  photo_url: nil
+
+
+    #
+    # t.bigint "user_id"
+    # t.datetime "created_at", null: false
+    # t.datetime "updated_at", null: false
+    # t.integer "stock_count"
+    # t.integer "price"
+    # t.string "category"
+    # t.string "photo_url"
+    # t.string "description"
+    # t.string "name"
+    # t.integer "category_id"
+    # t.index ["category_id"], name: "index_products_on_category_id"
+    # t.index ["user_id"], name: "index_products_on_user_id"

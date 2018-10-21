@@ -7,7 +7,6 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new
     @order.status = "pending"
-    @order.save
     Orderproduct.create_product_orders(@order.id, session[:cart])
     @order.total_cost = @order.order_total
 

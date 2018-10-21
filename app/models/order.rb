@@ -1,7 +1,6 @@
 class Order < ApplicationRecord
   has_many :orderproducts
-  belongs_to :user, optional: true
-
+  validates :orderproducts, :length => { :minimum => 1 }
   validates :name, :email, :mailing_address, :zip_code, :cc_number,
   :cc_expiration, :cc_cvv, :status, :total_cost, presence: true, on: :update
 
