@@ -1,6 +1,6 @@
-require 'pry'
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:show, :edit, :update, :add_to_cart]
+  before_action :find_product
+  skip_before_action :find_product, only: [:index, :cart_view]
 
   def index
     @products = Product.order(:name)
