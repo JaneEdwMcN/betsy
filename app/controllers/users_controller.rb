@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   end
 
   def show ;end
-
+# render_404 unless @user
 
   def print_products
     @user.products
