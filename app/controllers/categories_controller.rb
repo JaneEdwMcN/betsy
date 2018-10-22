@@ -53,8 +53,5 @@ private
 
   def category_params
     params.require(:category).permit(:name, product_ids: [])
-=======
-  def show
->>>>>>> ms/styling
   end
 end
