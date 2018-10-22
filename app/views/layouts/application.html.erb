@@ -46,7 +46,7 @@
 
           <div class="cart-icon">
             <li><%= link_to image_tag("shopping-bag.png"), cart_path %>
-              <span class="header-icons-noti">0</span>
+              <span><%= session[:cart].length %></span>
             </li>
           </div>
     </nav>

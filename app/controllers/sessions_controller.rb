@@ -7,12 +7,12 @@ class SessionsController < ApplicationController
     user = User.find_by(uid: auth_hash[:uid], provider: 'github') ||
     User.create_from_github(auth_hash)
 
-    if user
+    if user.save
       flash[:success] = "Logged in as returning user #{user.name}"
       session[:user_id] = user.id
       redirect_to root_path
     else
-      flash[:danger] = "Could not create new user account: #{user.errors.messages}"
+      flash[:danger] = "Could not create new user account: #{user.errors.messages}. Check github email and name please"
       redirect_to root_path
     end
   end
