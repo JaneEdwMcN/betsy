@@ -22,6 +22,10 @@ class OrdersController < ApplicationController
     @orders = Order.find_orders(@current_user).select { |order| order.status == "completed"}
   end
 
+  def cancelled
+    @orders = Order.find_orders(@current_user).select { |order| order.status == "cancelled"}
+  end
+
   def create
     @order = Order.new
     @order.status = "pending"

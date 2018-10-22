@@ -1,39 +1,95 @@
-<h1> <%= @product.name %> </h1>
-<%= image_tag @product.photo_url %>
-<p>Type: <%= @product.category.name.capitalize %> </p>
-<p>Description: <%= @product.description %> </p>
-<p>Price: <%= @product.price %> </p>
+<article class="product-show-container">
+  <section class="product-show-img-text">
+    <section class="product-show-img"><%= image_tag @product.photo_url %></section>
 
-<% if @product.user != @current_user %>
-<%= link_to "Review Creature", new_product_review_path(@product.id), class: "btn btn-primary" %>
-<% end %>
+    <section>
+      <h2> <%= @product.name.capitalize %> </h2>
+      <h3>Price: $<%= @product.price %> </h3>
+      <p><%= form_with url: add_to_cart_path(@product.id), method: :post do |f| %>
+        <% if @product.stock_count > 1 %>
+        <%= f.label :quantity, "Quantity:"%><br>
+        <%= f.select :quantity, options_for_select([*1..@product.stock_count]) %>
+        <% else %>
+        <%= f.select :quantity, options_for_select([@product.stock_count]) %>
+        <% end %>
+        <%= f.submit "Add to Cart", class: "btn btn-primary"%></p>
+        <% end %>
+        <h4>Description</h4>
+        <p><%= @product.description %></p>
+      </section>
+    </section>
 
-<%= form_with url: add_to_cart_path(@product.id), method: :post do |f| %>
-<% if @product.stock_count > 1 %>
-<%= f.label :quantity, "Quantity"%><br>
-<%= f.select :quantity, options_for_select([*1..@product.stock_count]) %>
-<% else %>
-<%= f.select :quantity, options_for_select([@product.stock_count]) %>
-<% end %>
-<%= f.submit "Add to Cart", class: "btn btn-primary"%>
-<% end %>
+    <% if (@product.reviews.length > 0) && (@product.user.products.length > 1) %>
+    <!-- has reviews and more user products -->
+    <section class="reviews reviews-container">
+      <% if @product.user != @current_user %>
+      <p><%= link_to "Leave a Review", new_product_review_path(@product.id), class: "btn btn-primary" %></p>
+      <% end %>
+      <h3> Creature reviews: </h3>
+      <% @product.reviews.each do |review| %>
+      <ul>
+        <li>
+          <p> Reviewer: <%= review.name %> </p>
+          <p> Rating: <%= review.rating %> </p>
+          <p> Review: <%= review.review %> </p>
+        </li>
+      </ul>
+      <% end %>
+    </section>
 
-<p> <%= session[:cart] %>
-<br>
-<br>
-<h3> Creature reviews: </h3>
-<% @product.reviews.each do |review| %>
-<ul>
-  <li>
-    <p> Reviewer: <%= review.name %> </p>
-    <p> Rating: <%= review.rating %> </p>
-    <p> Review: <%= review.review %> </p>
-  </li>
-</ul>
-<% end %>
+    <section class="user-products-container">
+      <h4> More from Seller </h4>
+      <section class="user-products-flex">
+        <% @product.user.products.first(5).each do |product| %>
+        <% if product.id != @product.id %>
+        <p><%= link_to image_tag(product.photo_url), product_path(product.id), class: "user-products-img" %><br>
+          <%= link_to product.name.capitalize, product_path(product.id)%><br>
+          <%= link_to "$#{product.price}", product_path(product.id)%></p>
+          <% end %>
+          <% end %>
+        </section>
+      </section>
 
-<% if logged_in? %>
-  <% if current_user.id == @product.user.id %>
-    <%= link_to "Update Creature", edit_product_path(@product.id)%>
-  <% end %>
-<% end %>
+      <% elsif (@product.reviews.length > 0) && (@product.user.products.length == 1)  %>
+      <!-- has reviews and no other user products -->
+      <section class="reviews reviews-only-container">
+        <% if @product.user != @current_user %>
+        <p><%= link_to "Leave a Review", new_product_review_path(@product.id), class: "btn btn-primary" %></p>
+        <% end %>
+        <h3> Creature reviews: </h3>
+        <% @product.reviews.each do |review| %>
+        <ul>
+          <li>
+            <p> Reviewer: <%= review.name %> </p>
+            <p> Rating: <%= review.rating %> </p>
+            <p> Review: <%= review.review %> </p>
+          </li>
+        </ul>
+        <% end %>
+      </section>
+
+      <% elsif (@product.reviews.length == 0) && (@product.user.products.length > 1)  %>
+      <!-- has no reviews and more user products -->
+      <section class="only-user-products-container">
+        <h4> More from Seller </h4>
+        <section class="user-products-flex">
+          <% @product.user.products.first(5).each do |product| %>
+          <% if product.id != @product.id %>
+          <p><%= link_to image_tag(product.photo_url), product_path(product.id), class: "user-products-img" %><br>
+            <%= link_to product.name.capitalize, product_path(product.id)%><br>
+            <%= link_to "$#{product.price}", product_path(product.id)%></p>
+            <% end %>
+            <% end %>
+          </section>
+        </section>
+        <% end %>
+
+      </article>
+
+
+
+      <!-- <% if logged_in? %>
+      <% if current_user.id == @product.user.id %>
+      <%= link_to "Update Creature", edit_product_path(@product.id)%>
+      <% end %>
+      <% end %> -->

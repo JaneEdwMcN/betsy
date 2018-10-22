@@ -18,6 +18,10 @@
 @import "**/*";
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
 
+h1 {
+  text-align: center;
+}
+
 .cart-img {
   width: 150px;
   height: 150px;
@@ -46,4 +50,54 @@
 
 .not_found {
   font-size: 4rem;
+}
+
+.product-show-container {
+  display: grid;
+  grid-template: auto auto / 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+}
+
+.user-products-img img{
+    width: 50%;
+    height:  auto;
+}
+
+.user-products-flex {
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  flex-direction: row;
+}
+
+.product-show-img-text {
+  grid-row: 1 / 1;
+  grid-column: 1 / 3;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border-bottom: solid lightgray;
+  width: 50%;
+  padding-bottom: 3em;
+}
+
+.product-show-img img{
+  width: auto;
+  height:  300px;
+}
+
+.user-products-container, .reviews-container {
+  padding-top: 2em;
+}
+
+.reviews-only-container, .only-user-products-container {
+  grid-row: 2 / 3;
+  grid-column: 1 / 3;
+  padding-top: 2em;
+}
+
+.reviews ul {
+  list-style: none;
+  border-bottom: solid lightgray;
 }
