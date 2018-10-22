@@ -6,6 +6,9 @@ class OrdersController < ApplicationController
     @order = Order.new
   end
 
+  def fulfillment
+  end
+
   def create
     @order = Order.new
     @order.status = "pending"
