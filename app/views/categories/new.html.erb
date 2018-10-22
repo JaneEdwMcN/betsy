@@ -1,17 +1,17 @@
-<!-- <#% if @current_user %> -->
+<% if @current_user %>
 
   <%= form_with model: @category do |f|%>
 
-    <!-- <h2><%#= page_title %></h2> -->
+    <h2>Add a category</h2>
 
     <%= f.label :name %>
     <%= f.text_field :name %>
 
-    <!-- <%#= f.hidden_field :user_id, :value => @current_user.id %> -->
+    <%= f.hidden_field :user_id, :value => @current_user.id %>
 
     <%= f.submit "Add category", class: "btn btn-primary" %>
 
   <% end %>
-<!-- <#% else %> -->
+<% else %>
   <h3> Hi You have to be signed in to add a Category</h3>
-<!-- <#% end %> -->
+<% end %>
