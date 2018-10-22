@@ -17,17 +17,16 @@
         <p> Item sold: <%= orderproduct.product.name %></p>
         <ul>
           <li> Cost per creature: <%= orderproduct.product.price %> </li>
+          <li> Quantity ordered: <%= orderproduct.quantity %> </li>
+          </li>
         </ul>
         <br>
         </li>
         <li>
-        <p> Creature Parent: <%= orderproduct.product.user_id %> (you)
+        <p> Creature Parent: <%= @current_user.name %> (you)
         </li>
         <li>
-        <p> Order Status: <%= order.status %> </p>
-        </li>
-        <li>
-        <p> Quantity in order <%= orderproduct.quantity %> </p>
+        <p> Status: <%= order.status %> </p>
         </li>
       <% end %>
   <% end %>
