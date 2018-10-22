@@ -1,0 +1,46 @@
+<h1>Pets according to <%= @category.name %> category</h1>
+
+<% @category.products.each do |product| %>
+
+<h1> <%= product.name %> </h1>
+<%= image_tag product.photo_url %>
+<p>Type: <%= product.category.name.capitalize %> </p>
+<p>Description: <%= product.description %> </p>
+<p>Price: <%= product.price %> </p>
+
+<% if product.user != @current_user %>
+<%= link_to "Review Creature", new_product_review_path(product.id), class: "btn btn-primary" %>
+<% end %>
+
+<%= form_with url: add_to_cart_path(product.id), method: :post do |f| %>
+<% if product.stock_count > 1 %>
+<%= f.label :quantity, "Quantity"%><br>
+<%= f.select :quantity, options_for_select([*1..product.stock_count]) %>
+<% else %>
+<%= f.select :quantity, options_for_select([product.stock_count]) %>
+<% end %>
+<%= f.submit "Add to Cart", class: "btn btn-primary"%>
+<% end %>
+
+<p> <% session[:cart] %>
+<br>
+<br>
+<h3> Creature reviews: </h3>
+<% product.reviews.each do |review| %>
+<ul>
+  <li>
+    <p> Reviewer: <%= review.name %> </p>
+    <p> Rating: <%= review.rating %> </p>
+    <p> Review: <%= review.review %> </p>
+  </li>
+</ul>
+<br>
+<br>
+<% end %>
+
+<% if logged_in? %>
+  <% if current_user.id == product.user.id %>
+    <%= link_to "Update Creature", edit_product_path(product.id)%>
+  <% end %>
+<% end %>
+<% end %>
