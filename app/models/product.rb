@@ -11,4 +11,12 @@ class Product < ApplicationRecord
     product.save
   end
 
+  def average_rating
+    sum = self.reviews.reduce(0) do |sum, review|
+      sum += review.rating
+    end
+    return sum / self.reviews.length if self.reviews.length > 0
+    return sum
+  end
+
 end
