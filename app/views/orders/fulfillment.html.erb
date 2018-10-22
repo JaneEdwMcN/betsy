@@ -2,8 +2,9 @@
   <h2> You must sign in to view the fulfillment page. </h2>
 <% else %>
 <h2> <%= @current_user.name %>'s Fulfillment page </h2>
+<h3> Order count: <%= @orders.count %> </h3>
 <h3> Total Revenue: <%= @total_revenue %> </h3>
-<h3> All orders </h3>
+
 <ul>
   <% @orders.each do |order| %>
       <% order.orderproducts.each do |orderproduct| %>

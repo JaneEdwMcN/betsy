@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :find_order
-  skip_before_action :find_order, only: [:fulfillment, :new]
+  skip_before_action :find_order, only: [:fulfillment, :paid, :completed, :new]
 
 
   def new
@@ -10,6 +10,14 @@ class OrdersController < ApplicationController
   def fulfillment
      @orders = Order.find_orders(@current_user)
      @total_revenue = Order.products_sold_total(@current_user)
+  end
+
+  def paid
+    @orders = Order.find_orders(@current_user).select { |order| order.status == "paid"}
+  end
+
+  def completed
+    @orders = Order.find_orders(@current_user).select { |order| order.status == "completed"}
   end
 
   def create
