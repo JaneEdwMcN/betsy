@@ -11,9 +11,9 @@ Rails.application.routes.draw do
     resources :reviews, only: [:new, :create]
   end
 
-  post "/products/:id/add_to_cart", to: "products#add_to_cart", as: "add_to_cart"
-  patch "/products/:id/update_cart", to: "products#update_quantity", as: "update_cart"
-  get "/products/:id/remove", to: "products#remove_from_cart", as: "remove_from_cart"
+  post "/products/:id/add_to_cart", to: "sessions#add_to_cart", as: "add_to_cart"
+  patch "/products/:id/update_cart", to: "sessions#update_quantity", as: "update_cart"
+  get "/products/:id/remove", to: "sessions#remove_from_cart", as: "remove_from_cart"
 
   resources :users, except: [:edit, :delete]
 
@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
   get "/fulfillment", to: "orders#fulfillment", as: "get_orders"
   get "/fulfillment/paid", to: "orders#paid", as: "paid_orders"
-  get "/fulfillment/completed", to: "orders#fulfillment", as: "cancelled_orders"
+  get "/fulfillment/completed", to: "orders#completed", as: "cancelled_orders"
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
