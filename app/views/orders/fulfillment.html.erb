@@ -1,1 +1,5 @@
-<h2> <%= @current_user %> Fulfillment page </h2>
+<% if @current_user == nil %>
+  <h2> You must sign in to view the fulfillment page. </h2>
+<% else %>
+<h2> <%= @current_user.name %>'s Fulfillment page </h2>
+<% end %>

@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :find_order
+  skip_before_action :find_order, only: [:fulfillment, :new]
 
 
   def new
@@ -7,14 +8,18 @@ class OrdersController < ApplicationController
   end
 
   def fulfillment
+  #   @orders = Order.orderproducts.
   end
 
   def create
     @order = Order.new
     @order.status = "pending"
+    @order.save
+    binding.pry
     Orderproduct.create_product_orders(@order.id, session[:cart])
     @order.total_cost = @order.order_total
 
+    binding.pry
     @order.update(order_params)
     if @order.save
       @order.reduce_stock
