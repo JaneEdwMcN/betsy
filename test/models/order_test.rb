@@ -80,9 +80,8 @@ describe Order do
     describe "Order#order_total" do
       it "will tally the cost of products for a given order" do
         order = orders(:complete_order)
-        
-        expect(order.order_total).must_equal 300
 
+        expect(order.order_total).must_equal 300
       end
     end
 

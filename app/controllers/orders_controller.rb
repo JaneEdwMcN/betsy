@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  before_action :find_order
+
 
   def new
     @order = Order.new
