@@ -8,7 +8,8 @@ class OrdersController < ApplicationController
   end
 
   def fulfillment
-  #   @orders = Order.orderproducts.
+     @orders = Order.find_orders(@current_user)
+     @total_revenue = Order.products_sold_total(@current_user)
   end
 
   def create
