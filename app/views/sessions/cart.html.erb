@@ -1,0 +1,35 @@
+<h1>Shopping Cart </h1>
+<% total = 0 %>
+<section>
+<% @cart_items.each do |cart_array| %>
+<% product =  cart_array[0] %>
+<% quantity = cart_array[1] %>
+<ul>
+  <li ><%= image_tag product.photo_url, class: "cart-img"%></li>
+  <li><%= link_to product.name, product_path(product.id) %></li>
+  <li>Price: $<%= product.price%></li>
+  <li>Quantity: <%= quantity%></li>
+  <% total += (quantity * product.price) %>
+  <li> Total: $<%= quantity * product.price %> </li>
+  <%= form_with url: update_cart_path(product.id), method: :patch do |f| %>
+  <% if product.stock_count > 1 %>
+  <li><%= f.select :quantity, options_for_select([*1..product.stock_count]) %>
+  <% else %>
+  <li><%= f.select :quantity, options_for_select([product.stock_count]) %>
+  <% end %>
+  <%= f.submit "Update Quantity", class: "btn btn-primary"%> </li>
+  <% end %>
+  <li><%= link_to "Remove from Cart", remove_from_cart_path(product.id), class: "btn btn-primary"%></li>
+</ul>
+<% end %>
+</section>
+<% if total > 0 %>
+<section>
+<p>Cart Total: $<%= total %></p>
+<p><%= link_to "Checkout Cart", new_order_path, class: "btn btn-primary"%></p>
+</section>
+<% else %>
+<section>
+<h3>Your cart is empty</h3>
+</section>
+<% end %>
