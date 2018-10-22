@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :find_product, only: [:add_to_cart, :cart_view, :update_quantity, :remove_from_cart]
+  before_action :find_product, only: [:add_to_cart, :update_quantity, :remove_from_cart]
 
   def create
     auth_hash = request.env['omniauth.auth']

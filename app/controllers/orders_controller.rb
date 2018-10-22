@@ -7,6 +7,8 @@ class OrdersController < ApplicationController
     @order = Order.new
   end
 
+  def show; end
+
   def fulfillment
      @orders = Order.find_orders(@current_user)
      @total_revenue = Order.products_sold_total(@current_user)
