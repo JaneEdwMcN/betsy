@@ -101,7 +101,7 @@ ul {
 
 .cart-img {
   width: 150px;
-  height: 150px;
+  height:  auto;
 }
 
 .card-group-container {
@@ -177,4 +177,8 @@ ul {
 .reviews ul {
   list-style: none;
   border-bottom: solid lightgray;
+}
+
+.cart-heading-padding {
+  padding-bottom: 1em;
 }
