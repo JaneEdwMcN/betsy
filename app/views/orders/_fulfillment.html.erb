@@ -1,0 +1,14 @@
+
+<div class="dropdown show">
+  <a class="btn btn-secondary dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Filter Orders
+  </a>
+
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <%= link_to "Paid", paid_orders_path, class: "dropdown-item" %>
+    <%= link_to "Completed", completed_orders_path, class: "dropdown-item" %>
+    <%= link_to "Cancelled", cancelled_orders_path, class: "dropdown-item" %>
+    <%= link_to "All Orders", get_orders_path, class: "dropdown-item" %>
+  </div>
+</div>

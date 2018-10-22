@@ -1,9 +1,11 @@
+
 <% if @current_user == nil %>
   <h2> You must sign in to view the fulfillment page. </h2>
 <% else %>
 <h2> <%= @current_user.name %>'s Fulfillment page </h2>
-<h3> Paid Order count: <%= @orders.count %> </h3>
-<h3> Total Revenue: <%= @total_revenue %> </h3>
+<%= render partial: "fulfillment" %>
+<h3> Order count: <%= @orders.count %> </h3>
+<h3> Fundraising Revenue: <%= @total_revenue %> </h3>
 
 <ul>
   <% @orders.each do |order| %>
@@ -19,7 +21,10 @@
         <br>
         </li>
         <li>
-        <p> Seller: <%= orderproduct.product.user_id %>
+        <p> Creature Parent: <%= orderproduct.product.user_id %> (you)
+        </li>
+        <li>
+        <p> Order Status: <%= order.status %> </p>
         </li>
         <li>
         <p> Quantity in order <%= orderproduct.quantity %> </p>
