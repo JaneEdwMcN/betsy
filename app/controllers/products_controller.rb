@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :find_product
-  skip_before_action :find_product, only: [:index, :cart_view]
+  skip_before_action :find_product, only: [:index, :cart_view, :new, :create]
 
   def index
     @products = Product.order(:name)
