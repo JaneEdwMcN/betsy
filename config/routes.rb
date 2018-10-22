@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   resources :categories
 
   get "/fulfillment", to: "orders#fulfillment", as: "get_orders"
+  get "/fulfillment/paid", to: "orders#paid", as: "paid_orders"
+  get "/fulfillment/completed", to: "orders#fulfillment", as: "cancelled_orders"
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
