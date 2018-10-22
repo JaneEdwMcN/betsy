@@ -1,10 +1,8 @@
 class CategoriesController < ApplicationController
 before_action :find_category, only: [:show, :destroy]
-<<<<<<< Updated upstream
-#before_action :require_login, except: [:index, :show]
-=======
+
 before_action :require_login, except: [:index, :show]
->>>>>>> Stashed changes
+
 
   def index
     @categories = Category.category_list
@@ -55,5 +53,8 @@ private
 
   def category_params
     params.require(:category).permit(:name, product_ids: [])
+=======
+  def show
+>>>>>>> ms/styling
   end
 end
