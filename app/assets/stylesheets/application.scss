@@ -17,6 +17,12 @@
 /* Import scss content */
 @import "**/*";
 
+@import url('https://fonts.googleapis.com/css?family=Kirang+Haerang');
+
+body {
+  margin: 2rem;
+}
+
 .header {
     display: block;
     margin: 0px;
@@ -25,22 +31,26 @@
     // padding-right: 45px;
 }
 
+.logo a:hover {
+  text-decoration: none;
+}
+
+.logo a:visited {
+  color: black;
+}
+
 .header_container .container {
     max-width: 100%;
 }
 
 .top-nav {
     position: relative;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.icon img {
+.cart-icon img {
     height: 27px;
     position: relative;
 }
@@ -49,7 +59,24 @@
     display: block;
     position: relative;
     box-sizing: border-box;
+    font-family: 'Kirang Haerang', cursive;
+    font-size: 4rem;
 }
+
+.bottom-nav {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 80px;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+// .cart-icon {
+//   margin-left: auto;
+// }
 
 li {
   list-style: none;
@@ -60,6 +87,12 @@ ul {
     list-style: none;
     margin-bottom: 0px;
 }
+
+.user-login {
+  margin-left: auto;
+  padding-right: 2rem;
+}
+
 
 .cart-img {
   width: 150px;
