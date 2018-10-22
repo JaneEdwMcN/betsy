@@ -17,6 +17,50 @@
 /* Import scss content */
 @import "**/*";
 
+.header {
+    display: block;
+    margin: 0px;
+    padding: 0px;
+    // padding-left: 45px;
+    // padding-right: 45px;
+}
+
+.header_container .container {
+    max-width: 100%;
+}
+
+.top-nav {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon img {
+    height: 27px;
+    position: relative;
+}
+
+.logo {
+    display: block;
+    position: relative;
+    box-sizing: border-box;
+}
+
+li {
+  list-style: none;
+}
+
+
+ul {
+    list-style: none;
+    margin-bottom: 0px;
+}
+
 .cart-img {
   width: 150px;
   height: 150px;

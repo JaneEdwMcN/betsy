@@ -1,63 +1,51 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Betsy</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>Betsy</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
 <body>
+  <header class="header">
 
-  <header>
-    <nav class="top-bar">
+    <section class="nav-container">
 
-      <div class="top-bar-left">
-        <%= link_to("Adoptsy", products_path, class: "menu-text") %>
+    <nav class="top-nav">
+      <div class="logo">
+        <%= link_to "Adoptsy", products_path, class: "menu-text" %>
       </div>
 
-      <div class="top-bar-right">
-        <ul class="vertical medium-horizontal menu" data-responsive-menu="accordion medium-dropdown">
-            <ul class="vertical menu">
-              <li><%= link_to "All Products", products_path %></li>
-              <li><%= link_to "By Seller", users_path %></li>
-              <li><%= link_to "By Category", categories_path %></li>
-              <li><%= link_to "View Cart", cart_path %></li>
-            </ul>
-          </li>
-
-          <ul>
-            <% if logged_in? %>
-
-                <li><%= link_to "#{@current_user.name}'s Dashboard", user_path(@current_user.id) %></li>
-                <li><%= link_to "Log Out", logout_path, method: :delete, data: { confirm: "Are you sure you want to log out?" } %></li>
-                <li><%= link_to "Add Creature", new_product_path %></li>
-                <li><%= link_to "Add Category", new_category_path %></li>
-                <li><%= link_to "Fulfillment Page(dummy button)" %></li>
-            <% else %>
-              <li><%= link_to "Log In", "/auth/github", class: "btn btn-primary" %></li>
-            <% end %>
-        </ul>
+      <div class="icon">
+        <li><%= link_to image_tag("shopping-bag.png"), cart_path %>
+          <span class="header-icons-noti">0</span>
+        </li>
       </div>
-
     </nav>
-</header>
 
-<section class="alert">
-  <% flash.each do |name, message| %>
-  <div class="alert alert-<%= name %>"><%= message %></div>
-  <% end %>
-</section>
+    <nav class="bottom-nav">
+    </nav>
 
-<main>
-  <%= yield %>
-</main>
+    </section>
 
-<footer>
-  <h6>&copy; 2018 Adoptsy</h6>
-</footer>
+  </header>
+
+  <section class="alert">
+    <% flash.each do |name, message| %>
+    <div class="alert alert-<%= name %>"><%= message %></div>
+    <% end %>
+  </section>
+
+  <main>
+    <%= yield %>
+  </main>
+
+  <footer>
+    <h6>&copy; 2018 Adoptsy</h6>
+  </footer>
 
 </body>
 </html>

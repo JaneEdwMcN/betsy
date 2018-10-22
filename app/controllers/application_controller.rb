@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   before_action :current_user
   before_action :find_user
   before_action :build_cart
+  before_action :all_users
+  before_action :all_categories
 
   helper_method :logged_in?
   helper_method :current_user
@@ -23,4 +25,11 @@ class ApplicationController < ActionController::Base
     @user = User.find_by(id: params[:id])
   end
 
+  def all_users
+    @users = User.all
+  end
+
+  def all_categories
+    @categories = Category.all
+  end
 end
