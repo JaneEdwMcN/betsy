@@ -8,22 +8,22 @@ class OrdersController < ApplicationController
   end
 
   def fulfillment
-  #   @orders = Order.orderproducts.
+     @orders = Order.find_orders(@current_user)
+     @total_revenue = Order.products_sold_total(@current_user)
   end
 
   def create
     @order = Order.new
     @order.status = "pending"
     @order.save
-    binding.pry
     Orderproduct.create_product_orders(@order.id, session[:cart])
     @order.total_cost = @order.order_total
 
-    binding.pry
     @order.update(order_params)
     if @order.save
       @order.reduce_stock
       @order.status = "paid"
+      @order.save
       flash[:success] = 'Your purchase is complete!'
       session[:cart] = nil
       redirect_to root_path

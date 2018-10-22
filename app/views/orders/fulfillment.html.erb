@@ -2,4 +2,28 @@
   <h2> You must sign in to view the fulfillment page. </h2>
 <% else %>
 <h2> <%= @current_user.name %>'s Fulfillment page </h2>
+<h3> Total Revenue: <%= @total_revenue %> </h3>
+<h3> All orders </h3>
+<ul>
+  <% @orders.each do |order| %>
+      <% order.orderproducts.each do |orderproduct| %>
+        <li>
+        <p> Item sold: <%= orderproduct.product.name %></p>
+        <ul>
+          <li> Cost per creature: <%= orderproduct.product.price %> </li>
+        </ul>
+        <br>
+        </li>
+        <li>
+        <p> Order number: <%= order.id %></p>
+        </li>
+        <li>
+        <p> Seller: <%= orderproduct.product.user_id %>
+        </li>
+        <li>
+        <p> Quantity in order <%= orderproduct.quantity %> </p>
+        </li>
+      <% end %>
+  <% end %>
+</ul>
 <% end %>
