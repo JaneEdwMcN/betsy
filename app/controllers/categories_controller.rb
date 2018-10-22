@@ -1,6 +1,10 @@
 class CategoriesController < ApplicationController
 before_action :find_category, only: [:show, :destroy]
+<<<<<<< Updated upstream
 #before_action :require_login, except: [:index, :show]
+=======
+before_action :require_login, except: [:index, :show]
+>>>>>>> Stashed changes
 
   def index
     @categories = Category.category_list
@@ -9,7 +13,9 @@ before_action :find_category, only: [:show, :destroy]
   def show; end
 
   def new
+
     @category = Category.new
+
   end
 
   def create
