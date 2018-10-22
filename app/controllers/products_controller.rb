@@ -67,7 +67,7 @@ class ProductsController < ApplicationController
     else
       flash[:warning] = "Failure to add to cart. Invalid quantity."
     end
-    redirect_to product_path(@product.id)
+    redirect_back(fallback_location: root_path)
   end
 
   def cart_view
