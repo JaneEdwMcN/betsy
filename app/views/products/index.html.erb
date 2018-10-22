@@ -1,4 +1,4 @@
-<h2> Shop by Product </h2>
+<h1> Shop by Product </h1>
 
 <% if @products %>
 <div class="card-group-container">
@@ -28,6 +28,11 @@
         <%= f.submit "Add to Cart", class: "btn btn-primary"%>
         <% end %>
       </p>
+      <% if logged_in? %>
+      <% if current_user.id == product.user.id %>
+      <p class="card-text"><%= link_to "Update Creature", edit_product_path(product.id)%></p>
+      <% end %>
+      <% end %>
     </div>
   </div>
 
