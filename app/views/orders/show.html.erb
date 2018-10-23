@@ -2,6 +2,7 @@
 
 <h3> Adoption Parent: <%= @order.name %></h3>
 <h3> Delivery Address: <%= @order.mailing_address %></h3>
+<h3> Order Total: <%= @order.total_cost %></h3>
 
 <table class="table">
 
@@ -10,17 +11,14 @@
       <th scope="col">Name</th>
       <th scope="col">Price</th>
       <th scope="col">Quantity</th>
-      <th scope="col">Total</th>
     </tr>
   </thead>
 
-  <tbody>
-    <% @order.orderproducts.each do |orderproduct| %>
-      <td><%= orderproduct.name %></td>
-      <td><%= orderproduct.price %></td>
+  <% @order.orderproducts.each do |orderproduct| %>
+    <tbody>
+      <td><%= link_to orderproduct.product.name, product_path(orderproduct.product.id) %></td>
+      <td><%= orderproduct.product.price %></td>
       <td><%= orderproduct.quantity %></td>
-    <% end %>
-    <td><%= @order.total_cost %></td>
-  </tbody>
-
+    </tbody>
+  <% end %>
 </table>
