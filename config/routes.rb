@@ -20,11 +20,13 @@ Rails.application.routes.draw do
 
   resources :categories
 
-  patch "/fulfillment", to:"orderproducts#update", as: "orderproduct"
+  resources :orderproducts, only: [:update]
+
+  #patch "/fulfillment", to:"orderproducts#update", as: "orderproduct"
 
   get "/fulfillment", to: "orders#fulfillment", as: "get_orders"
   get "/fulfillment/paid", to: "orders#paid", as: "paid_orders"
-  get "/fulfillment/completed", to: "orders#completed", as: "completed_orders"
+  get "/fulfillment/pending", to: "orders#completed", as: "completed_orders"
   get "/fulfillment/cancelled", to: "orders#cancelled", as: "cancelled_orders"
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
