@@ -10,56 +10,58 @@
     <%= link_to "All Orders", get_orders_path, class: "dropdown-item" %>
   </div>
 </div>
+<br>
+<br>
 
 <table class="table">
+  <thead>
     <tr>
-      <th> Adopted Creature </th>
-      <th> Cost Per Creature </th>
-      <th> Quantity Ordered </th>
-      <th> Paid for Creature(s) </th>
-      <th> Order Date </th>
-      <th> Order # </th>
-      <th> Status </th>
+      <th scope="col"> Creature </th>
+      <th scope="col"> Cost </th>
+      <th scope="col"> Count </th>
+      <th scope="col"> Paid </th>
+      <th scope="col"> Order Date </th>
+      <th scope="col"> Order # </th>
+      <th scope="col"> Status </th>
     </tr>
+  </thead>
+    <tbody>
       <% @orders.each do |order| %>
           <% order.orderproducts.each do |orderproduct| %>
-          <!-- form starts
-          table starts
-          each row is now a table
-          table ends
-          form ends -->
-            <td>
-              <%= orderproduct.product.name %>
-            </td>
-            <td>
-              <%= orderproduct.product.price %>
-            </td>
-            <td>
-              <%= orderproduct.quantity %>
-            </td>
-            <td>
-              <%= orderproduct.quantity * orderproduct.product.price %>
-            </td>
-            <td>
-              <%= order.created_at %>
-            </td>
-            <td>
-              <%= link_to "#{order.id}", order_path(order.id) %>
-            </td>
-            <td>
-            <%= form_with model: @orderproduct, method: :patch do |f| %>
-              <%= f.hidden_field :id, :value => orderproduct.id %>
+              <tr>
+                <td>
+                  <%= link_to orderproduct.product.name, product_path(orderproduct.product.id) %>
+                </td>
+                <td>
+                  <%= orderproduct.product.price %>
+                </td>
+                <td>
+                  <%= orderproduct.quantity %>
+                </td>
+                <td>
+                  <%= orderproduct.quantity * orderproduct.product.price %>
+                </td>
+                <td>
+                  <%= order.created_at %>
+                </td>
+                <td>
+                  <%= link_to "#{order.id}", order_path(order.id) %>
+                </td>
+                <td>
+                  <%= form_with model: orderproduct do |f| %>
 
-              <%= f.label :status %>
-              <%= f.select :status, options_for_select(["pending", "shipped"], :selected => orderproduct.status) %>
-            <%= f.submit "Change Status", class: "btn btn-primary" %>
-            </td>
-          <% end %>
-      <% end %>
-</table>
-<% end %>
+                    <%= f.label :status %>
+                    <%= f.select :status, options_for_select(["pending", "shipped"], :selected => orderproduct.status) %>
+                  <%= f.submit "Change Status", class: "btn btn-primary" %>
+                  <% end %>
+                </td>
+              </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
 
 <section class="orders_details">
-<h3> Orders count: <%= @orders.count %> </h3>
-<h3> Fundraising Revenue for all Orders: <%= @total_revenue %> </h3>
+  <h3> Orders count: <%= @orders.count %> </h3>
+  <h3> Fundraising Revenue for all Orders: <%= @total_revenue %> </h3>
 </section>

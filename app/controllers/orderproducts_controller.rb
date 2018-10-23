@@ -2,12 +2,14 @@ class OrderproductsController < ApplicationController
   before_action :find_orderproduct
 
   def update
-    @orderproduct.status = params[:status]
+    #binding.pry
+    @orderproduct.status = params[:orderproduct][:status]
     if @orderproduct.save
       flash[:success] = "Status of ordered product has been changed."
-
+      redirect_back(fallback_location: "get_orders")
     else
       flash[:failure] = "Status could not be changed."
+      redirect_back(fallback_location: "get_orders")
     end
   end
 
