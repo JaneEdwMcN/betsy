@@ -22,9 +22,6 @@
     <% if (@product.reviews.length > 0) && (@product.user.products.length > 1) %>
     <!-- has reviews and more user products -->
     <section class="reviews reviews-container">
-      <% if @product.user != @current_user %>
-      <p><%= link_to "Leave a Review", new_product_review_path(@product.id), class: "btn btn-primary" %></p>
-      <% end %>
       <h3> Creature reviews: </h3>
       <% @product.reviews.each do |review| %>
       <ul>
@@ -35,10 +32,13 @@
         </li>
       </ul>
       <% end %>
+      <% if @product.user != @current_user %>
+      <p class="review-button"><%= link_to "Leave a Review", new_product_review_path(@product.id), class: "btn btn-primary" %></p>
+      <% end %>
     </section>
 
     <section class="user-products-container">
-      <h4> More from Seller </h4>
+      <h4 class="more-from"> More from Seller </h4>
       <section class="user-products-flex">
         <% @product.user.products.first(5).each do |product| %>
         <% if product.id != @product.id %>
@@ -53,9 +53,6 @@
       <% elsif (@product.reviews.length > 0) && (@product.user.products.length == 1)  %>
       <!-- has reviews and no other user products -->
       <section class="reviews reviews-only-container">
-        <% if @product.user != @current_user %>
-        <p><%= link_to "Leave a Review", new_product_review_path(@product.id), class: "btn btn-primary" %></p>
-        <% end %>
         <h3> Creature reviews: </h3>
         <% @product.reviews.each do |review| %>
         <ul>
@@ -66,12 +63,18 @@
           </li>
         </ul>
         <% end %>
+        <% if @product.user != @current_user %>
+        <p class="review-button"><%= link_to "Leave a Review", new_product_review_path(@product.id), class: "btn btn-primary" %></p>
+        <% end %>
       </section>
 
       <% elsif (@product.reviews.length == 0) && (@product.user.products.length > 1)  %>
       <!-- has no reviews and more user products -->
       <section class="only-user-products-container">
-        <h4> More from Seller </h4>
+        <% if @product.user != @current_user %>
+        <p><%= link_to "Leave a Review", new_product_review_path(@product.id), class: "btn btn-primary" %></p>
+        <% end %>
+        <h4 class="more-from"> More from Seller </h4>
         <section class="user-products-flex">
           <% @product.user.products.first(5).each do |product| %>
           <% if product.id != @product.id %>
@@ -81,6 +84,12 @@
             <% end %>
             <% end %>
           </section>
+        </section>
+        <% else %>
+        <section class="no-reviews-no-user-products">
+          <% if @product.user != @current_user %>
+          <p><%= link_to "Leave a Review", new_product_review_path(@product.id), class: "btn btn-primary" %></p>
+          <% end %>
         </section>
         <% end %>
 
