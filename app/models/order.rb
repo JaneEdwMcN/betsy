@@ -44,9 +44,6 @@ class Order < ApplicationRecord
     total_revenue
   end
 
-  def complete_order
-
-  end
 
 
 end

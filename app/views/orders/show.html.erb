@@ -17,7 +17,7 @@
   <% @order.orderproducts.each do |orderproduct| %>
     <tbody>
       <td><%= link_to orderproduct.product.name, product_path(orderproduct.product.id) %></td>
-      <td><%= orderproduct.product.price %></td>
+      <td><%= money_display(orderproduct.product.price) %></td>
       <td><%= orderproduct.quantity %></td>
     </tbody>
   <% end %>

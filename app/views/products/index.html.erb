@@ -17,7 +17,7 @@
         <small class="text-muted">(<%= product.reviews.length %>)</small>
       </p>
       <% end %>
-      <p class="card-text">$<%= product.price %></p>
+      <p class="card-text">$<%= money_display(product.price) %></p>
       <p><%= form_with url: add_to_cart_path(product.id), method: :post do |f| %>
         <% if product.stock_count > 1 %>
         <%= f.label :quantity, "Quantity"%><br>

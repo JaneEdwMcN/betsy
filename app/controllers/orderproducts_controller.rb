@@ -2,7 +2,6 @@ class OrderproductsController < ApplicationController
   before_action :find_orderproduct
 
   def update
-    #binding.pry
     @orderproduct.status = params[:orderproduct][:status]
     if @orderproduct.save
       flash[:success] = "Status of ordered product has been changed."

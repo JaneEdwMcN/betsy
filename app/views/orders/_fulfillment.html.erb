@@ -33,7 +33,7 @@
                   <%= link_to orderproduct.product.name, product_path(orderproduct.product.id) %>
                 </td>
                 <td>
-                  <%= orderproduct.product.price %>
+                  <%= money_display(orderproduct.product.price) %>
                 </td>
                 <td>
                   <%= orderproduct.quantity %>
@@ -42,14 +42,13 @@
                   <%= orderproduct.quantity * orderproduct.product.price %>
                 </td>
                 <td>
-                  <%= order.created_at %>
+                  <%= readable_date(order.created_at) %>
                 </td>
                 <td>
                   <%= link_to "#{order.id}", order_path(order.id) %>
                 </td>
                 <td>
                   <%= form_with model: orderproduct do |f| %>
-
                     <%= f.label :status %>
                     <%= f.select :status, options_for_select(["pending", "shipped"], :selected => orderproduct.status) %>
                   <%= f.submit "Change Status", class: "btn btn-primary" %>
@@ -63,5 +62,5 @@
 
 <section class="orders_details">
   <h3> Orders count: <%= @orders.count %> </h3>
-  <h3> Fundraising Revenue for all Orders: <%= @total_revenue %> </h3>
+  <h3> Fundraising Revenue for all Orders: <%= money_display(@total_revenue) %> </h3>
 </section>
