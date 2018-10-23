@@ -23,6 +23,11 @@
     </tr>
       <% @orders.each do |order| %>
           <% order.orderproducts.each do |orderproduct| %>
+          <!-- form starts
+          table starts
+          each row is now a table
+          table ends
+          form ends -->
             <td>
               <%= orderproduct.product.name %>
             </td>
@@ -42,9 +47,11 @@
               <%= link_to "#{order.id}", order_path(order.id) %>
             </td>
             <td>
-            <%= form_with model: order, method: :patch do |f| %>
+            <%= form_with model: @orderproduct, method: :patch do |f| %>
+              <%= f.hidden_field :id, :value => orderproduct.id %>
+
               <%= f.label :status %>
-              <%= f.select :status, options_for_select(["pending", "paid", "completed", "cancelled"], :selected => order.status) %>
+              <%= f.select :status, options_for_select(["pending", "shipped"], :selected => orderproduct.status) %>
             <%= f.submit "Change Status", class: "btn btn-primary" %>
             </td>
           <% end %>
