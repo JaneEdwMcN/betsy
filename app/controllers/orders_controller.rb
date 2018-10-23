@@ -1,6 +1,5 @@
 class OrdersController < ApplicationController
   before_action :find_order
-  before_action :order_params
   skip_before_action :find_order, only: [:fulfillment, :paid, :completed, :new, :completed, :cancelled]
 
 
@@ -36,7 +35,6 @@ class OrdersController < ApplicationController
     @order.save
     Orderproduct.create_product_orders(@order.id, session[:cart])
     @order.total_cost = @order.order_total
-
     @order.update(order_params)
     if @order.save
       @order.reduce_stock
@@ -54,7 +52,6 @@ class OrdersController < ApplicationController
   # def edit; end
   #
   def update
-    binding.pry
     if @order && @order.update(order_params)
       @order.save
       flash[:success] = 'Status has been changed.'
@@ -75,7 +72,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    return params.permit(:name, :email, :mailing_address, :zip_code, :cc_number, :cc_expiration, :cc_cvv, :total_cost, :status)
+    return params.require(:order).permit(:name, :email, :mailing_address, :zip_code, :cc_number, :cc_expiration, :cc_cvv, :total_cost, :status)
   end
 
 end
