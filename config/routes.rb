@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get "/auth/:provider/callback", to: "sessions#create", as: "login"
   delete 'sessions/destroy', to: 'sessions#destroy', as: 'logout'
 
+  get "/orders/search", to: "orders#search", as: 'search_orders'
   resources :orders
 
   resources :products do

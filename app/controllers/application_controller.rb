@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
 
+
+
   private
   def build_cart
     session[:cart] = Array.new if !session[:cart]
@@ -41,6 +43,7 @@ class ApplicationController < ActionController::Base
   def find_user
     @user = User.find_by(id: params[:id])
   end
+
 
   def all_users
     @users = User.all

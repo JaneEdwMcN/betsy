@@ -2,11 +2,6 @@ class OrdersController < ApplicationController
   before_action :find_order
   skip_before_action :find_order, only: [:fulfillment, :paid, :completed, :new, :completed, :cancelled]
 
-
-  # def index
-  #   @orders = Order.all
-  # end
-
   def new
     @order = Order.new
   end
@@ -64,6 +59,18 @@ class OrdersController < ApplicationController
       render :edit, status: :bad_request
     end
   end
+
+  def search
+    @order = Order.find_by(id: params[:order_id])
+
+    if @order
+      redirect_to order_path(@order)
+    else
+      flash[:warning] = "Order #{params[:order_id]} does not exist"
+      redirect_back fallback_location: root_path
+    end
+  end
+
 
   private
 
