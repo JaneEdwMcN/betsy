@@ -74,11 +74,15 @@
               <li class="dropdown-item"><%= link_to cat.name, category_path(cat) %></li>
               <% end %>
             </div>
-
         </div>
 
 
-
+        <div class="search-order">
+          <%= form_tag search_orders_path, method: :get do %>
+            <%= text_field_tag :order_id %>
+            <%= submit_tag 'Find Order' %>
+          <% end %>
+        </div>
 
     </nav>
 
