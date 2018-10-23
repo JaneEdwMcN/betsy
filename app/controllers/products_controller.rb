@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :find_product
+  before_action :require_product_owner, only: [:edit, :update, :destroy]
   skip_before_action :find_product, only: [:index, :cart_view, :new, :create]
 
   def index
@@ -42,6 +43,13 @@ class ProductsController < ApplicationController
 
 
   private
+  def require_product_owner
+    if @current_user != @product.user
+      flash[:failure] = "Cannot edit another parent's creatures"
+      redirect_to root_path
+    end
+  end
+
   def product_params
     return params.require(:product).permit(:name, :price, :stock_count, :user_id, :photo_url, :description, :category_id)
   end
