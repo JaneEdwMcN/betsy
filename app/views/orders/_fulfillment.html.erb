@@ -42,7 +42,7 @@
               <%= link_to "#{order.id}", order_path(order.id) %>
             </td>
             <td>
-            <%= form_with url: order_path(order.id), method: :patch do |f| %>
+            <%= form_with model: order, method: :patch do |f| %>
               <%= f.label :status %>
               <%= f.select :status, options_for_select(["pending", "paid", "completed", "cancelled"], :selected => order.status) %>
             <%= f.submit "Change Status", class: "btn btn-primary" %>

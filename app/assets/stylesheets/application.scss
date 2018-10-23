@@ -154,10 +154,13 @@ ul {
   grid-column: 1 / 3;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
   border-bottom: solid lightgray;
-  width: 50%;
   padding-bottom: 3em;
+}
+
+.product-description {
+  padding-left: 2em;
 }
 
 .product-show-img img{
