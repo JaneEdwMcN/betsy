@@ -34,14 +34,14 @@ class ActiveSupport::TestCase
   end
 
   def mock_auth_hash(user)
-      return {
-        provider: user.provider,
-        uid: user.uid,
-        info: {
-          email: user.email,
-          username: user.name
-        }
+    return {
+      provider: user.provider,
+      uid: user.uid,
+      info: {
+        email: user.email,
+        username: user.name
       }
+    }
   end
 
 end

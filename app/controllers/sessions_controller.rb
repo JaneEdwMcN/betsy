@@ -1,3 +1,4 @@
+require 'pry'
 class SessionsController < ApplicationController
   before_action :find_product, only: [:add_to_cart, :update_quantity, :remove_from_cart]
 
@@ -31,8 +32,8 @@ class SessionsController < ApplicationController
     id = @product.id.to_i
     quantity = params[:quantity].to_i
     # session[:cart] = nil
+    item = false
     if [*1..@product.stock_count].include? (quantity)
-      item = false
       session[:cart].each.with_index do |hash, index|
         hash.each do |key, value|
           if key == id.to_s

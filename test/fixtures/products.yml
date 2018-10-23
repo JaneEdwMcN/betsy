@@ -13,6 +13,32 @@ product1:
   category: nil
   photo_url: nil
 
+lamb:
+  name: Lamb
+  stock_count: 10
+  description: nil
+  price: 100
+  user: tan
+  category: nil
+  photo_url: nil
+
+goat:
+  name: Goat
+  stock_count: 15
+  description: nil
+  price: 200
+  user: tan
+  category: nil
+  photo_url: nil
+
+duckling:
+  name: Duckling
+  stock_count: 8
+  description: nil
+  price: 200
+  user: tan
+  category: nil
+  photo_url: nil
 
     #
     # t.bigint "user_id"
