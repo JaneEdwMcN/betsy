@@ -43,7 +43,7 @@
     <section class="user-products-container">
       <h4 class="more-from"> More from Seller </h4>
       <section class="user-products-flex">
-        <% @product.user.products.first(5).each do |product| %>
+        <% @product.user.products.first(4).each do |product| %>
         <% if product.id != @product.id %>
         <p><%= link_to image_tag(product.photo_url), product_path(product.id), class: "user-products-img" %><br>
           <%= link_to product.name.capitalize, product_path(product.id)%><br>
@@ -79,7 +79,7 @@
         <% end %>
         <h4 class="more-from"> More from Seller </h4>
         <section class="user-products-flex">
-          <% @product.user.products.first(5).each do |product| %>
+          <% @product.user.products.first(4).each do |product| %>
           <% if product.id != @product.id %>
           <p><%= link_to image_tag(product.photo_url), product_path(product.id), class: "user-products-img" %><br>
             <%= link_to product.name.capitalize, product_path(product.id)%><br>
