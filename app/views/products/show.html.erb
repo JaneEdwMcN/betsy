@@ -86,6 +86,7 @@
           </section>
         </section>
         <% else %>
+        <!-- has no reviews and no more user products -->
         <section class="no-reviews-no-user-products">
           <% if @product.user != @current_user %>
           <p><%= link_to "Leave a Review", new_product_review_path(@product.id), class: "btn btn-primary" %></p>
