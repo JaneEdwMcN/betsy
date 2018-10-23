@@ -2,16 +2,19 @@
   <section class="product-show-img-text">
     <section class="product-show-img"><%= image_tag @product.photo_url %></section>
 
-    <section>
+    <section class="product-description">
       <h2> <%= @product.name.capitalize %> </h2>
       <h3>Price: $<%= @product.price %> </h3>
       <p><%= form_with url: add_to_cart_path(@product.id), method: :post do |f| %>
         <% if @product.stock_count > 1 %>
-        <%= f.label :quantity, "Quantity:"%><br>
+        <%= f.label :quantity, "Quantity:"%>
         <%= f.select :quantity, options_for_select([*1..@product.stock_count]) %>
+        <br>
         <% else %>
         <%= f.select :quantity, options_for_select([@product.stock_count]) %>
+        <br>
         <% end %>
+        <br>
         <%= f.submit "Add to Cart", class: "btn btn-primary"%></p>
         <% end %>
         <h4>Description</h4>
