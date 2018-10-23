@@ -36,9 +36,9 @@
   {}, { class: "form form-group form-control" } %>
   </div>
 
-    <%= f.hidden_field :user_id, :value => @current_user.id %>
+  <%= f.hidden_field :user_id, :value => @current_user.id %>
 
-    <%= f.submit "Save Creature", class: "btn btn-primary" %>
+  <%= f.submit "Save Creature", class: "btn btn-primary" %>
 
   <% end %>
 <% else %>
