@@ -1,14 +1,40 @@
 <h1>Creature Parent</h1>
 <h2><%= @user.name %></h2>
 
-<section>
-  <h3>Creatures</h3>
-    <ul>
-      <% @user.products.each do |product| %>
-        <li><%= link_to "#{product.name}", product_path(product.id) %></li>
-        <% if logged_in? %>
-          <%= link_to "Edit", edit_product_path(product.id)%>
+<div class="card-group-container">
+  <% @user.products.each do |product| %>
+
+  <div class="card w-25 card-container">
+    <%= image_tag product.photo_url, class: "card-img-top"%>
+    <div class="card-body card-container">
+      <h5 class="card-title"><%= link_to product.name.capitalize, product_path(product.id) %></h5>
+      <p class="card-text"><small class="text-muted"><%= product.user.name %></small></p>
+      <% if product.reviews.length > 0 %>
+      <p>
+        <% product.average_rating.times do %>
+        <span class="fa fa-star checked"></span>
         <% end %>
+        <small class="text-muted">(<%= product.reviews.length %>)</small>
+      </p>
       <% end %>
-    </ul>
-<section>
+      <p class="card-text">$<%= product.price %></p>
+      <p class="card-text"><%= form_with url: add_to_cart_path(product.id), method: :post do |f| %>
+        <% if product.stock_count > 1 %>
+        <%= f.label :quantity, "Quantity"%><br>
+        <%= f.select :quantity, options_for_select([*1..product.stock_count]) %>
+        <% else %>
+        <%= f.select :quantity, options_for_select([product.stock_count]) %>
+        <% end %>
+        <%= f.submit "Add to Cart", class: "btn btn-primary"%>
+        <% end %>
+      </p>
+      <% if logged_in? %>
+      <% if current_user.id == product.user.id %>
+      <p class="card-text"><%= link_to "Update Creature", edit_product_path(product.id)%></p>
+      <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <% end %>
+</div>
