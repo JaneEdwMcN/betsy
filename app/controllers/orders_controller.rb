@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_action :find_order
-  skip_before_action :find_order, only: [:fulfillment, :paid, :completed, :new]
+  before_action :order_params
+  skip_before_action :find_order, only: [:fulfillment, :paid, :completed, :new, :completed, :cancelled]
 
 
   def new
@@ -11,19 +12,22 @@ class OrdersController < ApplicationController
 
   def fulfillment
      @orders = Order.find_orders(@current_user)
-     @total_revenue = Order.products_sold_total(@current_user)
+     @total_revenue = Order.products_sold_total(@current_user, @orders)
   end
 
   def paid
     @orders = Order.find_orders(@current_user).select { |order| order.status == "paid"}
+    @total_revenue = Order.products_sold_total(@current_user, @orders)
   end
 
   def completed
     @orders = Order.find_orders(@current_user).select { |order| order.status == "completed"}
+    @total_revenue = Order.products_sold_total(@current_user, @orders)
   end
 
   def cancelled
     @orders = Order.find_orders(@current_user).select { |order| order.status == "cancelled"}
+    @total_revenue = Order.products_sold_total(@current_user, @orders)
   end
 
   def create
@@ -50,7 +54,10 @@ class OrdersController < ApplicationController
   # def edit; end
   #
   def update
-    if @order && @order.update(params[:status])
+    binding.pry
+    if @order && @order.update(order_params)
+      @order.save
+      flash[:success] = 'Status has been changed.'
       redirect_to order_path(@order.id)
     elsif @order
       render :edit, status: :bad_request
@@ -68,7 +75,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    return params.require(:order).permit(:name, :email, :mailing_address, :zip_code, :cc_number, :cc_expiration, :cc_cvv, :total_cost)
+    return params.permit(:name, :email, :mailing_address, :zip_code, :cc_number, :cc_expiration, :cc_cvv, :total_cost, :status)
   end
 
 end

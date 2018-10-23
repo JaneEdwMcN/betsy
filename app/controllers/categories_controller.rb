@@ -1,8 +1,6 @@
 class CategoriesController < ApplicationController
 before_action :find_category, only: [:show, :destroy]
 
-before_action :require_login, except: [:index, :show]
-
 
   def index
     @categories = Category.category_list

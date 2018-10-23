@@ -30,9 +30,9 @@ class Order < ApplicationRecord
     orders
   end
 
-  def self.products_sold_total(user)
+  def self.products_sold_total(user, orders)
     total_revenue = 0
-    Order.all.each do |order|
+    orders.each do |order|
       order.orderproducts.each do |item|
         product = item.product
         if user.id == product.user_id
