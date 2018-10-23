@@ -8,7 +8,7 @@ product1:
   name: nil
   stock_count: nil
   description: nil
-  price: 100
+  price: 100.0
   user: tan
   category: nil
   photo_url: https://i.imgur.com/NyKcY9y.jpg
@@ -17,7 +17,7 @@ lamb:
   name: Lamb
   stock_count: 10
   description: cute
-  price: 100
+  price: 100.0
   user: tan
   category: mammal
   photo_url: https://i.imgur.com/NyKcY9y.jpg
@@ -26,7 +26,7 @@ goat:
   name: Goat
   stock_count: 15
   description: cute
-  price: 200
+  price: 200.0
   user: tan
   category: mammal
   photo_url: https://i.imgur.com/NyKcY9y.jpg
@@ -35,7 +35,7 @@ duckling:
   name: Duckling
   stock_count: 8
   description: cute
-  price: 200
+  price: 200.0
   user: tan
   category: mammal
   photo_url: https://i.imgur.com/NyKcY9y.jpg
