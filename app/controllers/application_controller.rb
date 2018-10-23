@@ -19,11 +19,11 @@ class ApplicationController < ActionController::Base
           if (quantity > product.stock_count) && (product.stock_count > 0)
             session[:cart][index][id] = product.stock_count
             flash[:warning] = "#{product.name.capitalize} has been updated due to a change in stock."
-            redirect_to cart_path
+            redirect_back(fallback_location: cart_path)
           elsif (quantity > product.stock_count) && (product.stock_count == 0)
             session[:cart].delete_at(index)
             flash[:danger] = "#{product.name.capitalize} has been removed from your cart due to no longer being in stock."
-            redirect_to cart_path
+            redirect_back(fallback_location: cart_path)
           end
         end
       end
