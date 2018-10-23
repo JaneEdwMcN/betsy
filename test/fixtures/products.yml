@@ -11,34 +11,34 @@ product1:
   price: 100
   user: tan
   category: nil
-  photo_url: nil
+  photo_url: https://i.imgur.com/NyKcY9y.jpg
 
 lamb:
   name: Lamb
   stock_count: 10
-  description: nil
+  description: cute
   price: 100
   user: tan
-  category: nil
-  photo_url: nil
+  category: mammal
+  photo_url: https://i.imgur.com/NyKcY9y.jpg
 
 goat:
   name: Goat
   stock_count: 15
-  description: nil
+  description: cute
   price: 200
   user: tan
-  category: nil
-  photo_url: nil
+  category: mammal
+  photo_url: https://i.imgur.com/NyKcY9y.jpg
 
 duckling:
   name: Duckling
   stock_count: 8
-  description: nil
+  description: cute
   price: 200
   user: tan
-  category: nil
-  photo_url: nil
+  category: mammal
+  photo_url: https://i.imgur.com/NyKcY9y.jpg
 
     #
     # t.bigint "user_id"

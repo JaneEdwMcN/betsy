@@ -92,7 +92,54 @@ describe SessionsController do
       expect(session[:cart]).wont_include @lamb.id => @quantity_hash[:quantity].to_i
       expect(session[:cart]).must_include @goat.id.to_s => @quantity_hash[:quantity].to_i
     end
+  end
 
+
+  describe 'update_quantity' do
+    before do
+      @lamb = products(:lamb)
+      @quantity_hash = { quantity: "3" }
+      @original_quantity = @quantity_hash[:quantity].to_i
+      post add_to_cart_path(@lamb.id), params: @quantity_hash
+    end
+
+    it "updates the quantity if there is enough stock" do
+      new_quantity_hash = { quantity: "5" }
+
+      patch update_cart_path(@lamb.id), params: new_quantity_hash
+      expect(session[:cart].first.values[0].must_equal new_quantity_hash[:quantity].to_i)
+    end
+
+    it "doesn't update the quantity if there isn't enough stock" do
+      new_quantity_hash = { quantity: "50" }
+
+      expect {
+        patch update_cart_path(@lamb.id), params: new_quantity_hash
+      }.wont_change 'session[:cart].first.values[0]'
+
+      expect(session[:cart].first.values[0]).must_equal @original_quantity
+    end
+  end
+
+  describe 'cart_view' do
+    before do
+      @lamb = products(:lamb)
+      @quantity_hash = { quantity: "3" }
+    end
+
+    it "succeeds when there are items in cart" do
+      post add_to_cart_path(@lamb.id), params: @quantity_hash
+      
+      get cart_path
+
+      must_respond_with :success
+    end
+
+    it "succeeds when there aren't items in cart" do
+      get cart_path
+
+      must_respond_with :success
+    end
   end
 
 end
