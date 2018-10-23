@@ -3,6 +3,10 @@ class OrdersController < ApplicationController
   skip_before_action :find_order, only: [:fulfillment, :paid, :completed, :new, :completed, :cancelled]
 
 
+  # def index
+  #   @orders = Order.all
+  # end
+
   def new
     @order = Order.new
   end

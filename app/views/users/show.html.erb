@@ -3,7 +3,7 @@
 
 <div class="card-group-container">
   <% @user.products.each do |product| %>
-
+  <% if product.stock_count > 0 || @current_user == product.user %>
   <div class="card w-25 card-container">
     <%= image_tag product.photo_url, class: "card-img-top"%>
     <div class="card-body card-container">
@@ -35,6 +35,6 @@
       <% end %>
     </div>
   </div>
-
+  <% end %>
   <% end %>
 </div>
