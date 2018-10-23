@@ -2,35 +2,5 @@
 <% if @current_user == nil %>
   <h2> You must sign in to view the fulfillment page. </h2>
 <% else %>
-<h2> <%= @current_user.name %>'s Fulfillment page </h2>
 <%= render partial: "fulfillment" %>
-<h3> Order count: <%= @orders.count %> </h3>
-<h3> Fundraising Revenue: <%= @total_revenue %> </h3>
-
-<div class="card w-25 card-container">
-    <ul>
-      <% @orders.each do |order| %>
-          <% order.orderproducts.each do |orderproduct| %>
-            <li>
-            <p> <%= link_to "Order ##{order.id}", order_path(order.id) %></p>
-            </li>
-            <li>
-            <p> Adopted Creature: <%= orderproduct.product.name %></p>
-            <ul>
-              <li> * Cost per <%= orderproduct.product.name + ": " + orderproduct.product.price.to_s %> </li>
-              <li> * Quantity ordered: <%= orderproduct.quantity %> </li>
-              </li>
-            </ul>
-            <br>
-            </li>
-            <li>
-            <p> Creature Parent: <%= @current_user.name %> (you)
-            </li>
-            <li>
-            <p> Status: <%= order.status %> </p>
-            </li>
-          <% end %>
-      <% end %>
-    </ul>
-</div>
 <% end %>

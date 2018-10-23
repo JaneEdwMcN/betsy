@@ -1,10 +1,8 @@
-
-<div class="dropdown show">
+<h2 class="order_heading"> <%= @current_user.name %>'s Fulfillment page </h2>
+<div class="dropdown show order_types">
   <a class="btn btn-secondary dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Filter Orders
   </a>
-
-
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
     <%= link_to "Paid", paid_orders_path, class: "dropdown-item" %>
     <%= link_to "Completed", completed_orders_path, class: "dropdown-item" %>
@@ -12,3 +10,49 @@
     <%= link_to "All Orders", get_orders_path, class: "dropdown-item" %>
   </div>
 </div>
+
+<table class="table">
+    <tr>
+      <th> Adopted Creature </th>
+      <th> Cost Per Creature </th>
+      <th> Quantity Ordered </th>
+      <th> Paid for Creature(s) </th>
+      <th> Order Date </th>
+      <th> Order # </th>
+      <th> Status </th>
+    </tr>
+      <% @orders.each do |order| %>
+          <% order.orderproducts.each do |orderproduct| %>
+            <td>
+              <%= orderproduct.product.name %>
+            </td>
+            <td>
+              <%= orderproduct.product.price %>
+            </td>
+            <td>
+              <%= orderproduct.quantity %>
+            </td>
+            <td>
+              <%= orderproduct.quantity * orderproduct.product.price %>
+            </td>
+            <td>
+              <%= order.created_at %>
+            </td>
+            <td>
+              <%= link_to "#{order.id}", order_path(order.id) %>
+            </td>
+            <td>
+            <%= form_with url: order_path(order.id), method: :patch do |f| %>
+              <%= f.label :status %>
+              <%= f.select :status, options_for_select(["pending", "paid", "completed", "cancelled"], :selected => order.status) %>
+            <%= f.submit "Change Status", class: "btn btn-primary" %>
+            </td>
+          <% end %>
+      <% end %>
+</table>
+<% end %>
+
+<section class="orders_details">
+<h3> Orders count: <%= @orders.count %> </h3>
+<h3> Fundraising Revenue for all Orders: <%= @total_revenue %> </h3>
+</section>
