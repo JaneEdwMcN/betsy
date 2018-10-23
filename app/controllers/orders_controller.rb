@@ -54,7 +54,6 @@ class OrdersController < ApplicationController
   # def edit; end
   #
   def update
-    binding.pry
     if @order && @order.update(order_params)
       @order.save
       flash[:success] = 'Status has been changed.'
