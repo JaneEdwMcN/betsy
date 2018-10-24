@@ -8,6 +8,7 @@
     <section class="product-show-img"><%= image_tag @product.photo_url %></section>
     <section class="product-description">
       <h2> <%= @product.name.capitalize %> </h2>
+      <p class="card-text"><small class="text-muted"><%= link_to @product.user.name, user_path(@product.user.id)%></small></p>
       <h3>Price: $<%= money_display(@product.price) %> </h3>
       <% if option_values[0] > 0 %>
       <p><%= form_with url: add_to_cart_path(@product.id), method: :post do |f| %>
@@ -15,13 +16,15 @@
         <%= f.submit "Add to Cart", class: "btn btn-primary"%>
         <% end %>
       </p>
-      <% else %>
+      <% elsif option_values[0] <= 0 && in_cart %>
       <h4 class="card-text"><em>All the <%= @product.name.capitalize.pluralize %> are in your cart!</em></h4><br>
       <p><%= link_to "Remove from Cart", remove_from_cart_path(@product.id), class: "btn btn-primary"%></p>
+      <% elsif option_values[0] == 0 && !in_cart %>
+      <h4 class="card-text"><em>Out of Stock!</em></h4><br>
       <% end %>
       <h4>Description</h4>
       <p><%= @product.description %></p>
-      <% if logged_in? && current_user.id == @product.user.id %>
+      <% if logged_in? && @current_user.id == @product.user.id %>
       <p><%= link_to "Update Creature", edit_product_path(@product.id), class: "btn btn-primary"%></p>
       <% end %>
     </section>
