@@ -9,23 +9,27 @@ class OrdersController < ApplicationController
   def show; end
 
   def fulfillment
-    @orders = Order.find_orders(@current_user)
-    @total_revenue = Order.products_sold_total(@current_user, @orders)
+     @orderproducts = Order.find_orderproducts(@current_user, nil)
+     @total_revenue = Order.products_sold_total(@current_user, @orderproducts)
+     @count = Order.count_orders(@current_user, nil)
   end
 
   def paid
-    @orders = Order.find_orders(@current_user).select { |order| order.status == "paid"}
-    @total_revenue = Order.products_sold_total(@current_user, @orders)
+    @orderproducts = Order.find_orderproducts(@current_user, "paid")
+    @total_revenue = Order.products_sold_total(@current_user, @orderproducts)
+    @count = Order.count_orders(@current_user, "paid")
   end
 
   def completed
-    @orders = Order.find_orders(@current_user).select { |order| order.status == "completed"}
-    @total_revenue = Order.products_sold_total(@current_user, @orders)
+    @orderproducts = Order.find_orderproducts(@current_user, "completed")
+    @total_revenue = Order.products_sold_total(@current_user, @orderproducts)
+    @count = Order.count_orders(@current_user, "completed")
   end
 
   def cancelled
-    @orders = Order.find_orders(@current_user).select { |order| order.status == "cancelled"}
-    @total_revenue = Order.products_sold_total(@current_user, @orders)
+    @orderproducts = Order.find_orderproducts(@current_user, "cancelled")
+    @total_revenue = Order.products_sold_total(@current_user, @orderproducts)
+    @count = Order.count_orders(@current_user, "cancelled")
   end
 
   def create
