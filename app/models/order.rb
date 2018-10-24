@@ -17,29 +17,44 @@ class Order < ApplicationRecord
     end
   end
 
-  def self.find_orders(user)
-    orders = []
+  def self.find_orderproducts(user, status)
+    orderproducts = []
     Order.all.each do |order|
-      order.orderproducts.each do |item|
-        product = item.product
-        if user.id == product.user_id
-          orders << order
+      if order.status == status || status == nil
+        order.orderproducts.each do |item|
+          product = item.product
+          if user.id == product.user_id
+            orderproducts << item
+          end
         end
       end
     end
-    orders
+    orderproducts
   end
 
-  def self.products_sold_total(user, orders)
+  def self.count_orders(user, status)
+    count = 0
+    Order.all.each do |order|
+      if order.status == status || status == nil
+        order.orderproducts.each do |item|
+          product = item.product
+          if user.id == product.user_id
+            count += 1
+          end
+        end
+      end
+    end
+    count
+  end
+
+  def self.products_sold_total(user, orderproducts)
     total_revenue = 0
-    orders.each do |order|
-      order.orderproducts.each do |item|
+    orderproducts.each do |item|
         product = item.product
         if user.id == product.user_id
           per_unit_cost = item.product.price
           total_revenue += item.quantity * per_unit_cost
         end
-      end
     end
     total_revenue
   end
