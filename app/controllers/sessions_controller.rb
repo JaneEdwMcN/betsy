@@ -1,4 +1,3 @@
-require 'pry'
 class SessionsController < ApplicationController
   before_action :find_product, only: [:add_to_cart, :update_quantity, :remove_from_cart]
 
