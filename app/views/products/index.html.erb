@@ -30,7 +30,7 @@
         <%= f.submit "Add to Cart", class: "btn btn-primary"%>
         <% end %>
       </p>
-      <% else %>
+      <% elsif option_values[0] <= 0 && in_cart %>
       <h4 class="card-text">All the <%= product.name.capitalize.pluralize %> are in your cart!</h4>
       <p><%= link_to "Remove from Cart", remove_from_cart_path(product.id), class: "btn btn-primary"%></p>
       <% end %>
