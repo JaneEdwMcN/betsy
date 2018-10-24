@@ -129,7 +129,7 @@ describe SessionsController do
 
     it "succeeds when there are items in cart" do
       post add_to_cart_path(@lamb.id), params: @quantity_hash
-      
+
       get cart_path
 
       must_respond_with :success
