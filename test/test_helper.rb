@@ -27,10 +27,13 @@ class ActiveSupport::TestCase
   end
 
   def perform_login(user)
-    OmniAuth.config.mock_auth[:github] =
-    OmniAuth::AuthHash.new(mock_auth_hash(user))
+    stub_auth_hash!(mock_auth_hash(user))
 
     get login_path('github')
+  end
+
+  def stub_auth_hash!(hash)
+    OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(hash)
   end
 
   def mock_auth_hash(user)
@@ -39,7 +42,7 @@ class ActiveSupport::TestCase
       uid: user.uid,
       info: {
         email: user.email,
-        username: user.name
+        name: user.name
       }
     }
   end

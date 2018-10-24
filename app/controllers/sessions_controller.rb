@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     auth_hash = request.env['omniauth.auth']
 
     user = User.find_by(uid: auth_hash[:uid], provider: 'github') ||
-    User.create_from_github(auth_hash)
+      User.create_from_github(auth_hash)
 
     if user.save
       flash[:success] = "Logged in as returning user #{user.name}"
@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
       redirect_to root_path
     else
       flash[:danger] = "Could not create new user account: #{user.errors.messages}. Check github email and name please"
-      redirect_to root_path
+      redirect_back fallback_location: root_path
     end
   end
 

@@ -13,6 +13,9 @@ class UsersController < ApplicationController
     @user.products
   end
 
+  def destroy
+  end
+  
    private
 
    def user_params
