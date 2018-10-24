@@ -32,7 +32,7 @@
       </p>
       <% else %>
       <h4 class="card-text">All the <%= product.name.capitalize.pluralize %> are in your cart!</h4>
-      <p><%= link_to "Remove from Cart", remove_from_cart_path(@product.id), class: "btn btn-primary"%></p>
+      <p><%= link_to "Remove from Cart", remove_from_cart_path(product.id), class: "btn btn-primary"%></p>
       <% end %>
       <% if logged_in? %>
       <% if current_user.id == product.user.id %>
