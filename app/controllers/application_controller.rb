@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
           elsif (quantity > product.stock_count) && (product.stock_count == 0)
             session[:cart].delete_at(index)
             flash[:danger] = "#{product.name.capitalize} has been removed from your cart due to no longer being in stock."
-            redirect_back(fallback_location: cart_path)
+            redirect_back(fallback_location: root_path)
           end
         end
       end
