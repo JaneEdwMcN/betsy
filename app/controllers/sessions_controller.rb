@@ -94,7 +94,7 @@ class SessionsController < ApplicationController
         if key == id.to_s
           session[:cart].delete_at(index)
           flash[:success] = "Successfully removed from cart."
-          redirect_to cart_path
+          redirect_back(fallback_location: root_path)
         end
       end
     end

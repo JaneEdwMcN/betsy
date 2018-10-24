@@ -2,5 +2,15 @@
 
 orderproduct1:
   order: complete_order
-  product: product1
+  product: lamb
+  quantity: 3
+
+orderproduct2:
+  order: complete_order
+  product: lamb
+  quantity: 3
+
+orderproduct3:
+  order: complete_order
+  product: lamb
   quantity: 3
