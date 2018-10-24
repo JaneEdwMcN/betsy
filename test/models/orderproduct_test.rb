@@ -78,33 +78,38 @@ describe Orderproduct do
 
   describe "create_product_orders" do
     before do
-      # @order = orders(:complete_order)
-      # Need new order here because this one already has orderproducts
-
+      @order = Order.create(name: "Judy Poacher", email: "fake@fake.com", mailing_address: "1234 USA Main Street", zip_code: 12345, cc_number: 8295838304727592, cc_expiration: 1155, cc_cvv: 476, status: "pending", total_cost: 700.00)
       @lamb = products(:lamb)
       @goat = products(:lamb)
-
-      # @quantity_hash = { quantity: "3" }
-      #Find out how/whether you can test sessions in Model tests
-      # post add_to_cart_path(@lamb.id), params: @quantity_hash
-      # post add_to_cart_path(@goat.id), params: @quantity_hash
+      @session_cart = [{@lamb.id=>3}, {@goat.id=>3}]
     end
 
     it "creates orderproducts" do
       expect(@order.orderproducts.length.must_equal 0)
 
-      Orderproduct.create_product_orders(@order.id, session[:cart])
+      Orderproduct.create_product_orders(@order.id, @session_cart)
 
-      expect(@order.orderproducts.length.must_equal session[:cart].length)
+      Orderproduct.all.each do |orderproduct|
+        @order.orderproducts << orderproduct if orderproduct.order.id == @order.id
+      end
+
+      expect(@order.orderproducts.length.must_equal @session_cart.length)
 
       @order.orderproducts.each do |orderproduct|
+        expect(orderproduct.order.id.must_equal @order.id)
+        expect(orderproduct.product.id.must_equal @goat.id || @lamb.id)
         orderproduct.valid?.must_equal true
-        orderproduct.must_be_kind_of Order
+        orderproduct.must_be_kind_of Orderproduct
       end
     end
 
-    # it "doesnt create an orderproduct if there isn't enough stock" do
-    # end
+    it "doesnt create an orderproduct if there isn't enough stock" do
+      large_session_cart = [{@lamb.id=>100}]
+
+      expect {
+        Orderproduct.create_product_orders(@order.id, large_session_cart)
+      }.wont_change 'Orderproduct.all.length'
+    end
   end
 
 end
