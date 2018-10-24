@@ -80,7 +80,7 @@ class OrdersController < ApplicationController
   end
 
   def destroy
-    if @order.destroy
+    # if @order.destroy
   end
 
   private

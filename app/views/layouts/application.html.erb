@@ -12,22 +12,24 @@
 <body>
   <header class="header">
 
-    <section class="nav-container navbar-fixed-top">
+    <section class="nav-container">
 
-    <nav class="top-nav">
+      <nav class="top-nav">
 
-      <div class="logo">
-        <%= link_to "Adoptsy", products_path, class: "menu-text" %>
-      </div>
+        <div class="logo">
+          <%= link_to "Adoptsy", products_path, class: "menu-text" %>
+        </div>
 
-      <div class="user-login">
-        <% if logged_in? %>
+        <div class="user-login">
+          <% if logged_in? %>
 
           <li "nav-item dropdown" role="button" data-toggle="dropdown", aria-haspopup="true" aria-expanded="false">
 
             <%= link_to "#{@current_user.name}'s Dashboard", user_path(@current_user.id), class: "nav-link dropdown-toggle" %></li>
 
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li class="dropdown-item"><%= link_to "Creatures", user_path(@current_user.id) %></li>
+
               <li class="dropdown-item"><%= link_to "Add Creature", new_product_path %></li>
 
               <li class="dropdown-item"><%= link_to "Add Category", new_category_path %></li>
@@ -38,10 +40,10 @@
 
               <li class="dropdown-item"><%= link_to "Log Out", logout_path, method: :delete, data: { confirm: "Are you sure you want to log out?" } %></li>
 
-          <% else %>
+              <% else %>
               <li><%= link_to "Log In", "/auth/github", class: "btn btn-primary" %></li>
-          <% end %>
-          </div>
+              <% end %>
+            </div>
           </div>
 
           <div class="cart-icon">
@@ -49,56 +51,58 @@
               <span><%= session[:cart].map { |product| product.values }.flatten.sum %></span>
             </li>
           </div>
-    </nav>
+        </nav>
 
-    <nav class="bottom-nav">
-        <li><%= link_to "Creatures", products_path %></li>
+        <nav class="bottom-nav">
+          <li><%= link_to "Creatures", products_path %></li>
 
-        <div class="parents">
-          <li class="nav-item dropdown" role="button" data-toggle="dropdown", aria-haspopup="true" aria-expanded="false">
-            <%= link_to "By Parent", users_path, class: "nav-link dropdown-toggle" %></li>
+          <div class="parents">
+            <li class="nav-item dropdown" role="button" data-toggle="dropdown", aria-haspopup="true" aria-expanded="false">
+              <%= link_to "By Parent", users_path, class: "nav-link dropdown-toggle" %></li>
 
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <% @users.each do |user| %>
-            <li class="dropdown-item"><%= link_to user.name, user_path(user) %></li>
-            <% end %>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <% @users.each do |user| %>
+                <li class="dropdown-item"><%= link_to user.name, user_path(user) %></li>
+                <% end %>
+              </div>
             </div>
-        </div>
 
-        <div class="categories">
-          <li class="nav-item dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= link_to "By Category", categories_path, class: "nav-link dropdown-toggle" %></li>
+            <div class="categories">
+              <li class="nav-item dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= link_to "By Category", categories_path, class: "nav-link dropdown-toggle" %></li>
 
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <% @categories.each do |cat| %>
-              <li class="dropdown-item"><%= link_to cat.name, category_path(cat) %></li>
-              <% end %>
-            </div>
-        </div>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <% @categories.each do |cat| %>
+                  <li class="dropdown-item"><%= link_to cat.name, category_path(cat) %></li>
+                  <% end %>
+                </div>
+              </div>
 
+              <div class="search-order">
+                <!-- <i class="fa fa-search" aria-hidden="true"></i>
+                <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search Order ID" aria-label="Search"> -->
+                <%= form_tag search_orders_path, method: :get do %>
+                <div class="active-pink-3 active-pink-4 mb-4">
+                  <%= text_field_tag :order_id, "", class: 'form-control' %>
+                </div>
 
-        <div class="search-order">
-          <%= form_tag search_orders_path, method: :get do %>
-            <%= text_field_tag :order_id %>
-            <%= submit_tag 'Find Order' %>
-          <% end %>
-        </div>
+                <%= submit_tag 'Find Order' %>
+                <% end %>
+              </div>
 
-    </nav>
+            </nav>
+          </section>
+        </section>
+      </header>
 
-    </section>
+      <section class="alert">
+        <% flash.each do |name, message| %>
+        <div class="alert alert-<%= name %>"><%= message %></div>
+        <% end %>
+      </section>
 
-  </header>
-
-  <section class="alert">
-    <% flash.each do |name, message| %>
-    <div class="alert alert-<%= name %>"><%= message %></div>
-    <% end %>
-  </section>
-
-  <main>
-    <%= yield %>
-  </main>
-
-</body>
+      <main>
+        <%= yield %>
+      </main>
+  </body>
 </html>
