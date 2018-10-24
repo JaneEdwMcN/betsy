@@ -19,4 +19,21 @@ class Product < ApplicationRecord
     return sum
   end
 
+  def in_cart?(session)
+    session.each do |item|
+      item.each do |key, value|
+        return true if key.to_i == self.id
+      end
+    end
+    return false
+  end
+
+  def cart_adjust_quantity(session)
+    session.each do |item|
+      item.each do |id, quantity|
+        return self.stock_count - quantity if id.to_i == self.id
+      end
+    end
+  end
+
 end

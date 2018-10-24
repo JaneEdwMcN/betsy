@@ -9,8 +9,8 @@ class OrdersController < ApplicationController
   def show; end
 
   def fulfillment
-     @orders = Order.find_orders(@current_user)
-     @total_revenue = Order.products_sold_total(@current_user, @orders)
+    @orders = Order.find_orders(@current_user)
+    @total_revenue = Order.products_sold_total(@current_user, @orders)
   end
 
   def paid
@@ -33,18 +33,26 @@ class OrdersController < ApplicationController
     @order.status = "pending"
     @order.save
     Orderproduct.create_product_orders(@order.id, session[:cart])
-    @order.total_cost = @order.order_total
-    @order.update(order_params)
-    if @order.save
-      @order.reduce_stock
-      @order.status = "paid"
-      @order.save
-      flash[:success] = 'Your purchase is complete!'
-      session[:cart] = nil
-      redirect_to root_path
-    else
-      flash.now[:danger] = 'Unable to complete order'
+    if session[:cart].length != @order.orderproducts.length
+      @order.orderproducts.each do |orderproduct|
+        orderproduct.destroy
+      end
+      flash.now[:danger] = 'Unable to complete order, not enough stock.'
       render :new, status: :bad_request
+    else
+      @order.total_cost = @order.order_total
+      @order.update(order_params)
+      if @order.save
+        @order.reduce_stock
+        @order.status = "paid"
+        @order.save
+        flash[:success] = 'Your purchase is complete!'
+        session[:cart] = nil
+        redirect_to root_path
+      else
+        flash.now[:danger] = 'Unable to complete order'
+        render :new, status: :bad_request
+      end
     end
   end
 

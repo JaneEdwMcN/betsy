@@ -12,8 +12,7 @@ class OrderproductsController < ApplicationController
     end
   end
 
-
-private
+  private
 
   def find_orderproduct
     @orderproduct = Orderproduct.find_by(id: params[:id])
