@@ -83,10 +83,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  def destroy
-    if @order.destroy
-  end
-
   private
 
   def find_order
