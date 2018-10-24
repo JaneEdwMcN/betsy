@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :find_order
-  skip_before_action :find_order, only: [:fulfillment, :paid, :completed, :new, :completed, :cancelled]
+  skip_before_action :find_order, only: [:fulfillment, :paid, :completed, :new, :completed, :cancelled, :destroy]
 
   def new
     @order = Order.new
@@ -71,6 +71,9 @@ class OrdersController < ApplicationController
     end
   end
 
+  def destroy
+    if @order.destroy
+  end
 
   private
 
