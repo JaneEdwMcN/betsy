@@ -9,7 +9,7 @@ complete_order:
   cc_expiration: 04/21
   cc_cvv: 843
   status: paid
-  total_cost: 8000
+  total_cost: 8000.0
 
 pending_order:
   name: nil
@@ -20,4 +20,4 @@ pending_order:
   cc_expiration: nil
   cc_cvv: nil
   status: pending
-  total_cost: nil
+  total_cost: 0.0
