@@ -38,7 +38,7 @@
                   <%= orderproduct.quantity %>
                 </td>
                 <td>
-                  <%= orderproduct.quantity * orderproduct.product.price %>
+                  <%= money_display(orderproduct.quantity * orderproduct.product.price) %>
                 </td>
                 <td>
                   <%= readable_date(orderproduct.order.created_at) %>

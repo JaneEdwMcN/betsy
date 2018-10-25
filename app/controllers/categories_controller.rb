@@ -23,7 +23,7 @@ before_action :find_category, only: [:show, :destroy]
     else
       # Validations failed! What do we do?
       # This flash message is redundant but for demonstration purposes
-      flash.now[:failure] = "Validations Failed"
+      flash.now[:danger] = "Validations Failed"
       render :new, status: :bad_request
     end
   end
@@ -31,7 +31,7 @@ before_action :find_category, only: [:show, :destroy]
   def destroy
 
     if @category.products.count > 0
-      flash.now[:failure] = "Category contains active products, deletion failed."
+      flash.now[:danger] = "Category contains active products, deletion failed."
     else
       @category.destroy
       flash[:success] = "Category deleted successfully"
