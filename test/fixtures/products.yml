@@ -10,7 +10,6 @@ product1:
   description: nil
   price: 100.0
   user: tan
-  category: nil
   photo_url: https://i.imgur.com/NyKcY9y.jpg
 
 lamb:
@@ -19,7 +18,6 @@ lamb:
   description: cute
   price: 100.0
   user: tan
-  category: mammal
   photo_url: https://i.imgur.com/NyKcY9y.jpg
 
 goat:
@@ -28,7 +26,6 @@ goat:
   description: cute
   price: 200.0
   user: tan
-  category: mammal
   photo_url: https://i.imgur.com/NyKcY9y.jpg
 
 duckling:
@@ -37,7 +34,6 @@ duckling:
   description: cute
   price: 200.0
   user: tan
-  category: mammal
   photo_url: https://i.imgur.com/NyKcY9y.jpg
 
 unicorn:
@@ -46,7 +42,6 @@ unicorn:
   description: ultra-rare
   price: 500.0
   user: tan
-  category: mystical
   photo_url: https://i.imgur.com/NyKcY9y.jpg
 
 dragon:
@@ -55,5 +50,4 @@ dragon:
   description: breathes fire!
   price: 100.0
   user: kit
-  category: mystical
   photo_url: https://i.imgur.com/NyKcY9y.jpg
