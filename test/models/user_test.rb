@@ -42,16 +42,6 @@ describe User do
 
   describe 'custom methods' do
 
-    # describe 'total_revenue' do
-    #   it "calculates total revenue" do
-    #     total_revenue = 0
-    #     Orderproduct.all.each do |orderproduct|
-    #       total_revenue += orderproduct.quantity * orderproduct.product.price if orderproduct.product.user == tan
-    #     end
-    #     tan.total_revenue.must_equal total_revenue
-    #   end
-    # end
-
     describe 'build_from_github(auth_hash)' do
 
       it "builds a user from auth_hash" do

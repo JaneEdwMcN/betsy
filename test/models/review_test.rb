@@ -23,8 +23,6 @@ describe Review do
       @review = reviews(:one)
       @goat = products(:goat)
     end
-    # review = Review.new(name: "Wendy", rating: 3, review: "Wonderful goat.", product_id: @goat.id)
-    # review.valid?.must_equal false
 
     it "requires a rating" do
       review = Review.new(name: "Wendy", review: "Wonderful goat.", product_id: @goat.id)

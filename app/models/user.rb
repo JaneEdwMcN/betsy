@@ -5,18 +5,6 @@ class User < ApplicationRecord
   validates :name, uniqueness: true, presence: true
   validates :email, uniqueness: true, presence: true
 
-  # def total_revenue
-  #   sum = 0
-  #   self.products.each do |product|
-  #     product.orderproducts.each do |orderproduct|
-  #       sum += (orderproduct.product.price * orderproduct.quantity) if orderproduct.order.status != "pending"
-  #       # orderproduct.order.status != "cancelled"
-  #       #do we want to count revenue from cancelled orders??
-  #     end
-  #   end
-  #   return sum
-  # end
-
   def self.build_from_github(auth_hash)
     User.new(
       uid: auth_hash[:uid],
