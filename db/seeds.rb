@@ -70,7 +70,8 @@ CSV.foreach(CREATURE_FILE, :headers => true) do |row|
   creature.description = row['description']
   creature.price = row['price']
   creature.photo_url = row['photo_url']
-  creature.category_id = row['category_id']
+  category = Category.where(name: row['category'])
+    creature.categories << category
   ids = User.pluck(:id)
   random_record = User.find(ids.sample)
     creature.user_id = random_record.id

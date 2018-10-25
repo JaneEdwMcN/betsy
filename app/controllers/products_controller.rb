@@ -13,8 +13,6 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
-    category = Category.find_by(name: product_params[:category_id])
-    @product.category_id = category.id
     if @product.save
       flash[:success] = "New creature added!"
       redirect_to product_path(@product.id)
@@ -30,8 +28,6 @@ class ProductsController < ApplicationController
 
   def update
     @product.update(product_params)
-    category = Category.find_by(name: product_params[:category_id])
-    @product.category_id = category.id
     if @product.save
       flash[:success] = "Successfully updated creatures."
       redirect_to product_path(@product)
@@ -52,7 +48,7 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    return params.require(:product).permit(:name, :price, :stock_count, :user_id, :photo_url, :description, :category_id)
+    return params.require(:product).permit(:name, :price, :stock_count, :user_id, :photo_url, :description, category_ids: [])
   end
 
   def find_product

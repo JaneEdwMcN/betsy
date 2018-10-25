@@ -4,24 +4,28 @@
 <section class="order-text">
 <h3> Adoption Parent: <%= @order.name %></h3>
 <h3> Delivery Address: <%= @order.mailing_address %></h3>
-<h3> Order Total: <%= @order.total_cost %></h3>
+<h3> Order Total: $<%= money_display(@order.total_cost) %></h3>
 <h3> Order Status: <%= @order.status %></h3>
+<h3> Order Date: <%= readable_date(@order.created_at) %></h3>
+
 
 <table class="table">
 
   <thead>
     <tr>
       <th scope="col">Name</th>
-      <th scope="col">Price</th>
+      <th scope="col">Adoption Price</th>
       <th scope="col">Quantity</th>
+      <th scope="col">Total</th>
     </tr>
   </thead>
 
   <% @order.orderproducts.each do |orderproduct| %>
     <tbody>
       <td><%= link_to orderproduct.product.name, product_path(orderproduct.product.id) %></td>
-      <td><%= money_display(orderproduct.product.price) %></td>
+      <td>$<%= money_display(orderproduct.product.price) %></td>
       <td><%= orderproduct.quantity %></td>
+      <td>$<%= money_display(orderproduct.product.price * orderproduct.quantity) %></td>
     </tbody>
   <% end %>
 </table>
