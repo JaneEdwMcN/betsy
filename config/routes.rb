@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root "products#index"
+  root "products#home"
+
   get "/products/cart", to: "sessions#cart_view", as: "cart"
 
   get "/auth/:provider/callback", to: "sessions#create", as: "login"

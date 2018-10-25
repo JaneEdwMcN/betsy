@@ -17,23 +17,58 @@
 /* Import scss content */
 @import "**/*";
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+@import url('https://fonts.googleapis.com/css?family=Kirang+Haerang|Muli|Niramit|Inconsolata|Indie+FlowerDosis|Inconsolata|Indie+Flower|KoHo|Muli|Niramit|Rubik');
+
+body {
+  font-family: 'Muli', sans-serif;
+  // background-color: #EDE9E1;
+}
+
+#background-wrapper {
+  background-image: url(https://i.imgur.com/PAWaGgr.jpg);
+  background-position: center center;
+  background-repeat:  no-repeat;
+  background-attachment: fixed;
+  background-size:  cover;
+  background-color: #999;
+}
 
 h1 {
   text-align: center;
+  color: black;
+  font-family: 'KoHo', sans-serif;
+  font-size: 2em;
 }
 
-@import url('https://fonts.googleapis.com/css?family=Kirang+Haerang');
+h4 {
+  font-size: 1em;
+}
 
-main {
-  // margin: 2em;
+h2 {
+  padding-bottom: 1em;
+}
+
+li {
+  list-style: none;
+}
+
+ul {
+    list-style: none;
+    margin-bottom: 0px;
+}
+
+#add_new_creature {
+    padding-top: 1em;
 }
 
 .header {
     display: block;
     margin: 0px;
     padding: 0px;
-}
+    padding-bottom: 5rem;
+    // margin-bottom: 5em;
 
+}
 
 .logo a:hover {
   text-decoration: none;
@@ -43,20 +78,50 @@ main {
   color: #FF8514;
 }
 
-header {
-  // background-color: lightgray;
-}
 
 header a {
   color: gray;
 }
 
 header a:hover {
-  color: black;
+  color: #FF8514;
+}
+
+nav {
+
+}
+
+nav li:first-child {
+  padding-right: 20px;
+}
+
+.nav-container {
+  background-color: white;
+  // margin-bottom: 2.5em;
 }
 
 .header_container .container {
     max-width: 100%;
+}
+
+.logo {
+    padding-top: 15px;
+    display: block;
+    padding-left: 1.5em;
+    position: relative;
+    box-sizing: border-box;
+    font-size: 4.5em;
+    color: #FF8514;
+    font-family: 'Indie Flower', cursive;
+}
+
+.form-control {
+    border: 1px solid #FF8514;
+    box-shadow: 0 0 0 1px #FF8514;
+}
+
+.search-order {
+  padding-left: 15px;
 }
 
 .top-nav {
@@ -75,16 +140,6 @@ header a:hover {
     position: relative;
 }
 
-.logo {
-    display: block;
-    padding-left: 1.5em;
-    position: relative;
-    box-sizing: border-box;
-    font-family: 'Kirang Haerang', cursive;
-    font-size: 4em;
-    color: #FF8514;
-}
-
 .bottom-nav {
     display: flex;
     flex-wrap: wrap;
@@ -95,25 +150,38 @@ header a:hover {
     position: relative;
 }
 
-// .cart-icon {
-//   margin-left: auto;
-// }
+.btn-outline-primary {
+  border-color: #FF8514;
+  margin: 1em;
+  color: #FF8514;
+}
 
-li {
+.btn-outline-primary:hover  {
+background-color: #FF8514;
+}
+
+.card-title a {
+  color: black;
+
+}
+
+.card-title a:hover {
+  color: #FF8514;
   list-style: none;
 }
 
+.main-content {
+  margin: 10%;
+}
 
-ul {
-    list-style: none;
-    margin-bottom: 0px;
+.product-content {
+  margin-top: 10%
 }
 
 .user-login {
   margin-left: auto;
   padding-right: 2rem;
 }
-
 
 .cart-img {
   width: 150px;
@@ -233,4 +301,9 @@ ul {
 .more-from, .review-button {
   text-align: center;
   padding-top: 0.5em;
+}
+
+.parent-name {
+  padding-top: 2em;
+  padding-left: 3em;
 }
