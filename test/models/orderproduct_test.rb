@@ -67,7 +67,7 @@ describe Orderproduct do
     end
 
     it "a quantity needs to be equal or less than an orderproduct's product's stock count" do
-      orderproduct = Orderproduct.new(status: "pending", quantity: -1, order_id: @order.id, product_id: @goat.id)
+      orderproduct = Orderproduct.create(status: "pending", quantity: -1, order_id: @order.id, product_id: @goat.id)
       orderproduct.valid?.must_equal false
       orderproduct.errors.messages.must_include :quantity
 
