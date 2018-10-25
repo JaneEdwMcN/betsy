@@ -50,27 +50,47 @@ class OrdersController < ApplicationController
   end
 
   def fulfillment
-     @orderproducts = Order.find_orderproducts(@current_user, nil)
-     @total_revenue = Order.products_sold_total(@current_user, @orderproducts)
-     @count = Order.count_orders(@current_user, nil)
+    if @current_user
+      @orderproducts = Order.find_orderproducts(@current_user, nil)
+      @total_revenue = Order.products_sold_total(@current_user, @orderproducts)
+      @count = Order.count_orders(@current_user, nil)
+    else
+      flash[:danger] = 'Sorry, the fulfillment page is only for creature moms.'
+      redirect_to root_path
+    end
   end
 
   def paid
-    @orderproducts = Order.find_orderproducts(@current_user, "paid")
-    @total_revenue = Order.products_sold_total(@current_user, @orderproducts)
-    @count = Order.count_orders(@current_user, "paid")
+    if @current_user
+      @orderproducts = Order.find_orderproducts(@current_user, "paid")
+      @total_revenue = Order.products_sold_total(@current_user, @orderproducts)
+      @count = Order.count_orders(@current_user, "paid")
+    else
+      flash[:danger] = 'Sorry, the fulfillment page is only for creature moms.'
+      redirect_to root_path
+    end
   end
 
   def completed
-    @orderproducts = Order.find_orderproducts(@current_user, "completed")
-    @total_revenue = Order.products_sold_total(@current_user, @orderproducts)
-    @count = Order.count_orders(@current_user, "completed")
+    if @current_user
+      @orderproducts = Order.find_orderproducts(@current_user, "completed")
+      @total_revenue = Order.products_sold_total(@current_user, @orderproducts)
+      @count = Order.count_orders(@current_user, "completed")
+    else
+      flash[:danger] = 'Sorry, the fulfillment page is only for creature moms.'
+      redirect_to root_path
+    end
   end
 
   def cancelled
-    @orderproducts = Order.find_orderproducts(@current_user, "cancelled")
-    @total_revenue = Order.products_sold_total(@current_user, @orderproducts)
-    @count = Order.count_orders(@current_user, "cancelled")
+    if @current_user
+      @orderproducts = Order.find_orderproducts(@current_user, "cancelled")
+      @total_revenue = Order.products_sold_total(@current_user, @orderproducts)
+      @count = Order.count_orders(@current_user, "cancelled")
+    else
+      flash[:danger] = 'Sorry, the fulfillment page is only for creature moms.'
+      redirect_to root_path
+    end
   end
 
   def search

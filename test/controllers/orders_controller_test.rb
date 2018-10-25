@@ -182,6 +182,22 @@ describe "update" do
   describe "fulfillment methods" do
     let(:tan) { users(:tan) }
 
+
+    it "blocks all fulfillment pages if user is not signed in" do
+      get get_orders_path
+      must_redirect_to root_path
+      expect(flash[:danger]).must_equal "Sorry, the fulfillment page is only for creature moms."
+
+      get cancelled_orders_path
+      must_redirect_to root_path
+
+      get paid_orders_path
+      must_redirect_to root_path
+
+      get completed_orders_path
+      must_redirect_to root_path
+    end
+
     it "retrieves all orders and total cost" do
       expect {perform_login(tan)}.wont_change('User.count')
       get get_orders_path
@@ -191,21 +207,21 @@ describe "update" do
 
     it "retrieves paid orders and total cost" do
       expect {perform_login(tan)}.wont_change('User.count')
-      get get_orders_path
+      get paid_orders_path
 
       must_respond_with :success
     end
 
     it "retrieves cancelled orders and total cost" do
       expect {perform_login(tan)}.wont_change('User.count')
-      get get_orders_path
+      get cancelled_orders_path
 
       must_respond_with :success
     end
 
     it "retrieves cancelled orders and total cost" do
       expect {perform_login(tan)}.wont_change('User.count')
-      get get_orders_path
+      get completed_orders_path
 
       must_respond_with :success
     end

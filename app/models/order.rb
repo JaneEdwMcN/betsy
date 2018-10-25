@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
   has_many :orderproducts, dependent: :destroy
+  validates :cc_number, :cc_cvv, :total_cost, :zip_code, numericality: true, on: :update
   validates :name, :email, :mailing_address, :zip_code, :cc_number,
   :cc_expiration, :cc_cvv, :status, :total_cost, presence: true, on: :update
 
