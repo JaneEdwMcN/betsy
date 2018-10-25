@@ -5,7 +5,7 @@ class Orderproduct < ApplicationRecord
 
   STATUSES= %w(pending shipped)
   validates :status,  presence: true, inclusion: { in: STATUSES }
-  validate :quantity_in_stock?
+  validate :quantity_in_stock?, on: :create
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :product_id,  presence: true
   validates :order_id,  presence: true
