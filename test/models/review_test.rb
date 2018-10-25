@@ -17,29 +17,38 @@ describe Review do
       @review.product_id.must_equal @lamb.id
     end
   end
-  name rating review product_id
 
   describe "validations" do
     before do
       @review = reviews(:one)
       @goat = products(:goat)
     end
+    # review = Review.new(name: "Wendy", rating: 3, review: "Wonderful goat.", product_id: @goat.id)
+    # review.valid?.must_equal false
 
-    it "has a rating" do
-      review = Review.new(name: "Wendy", rating: 3, review: "Wonderful goat.", product_id: )
-      user.valid?.must_equal false
+    it "requires a rating" do
+      review = Review.new(name: "Wendy", review: "Wonderful goat.", product_id: @goat.id)
+      review.valid?.must_equal false
     end
 
-    it "has a rating between 1 and 5" do
+    it "requires a rating between 1 and 5" do
+      review = Review.new(name: "Wendy", rating: 100, review: "Wonderful goat.", product_id: @goat.id)
+      review.valid?.must_equal false
     end
 
     it "it's rating is a number" do
+      review = Review.new(name: "Wendy", rating: "hello", review: "Wonderful goat.", product_id: @goat.id)
+      review.valid?.must_equal false
     end
 
-    it "has a name" do
+    it "requires a name" do
+      review = Review.new(rating: 3, review: "Wonderful goat.", product_id: @goat.id)
+      review.valid?.must_equal false
     end
 
-    it "has a review" do
+    it "requires a review" do
+      review = Review.new(name: "Wendy", rating: 3, product_id: @goat.id)
+      review.valid?.must_equal false
     end
   end
 
