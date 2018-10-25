@@ -1,7 +1,13 @@
 require "test_helper"
 
 describe OrderproductsController do
-  # it "must be a real test" do
-  #   flunk "Need real tests"
-  # end
+  describe "update" do
+    it "updates the status to pending or shipped" do
+
+    end
+
+    it "doesnt update the status with invalid options" do
+
+    end
+  end
 end
