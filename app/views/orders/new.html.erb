@@ -1,4 +1,4 @@
-<section>
+<section class="main-content">
   <%= form_with model: @order do |f| %>
 
   <div class="form-group">
@@ -36,7 +36,7 @@
     <%= f.text_field :cc_cvv, class: "form-control", placeholder: "Cvv" %>
   </div>
 
-    <%= f.submit "Submit", class: "btn btn-primary" %>
+    <%= f.submit "Submit", class: "btn btn-outline-primary" %>
 
   <% end %>
 </section>

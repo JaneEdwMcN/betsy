@@ -17,23 +17,48 @@
 /* Import scss content */
 @import "**/*";
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+@import url('https://fonts.googleapis.com/css?family=Kirang+Haerang|Muli|Niramit|Inconsolata|Indie+Flower|KoHo|Rubik');
+
+body {
+  font-family: 'Muli', sans-serif;
+}
 
 h1 {
   text-align: center;
+  color: grey;
+  font-size: 2.5em;
 }
 
-@import url('https://fonts.googleapis.com/css?family=Kirang+Haerang');
+h3 {
+  font-size: 1em;
+}
 
-body {
-  margin: 2rem;
+h4 {
+  font-size: 1em;
+}
+
+h2 {
+  padding-bottom: 1em;
+}
+
+li {
+  list-style: none;
+}
+
+ul {
+    list-style: none;
+    margin-bottom: 0px;
+}
+
+#add_new_creature {
+    padding-top: 1em;
 }
 
 .header {
     display: block;
     margin: 0px;
     padding: 0px;
-    // padding-left: 45px;
-    // padding-right: 45px;
+    padding-bottom: 5rem;
 }
 
 .logo a:hover {
@@ -41,18 +66,62 @@ body {
 }
 
 .logo a:visited {
-  color: black;
+  color: #FF8514;
+}
+
+header a {
+  color: gray;
+}
+
+header a:hover {
+  color: #FF8514;
+}
+
+nav li:first-child {
+  padding-right: 20px;
+}
+
+.nav-container {
+  background-color: white;
 }
 
 .header_container .container {
     max-width: 100%;
 }
 
-.top-nav {
+.order-text {
+  padding: 1em;
+}
+
+.logo {
+    padding-top: 15px;
+    display: block;
+    padding-left: 1.5em;
+    position: relative;
+    box-sizing: border-box;
+    font-size: 4.5em;
+    color: #FF8514;
+    font-family: 'Indie Flower', cursive;
+}
+
+.form-control {
+    border: 1px solid #FF8514;
+    box-shadow: 0 0 0 1px #FF8514;
+}
+
+.search-order {
+  padding-left: 15px;
+}
+
+.bottom-nav {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.cart-icon {
+  padding-right: 1em;
 }
 
 .cart-icon img {
@@ -60,37 +129,50 @@ body {
     position: relative;
 }
 
-.logo {
-    display: block;
-    position: relative;
-    box-sizing: border-box;
-    font-family: 'Kirang Haerang', cursive;
-    font-size: 4rem;
-}
-
-.bottom-nav {
+.top-nav {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     height: 80px;
-    background-color: white;
     justify-content: center;
     align-items: center;
     position: relative;
 }
 
-// .cart-icon {
-//   margin-left: auto;
-// }
+.btn-outline-primary {
+  border-color: #FF8514;
+  margin: 1em;
+  color: #FF8514;
+}
 
-li {
+.btn-outline-primary:hover  {
+background-color: #FF8514;
+}
+
+.card-title a {
+  color: black;
+
+}
+
+.card-title a:hover {
+  color: #FF8514;
   list-style: none;
 }
 
+.main-content {
+  margin: 10%;
+}
 
-ul {
-    list-style: none;
-    margin-bottom: 0px;
+.main-img {
+  
+}
+
+.all-products {
+  margin-top: 10%;
+}
+
+.product-content {
+  margin-top: 10%
 }
 
 .user-login {
@@ -98,10 +180,13 @@ ul {
   padding-right: 2rem;
 }
 
-
 .cart-img {
   width: 150px;
   height:  auto;
+}
+
+.alert {
+  margin-top: 8%;
 }
 
 .card-group-container {
@@ -217,4 +302,9 @@ ul {
 .more-from, .review-button {
   text-align: center;
   padding-top: 0.5em;
+}
+
+.parent-name {
+  padding-top: 2em;
+  padding-left: 3em;
 }

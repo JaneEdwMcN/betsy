@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   before_action :find_product
   before_action :require_product_owner, only: [:edit, :update, :destroy]
-  skip_before_action :find_product, only: [:index, :cart_view, :new, :create]
+  skip_before_action :find_product, only: [:index, :cart_view, :new, :create, :home]
 
   def index
     @products = Product.order(:name)
@@ -40,6 +40,8 @@ class ProductsController < ApplicationController
     end
   end
 
+  def home
+  end
 
   private
   def require_product_owner

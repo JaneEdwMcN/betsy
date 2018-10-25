@@ -1,3 +1,4 @@
+<section id="product-content">
 <% in_cart = @product.in_cart?(session[:cart]) %>
 <% product_stock_select = @product.stock_count > 1 ? [*1..@product.stock_count] : [@product.stock_count] %>
 <% cart_adjust_quantity = @product.cart_adjust_quantity(session[:cart]) if in_cart %>
@@ -13,19 +14,19 @@
       <% if option_values[0] > 0 %>
       <p><%= form_with url: add_to_cart_path(@product.id), method: :post do |f| %>
         <%= f.select :quantity, options_for_select(option_values) %>
-        <%= f.submit "Add to Cart", class: "btn btn-primary"%>
+        <%= f.submit "Add to Cart", class: "btn btn-outline-primary"%>
         <% end %>
       </p>
       <% elsif option_values[0] <= 0 && in_cart %>
       <h4 class="card-text"><em>All the <%= @product.name.capitalize.pluralize %> are in your cart!</em></h4><br>
-      <p><%= link_to "Remove from Cart", remove_from_cart_path(@product.id), class: "btn btn-primary"%></p>
+      <p><%= link_to "Remove from Cart", remove_from_cart_path(@product.id), class: "btn btn-outline-primary"%></p>
       <% elsif option_values[0] == 0 && !in_cart %>
       <h4 class="card-text"><em>Out of Stock!</em></h4><br>
       <% end %>
       <h4>Description</h4>
       <p><%= @product.description %></p>
       <% if logged_in? && @current_user.id == @product.user.id %>
-      <p><%= link_to "Update Creature", edit_product_path(@product.id), class: "btn btn-primary"%></p>
+      <p><%= link_to "Update Creature", edit_product_path(@product.id), class: "btn btn-outline-primary"%></p>
       <% end %>
     </section>
   </section>
@@ -44,7 +45,7 @@
     </ul>
     <% end %>
     <% if @product.user != @current_user %>
-    <p class="review-button"><%= link_to "Leave a Review", new_product_review_path(@product.id), class: "btn btn-primary" %></p>
+    <p class="review-button"><%= link_to "Leave a Review", new_product_review_path(@product.id), class: "btn btn-outline-primary" %></p>
     <% end %>
   </section>
 
@@ -75,7 +76,7 @@
       </ul>
       <% end %>
       <% if @product.user != @current_user %>
-      <p class="review-button"><%= link_to "Leave a Review", new_product_review_path(@product.id), class: "btn btn-primary" %></p>
+      <p class="review-button"><%= link_to "Leave a Review", new_product_review_path(@product.id), class: "btn btn-outline-primary" %></p>
       <% end %>
     </section>
 
@@ -83,7 +84,7 @@
     <!-- has no reviews and more user products -->
     <section class="only-user-products-container">
       <% if @product.user != @current_user %>
-      <p><%= link_to "Leave a Review", new_product_review_path(@product.id), class: "btn btn-primary" %></p>
+      <p><%= link_to "Leave a Review", new_product_review_path(@product.id), class: "btn btn-outline-primary" %></p>
       <% end %>
       <h4 class="more-from"> More from Seller </h4>
       <section class="user-products-flex">
@@ -100,9 +101,10 @@
       <!-- has no reviews and no more user products -->
       <section class="no-reviews-no-user-products">
         <% if @product.user != @current_user %>
-        <p><%= link_to "Leave a Review", new_product_review_path(@product.id), class: "btn btn-primary" %></p>
+        <p><%= link_to "Leave a Review", new_product_review_path(@product.id), class: "btn btn-outline-primary" %></p>
         <% end %>
       </section>
       <% end %>
 
     </article>
+</section>

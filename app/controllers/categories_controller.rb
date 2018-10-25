@@ -9,9 +9,7 @@ before_action :find_category, only: [:show, :destroy]
   def show; end
 
   def new
-
     @category = Category.new
-
   end
 
   def create
