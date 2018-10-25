@@ -180,24 +180,35 @@ describe "update" do
   end
 
   describe "fulfillment methods" do
+    let(:tan) { users(:tan) }
+
     it "retrieves all orders and total cost" do
+      expect {perform_login(tan)}.wont_change('User.count')
+      get get_orders_path
 
-
+      must_respond_with :success
     end
 
     it "retrieves paid orders and total cost" do
-      p (Order.all.where(status: "paid")).count
-      # get /fulfillment/paid
+      expect {perform_login(tan)}.wont_change('User.count')
+      get get_orders_path
 
+      must_respond_with :success
     end
 
     it "retrieves cancelled orders and total cost" do
+      expect {perform_login(tan)}.wont_change('User.count')
+      get get_orders_path
 
+      must_respond_with :success
     end
 
     it "retrieves cancelled orders and total cost" do
+      expect {perform_login(tan)}.wont_change('User.count')
+      get get_orders_path
 
+      must_respond_with :success
     end
+
   end
-
 end
