@@ -1,9 +1,7 @@
 require "test_helper"
-
 describe Orderproduct do
 
   describe "relationships" do
-
     before do
       @orderproduct1 = orderproducts(:orderproduct1)
     end
@@ -58,6 +56,12 @@ describe Orderproduct do
 
     it "a quantity needs to be an integer" do
       orderproduct = Orderproduct.new(status: "pending", quantity: "hello", order_id: @order.id, product_id: @goat.id)
+      orderproduct.valid?.must_equal false
+      orderproduct.errors.messages.must_include :quantity
+    end
+
+    it "a quantity needs to greater than 0" do
+      orderproduct = Orderproduct.new(status: "pending", quantity: -1, order_id: @order.id, product_id: @goat.id)
       orderproduct.valid?.must_equal false
       orderproduct.errors.messages.must_include :quantity
     end
