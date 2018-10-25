@@ -48,3 +48,12 @@ unicorn:
   user: tan
   category: mystical
   photo_url: https://i.imgur.com/NyKcY9y.jpg
+
+dragon:
+  name: Dragoonie
+  stock_count: 1
+  description: breathes fire!
+  price: 100.0
+  user: kit
+  category: mystical
+  photo_url: https://i.imgur.com/NyKcY9y.jpg

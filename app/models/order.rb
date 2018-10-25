@@ -4,6 +4,8 @@ class Order < ApplicationRecord
   validates :name, :email, :mailing_address, :zip_code, :cc_number,
   :cc_expiration, :cc_cvv, :status, :total_cost, presence: true, on: :update
 
+  validates :orderproducts, :length => { :minimum => 1 }, on: :update
+
   def order_total
     total_cost = 0
     self.orderproducts.each do |orderproduct|

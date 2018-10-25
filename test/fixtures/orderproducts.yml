@@ -35,3 +35,9 @@ orderproduct6:
   product: goat
   quantity: 2
   status: pending
+
+orderproduct6:
+  order: complete_order
+  product: dragon
+  quantity: 1
+  status: shipped
