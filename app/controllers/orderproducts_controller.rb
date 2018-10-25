@@ -7,7 +7,7 @@ class OrderproductsController < ApplicationController
       flash[:success] = "Status of ordered product has been changed."
       redirect_back(fallback_location: "get_orders")
     else
-      flash[:failure] = "Status could not be changed."
+      flash[:warning] = "Status could not be changed."
       redirect_back(fallback_location: "get_orders")
     end
   end
