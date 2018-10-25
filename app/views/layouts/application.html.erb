@@ -11,9 +11,8 @@
 
 <body>
   <header class="header">
-    <section class="nav-container fixed-top">
-
-      <nav class="bottom-nav">
+        <section class="nav-container fixed-top">
+          <nav class="top-nav">
 
         <li><%= link_to "Creatures", products_path %></li>
 
@@ -47,7 +46,7 @@
 
           </nav>
 
-          <nav class="top-nav">
+          <nav class="bottom-nav">
 
             <div class="logo">
               <%= link_to "Adoptsy", root_path, class: "menu-text" %>
@@ -80,18 +79,18 @@
               </div>
             </nav>
           </section>
+
         </header>
 
-        <section class="alert">
-          <% flash.each do |name, message| %>
-          <div class="alert alert-<%= name %>"><%= message %></div>
-          <% end %>
-        </section>
+        <main class="main-container">
 
-        <main>
-          <section class="main-container">
+            <section class="alert">
+              <% flash.each do |name, message| %>
+              <div class="alert alert-<%= name %>"><%= message %></div>
+              <% end %>
+            </section>
             <%= yield %>
-          </section>
+
         </main>
       </body>
       </html>

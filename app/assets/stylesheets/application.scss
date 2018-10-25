@@ -17,27 +17,20 @@
 /* Import scss content */
 @import "**/*";
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
-@import url('https://fonts.googleapis.com/css?family=Kirang+Haerang|Muli|Niramit|Inconsolata|Indie+FlowerDosis|Inconsolata|Indie+Flower|KoHo|Muli|Niramit|Rubik');
+@import url('https://fonts.googleapis.com/css?family=Kirang+Haerang|Muli|Niramit|Inconsolata|Indie+Flower|KoHo|Rubik');
 
 body {
   font-family: 'Muli', sans-serif;
-  // background-color: #EDE9E1;
-}
-
-#background-wrapper {
-  background-image: url(https://i.imgur.com/PAWaGgr.jpg);
-  background-position: center center;
-  background-repeat:  no-repeat;
-  background-attachment: fixed;
-  background-size:  cover;
-  background-color: #999;
 }
 
 h1 {
   text-align: center;
-  color: black;
-  font-family: 'KoHo', sans-serif;
-  font-size: 2em;
+  color: grey;
+  font-size: 2.5em;
+}
+
+h3 {
+  font-size: 1em;
 }
 
 h4 {
@@ -66,8 +59,6 @@ ul {
     margin: 0px;
     padding: 0px;
     padding-bottom: 5rem;
-    // margin-bottom: 5em;
-
 }
 
 .logo a:hover {
@@ -78,7 +69,6 @@ ul {
   color: #FF8514;
 }
 
-
 header a {
   color: gray;
 }
@@ -87,21 +77,20 @@ header a:hover {
   color: #FF8514;
 }
 
-nav {
-
-}
-
 nav li:first-child {
   padding-right: 20px;
 }
 
 .nav-container {
   background-color: white;
-  // margin-bottom: 2.5em;
 }
 
 .header_container .container {
     max-width: 100%;
+}
+
+.order-text {
+  padding: 1em;
 }
 
 .logo {
@@ -124,7 +113,7 @@ nav li:first-child {
   padding-left: 15px;
 }
 
-.top-nav {
+.bottom-nav {
     position: relative;
     display: flex;
     justify-content: center;
@@ -140,7 +129,7 @@ nav li:first-child {
     position: relative;
 }
 
-.bottom-nav {
+.top-nav {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
@@ -174,6 +163,14 @@ background-color: #FF8514;
   margin: 10%;
 }
 
+.main-img {
+  
+}
+
+.all-products {
+  margin-top: 10%;
+}
+
 .product-content {
   margin-top: 10%
 }
@@ -186,6 +183,10 @@ background-color: #FF8514;
 .cart-img {
   width: 150px;
   height:  auto;
+}
+
+.alert {
+  margin-top: 8%;
 }
 
 .card-group-container {
