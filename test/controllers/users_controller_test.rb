@@ -11,7 +11,9 @@ describe UsersController do
 
     it "succeeds when there are no users" do
       users = User.all
-      users = nil
+      User.all.each do |user|
+        user.destroy
+      end
 
       get users_path
       must_respond_with :success
