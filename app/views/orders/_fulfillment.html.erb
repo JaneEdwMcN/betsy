@@ -1,4 +1,4 @@
-<h2 class="order_heading"> <%= @current_user.name %>'s Fulfillment page </h2>
+<h2 class="order_heading"> <%= @current_user.name %>'s Fulfillment Page: <%= status %></h2>
 <div class="dropdown show order_types">
   <a class="btn btn-secondary dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Filter Orders
@@ -60,5 +60,5 @@
 
 <section class="orders_details">
   <h3> Orders count: <%= @count %> </h3>
-  <h3> Fundraising Revenue for all Orders: <%= money_display(@total_revenue) %> </h3>
+  <h3> Fundraising Revenue for all <%= status %>: <%= money_display(@total_revenue) %> </h3>
 </section>

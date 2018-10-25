@@ -2,5 +2,5 @@
 <% if @current_user == nil %>
   <h2> You must sign in to view the fulfillment page. </h2>
 <% else %>
-<%= render partial: "fulfillment" %>
+<%= render partial: "fulfillment", locals: { status: "Orders" }%>
 <% end %>
