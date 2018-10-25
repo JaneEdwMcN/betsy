@@ -9,16 +9,9 @@ class UsersController < ApplicationController
     render :notfound, status: :not_found unless @user
   end
 
-  def print_products
-    @user.products
-  end
+  private
 
-  def destroy
+  def user_params
+    return params.require(:user).permit(:name, :email)
   end
-  
-   private
-
-   def user_params
-     return params.require(:user).permit(:name, :email)
-   end
 end
