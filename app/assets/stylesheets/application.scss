@@ -1,16 +1,16 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- */
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+* vendor/assets/stylesheets directory can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the bottom of the
+* compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+* files in this directory. Styles in this file should be added after the last require_* statement.
+* It is generally better to create a new file per style scope.
+*
+*/
 
 /* Custom bootstrap variables must be set or imported *before* bootstrap. */
 @import "bootstrap";
@@ -21,6 +21,14 @@
 
 body {
   font-family: 'Muli', sans-serif;
+}
+
+a {
+  color: black;
+}
+
+a:visited {
+  color: black;
 }
 
 h1 {
@@ -46,19 +54,19 @@ li {
 }
 
 ul {
-    list-style: none;
-    margin-bottom: 0px;
+  list-style: none;
+  margin-bottom: 0px;
 }
 
 #add_new_creature {
-    padding-top: 1em;
+  padding-top: 1em;
 }
 
 .header {
-    display: block;
-    margin: 0px;
-    padding: 0px;
-    padding-bottom: 5rem;
+  display: block;
+  margin: 0px;
+  padding: 0px;
+  // padding-bottom: 2rem;
 }
 
 .logo a:hover {
@@ -86,7 +94,7 @@ nav li:first-child {
 }
 
 .header_container .container {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 .order-text {
@@ -94,19 +102,19 @@ nav li:first-child {
 }
 
 .logo {
-    padding-top: 15px;
-    display: block;
-    padding-left: 1.5em;
-    position: relative;
-    box-sizing: border-box;
-    font-size: 4.5em;
-    color: #FF8514;
-    font-family: 'Indie Flower', cursive;
+  padding-top: 15px;
+  display: block;
+  padding-left: 1.5em;
+  position: relative;
+  box-sizing: border-box;
+  font-size: 4.5em;
+  color: #FF8514;
+  font-family: 'Indie Flower', cursive;
 }
 
 .form-control {
-    border: 1px solid #FF8514;
-    box-shadow: 0 0 0 1px #FF8514;
+  border: 1px solid #FF8514;
+  box-shadow: 0 0 0 1px #FF8514;
 }
 
 .search-order {
@@ -114,10 +122,10 @@ nav li:first-child {
 }
 
 .bottom-nav {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .cart-icon {
@@ -125,18 +133,19 @@ nav li:first-child {
 }
 
 .cart-icon img {
-    height: 27px;
-    position: relative;
+  height: 27px;
+  position: relative;
 }
 
 .top-nav {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    height: 80px;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 80px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-color: #F9F3E6;
 }
 
 .btn-outline-primary {
@@ -146,7 +155,7 @@ nav li:first-child {
 }
 
 .btn-outline-primary:hover  {
-background-color: #FF8514;
+  background-color: #FF8514;
 }
 
 .card-title a {
@@ -163,12 +172,17 @@ background-color: #FF8514;
   margin: 10%;
 }
 
-.main-img {
-  
+#main-img {
+  object-fit: none;
+
+  img {
+    width: 80%;
+    height: 50%;
+  }
 }
 
 .all-products {
-  margin-top: 10%;
+  // margin-top: 8%;
 }
 
 .product-content {
@@ -186,7 +200,7 @@ background-color: #FF8514;
 }
 
 .alert {
-  margin-top: 8%;
+  margin-top: 1%;
 }
 
 .card-group-container {
@@ -197,17 +211,17 @@ background-color: #FF8514;
 }
 
 .card-container {
-    margin: 1em;
+  margin: 1em;
 }
 
 .checked {
-    color: black;
+  color: black;
 }
 
 .notfound {
-   text-align: center;
-   align-self: center;
-   width: 70%;
+  text-align: center;
+  align-self: center;
+  width: 70%;
 }
 
 .not_found {
@@ -221,9 +235,9 @@ background-color: #FF8514;
 }
 
 .user-products-img img{
-    width: 200px;
-    height:  auto;
-    padding: 1em;
+  width: 200px;
+  height:  auto;
+  padding: 1em;
 }
 
 .user-products-flex {
