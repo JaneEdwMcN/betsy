@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-  has_many :orderproducts
+  has_many :orderproducts, dependent: :destroy
   validates :name, :email, :mailing_address, :zip_code, :cc_number,
   :cc_expiration, :cc_cvv, :status, :total_cost, presence: true, on: :update
 

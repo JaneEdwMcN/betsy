@@ -40,16 +40,11 @@ duckling:
   category: mammal
   photo_url: https://i.imgur.com/NyKcY9y.jpg
 
-    #
-    # t.bigint "user_id"
-    # t.datetime "created_at", null: false
-    # t.datetime "updated_at", null: false
-    # t.integer "stock_count"
-    # t.integer "price"
-    # t.string "category"
-    # t.string "photo_url"
-    # t.string "description"
-    # t.string "name"
-    # t.integer "category_id"
-    # t.index ["category_id"], name: "index_products_on_category_id"
-    # t.index ["user_id"], name: "index_products_on_user_id"
+unicorn:
+  name: Unicorn
+  stock_count: 1
+  description: ultra-rare
+  price: 500.0
+  user: kit
+  category: mystical
+  photo_url: https://i.imgur.com/NyKcY9y.jpg

@@ -8,6 +8,47 @@ class OrdersController < ApplicationController
 
   def show; end
 
+  def create
+    @order = Order.new
+    @order.status = "pending"
+    @order.save
+    Orderproduct.create_product_orders(@order.id, session[:cart])
+    if session[:cart].length != @order.orderproducts.length
+      @order.orderproducts.each do |orderproduct|
+        orderproduct.destroy
+      end
+      flash[:danger] = 'Unable to complete order, not enough stock.'
+      redirect_to root_path
+    else
+      @order.total_cost = @order.order_total
+      @order.update(order_params)
+      if @order.save
+        @order.reduce_stock
+        @order.status = "paid"
+        @order.save
+        flash[:success] = "Order successfully placed! (Order ##{@order.id})"
+        session[:cart] = nil
+        redirect_to order_path(@order.id)
+      else
+        flash.now[:danger] = flash[:messages] = @order.errors.messages
+        @order.destroy
+        render :new, status: :bad_request
+      end
+    end
+  end
+
+
+  def update
+    @order.update(order_params)
+    if @order && @order.save
+      flash[:success] = 'Status has been changed.'
+      redirect_to order_path(@order.id)
+    else
+      flash[:danger] = 'Order was not updated.'
+      redirect_to order_path(@order.id)
+    end
+  end
+
   def fulfillment
      @orderproducts = Order.find_orderproducts(@current_user, nil)
      @total_revenue = Order.products_sold_total(@current_user, @orderproducts)
@@ -32,49 +73,8 @@ class OrdersController < ApplicationController
     @count = Order.count_orders(@current_user, "cancelled")
   end
 
-  def create
-    @order = Order.new
-    @order.status = "pending"
-    @order.save
-    Orderproduct.create_product_orders(@order.id, session[:cart])
-    if session[:cart].length != @order.orderproducts.length
-      @order.orderproducts.each do |orderproduct|
-        orderproduct.destroy
-      end
-      flash.now[:danger] = 'Unable to complete order, not enough stock.'
-      render :new, status: :bad_request
-    else
-      @order.total_cost = @order.order_total
-      @order.update(order_params)
-      if @order.save
-        @order.reduce_stock
-        @order.status = "paid"
-        @order.save
-        flash[:success] = 'Your purchase is complete!'
-        session[:cart] = nil
-        redirect_to root_path
-      else
-        flash.now[:danger] = 'Unable to complete order'
-        render :new, status: :bad_request
-      end
-    end
-  end
-
-  # def edit; end
-  #
-  def update
-    if @order && @order.update(order_params)
-      @order.save
-      flash[:success] = 'Status has been changed.'
-      redirect_to order_path(@order.id)
-    elsif @order
-      render :edit, status: :bad_request
-    end
-  end
-
   def search
     @order = Order.find_by(id: params[:order_id])
-
     if @order
       redirect_to order_path(@order)
     else

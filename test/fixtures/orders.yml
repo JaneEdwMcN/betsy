@@ -21,3 +21,14 @@ pending_order:
   cc_cvv: nil
   status: pending
   total_cost: 0.0
+
+pending_order:
+  name: nil
+  email: nil
+  mailing_address: nil
+  zip_code: nil
+  cc_number: nil
+  cc_expiration: nil
+  cc_cvv: nil
+  status: pending
+  total_cost: 0.0
