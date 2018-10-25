@@ -11,19 +11,69 @@ describe SessionsController do
     end
 
     it "creates an account for a new user and redirects to the root route" do
-       stub_auth_hash!(
-         uid: '12343',
-         provider: 'github',
-         info: {
-           email: 'test@example.com',
-           name: 'test'
-         }
-       )
+      stub_auth_hash!(
+        uid: '12343',
+        provider: 'github',
+        info: {
+          email: 'test@example.com',
+          name: 'test'
+        }
+      )
 
-       expect { get login_path('github') }.must_change('User.count', 1)
+      expect { get login_path('github') }.must_change('User.count', 1)
 
-       must_redirect_to root_path
-       expect(session[:user_id]).wont_be_nil
+      must_redirect_to root_path
+      expect(session[:user_id]).wont_be_nil
+    end
+
+    it "doesn't create an account for a new user with invalid data" do
+      stub_auth_hash!(
+        uid: '12343',
+        provider: 'github',
+        info: {
+          email: kit.email,
+          name: kit.name
+        }
+      )
+
+      expect { get login_path('github') }.wont_change('User.count', 1)
+
+      expect(flash.keys).must_equal ["danger"]
+      expect(session[:user_id]).must_be_nil
+      must_respond_with :redirect
+    end
+  end
+
+  describe "destroy" do
+    before do
+      @kit = users(:kit)
+      perform_login(@kit)
+    end
+
+    it "makes session[:user_id] nil " do
+      delete logout_path
+
+      expect(session[:user_id]).must_be_nil
+      assert_equal 'Successfully logged out', flash[:success]
+      must_respond_with :redirect
+    end
+
+    it "the user is logged out " do
+      expect(session[:user_id]).must_equal @kit.id
+
+      delete logout_path
+
+      expect(session[:user_id]).must_be_nil
+      assert_equal 'Successfully logged out', flash[:success]
+      must_respond_with :redirect
+    end
+
+    it "the user can no longer access  certain pages" do
+      delete logout_path
+
+      get get_orders_path
+      must_redirect_to root_path
+      expect(flash[:danger]).must_equal "Sorry, the fulfillment page is only for creature moms."
     end
   end
 
@@ -39,6 +89,8 @@ describe SessionsController do
 
       #check quantity against quantity_hash
       expect(session[:cart]).must_include @lamb.id => @quantity_hash[:quantity].to_i
+      expect(session[:cart].length).must_equal 1
+
       must_respond_with :redirect
     end
 
