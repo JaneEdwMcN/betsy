@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
       flash[:success] = "New creature added!"
       redirect_to product_path(@product.id)
     else
-      flash[:danger] = "Failed to save creature."
+      flash[:warning] = "Failed to save creature."
       render :new, :status => :bad_request
     end
   end
@@ -44,7 +44,7 @@ class ProductsController < ApplicationController
   private
   def require_product_owner
     if @current_user != @product.user
-      flash[:failure] = "Cannot edit another parent's creatures"
+      flash[:danger] = "Cannot edit another parent's creatures"
       redirect_to root_path
     end
   end

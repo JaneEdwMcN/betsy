@@ -14,3 +14,18 @@ orderproduct3:
   order: complete_order
   product: lamb
   quantity: 3
+
+orderproduct4:
+  order: complete_order2
+  product: lamb
+  quantity: 2
+
+orderproduct5:
+  order: complete_order3
+  product: unicorn
+  quantity: 1
+
+orderproduct6:
+  order: complete_order
+  product: goat
+  quantity: 2

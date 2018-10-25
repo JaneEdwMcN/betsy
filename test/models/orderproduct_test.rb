@@ -1,9 +1,7 @@
 require "test_helper"
-
 describe Orderproduct do
 
   describe "relationships" do
-
     before do
       @orderproduct1 = orderproducts(:orderproduct1)
     end
@@ -27,18 +25,18 @@ describe Orderproduct do
       @order = orders(:complete_order)
     end
 
-    it "allows the two valid categories" do
-      valid_categories = ['pending', 'shipped']
-      valid_categories.each do |category|
-        orderproduct = Orderproduct.new(status: category, quantity: 1, order_id: @order.id, product_id: @goat.id)
+    it "allows the two valid statuses" do
+      valid_statuses = ['pending', 'shipped']
+      valid_statuses.each do |status|
+        orderproduct = Orderproduct.new(status: status, quantity: 1, order_id: @order.id, product_id: @goat.id)
         orderproduct.valid?.must_equal true
       end
     end
 
-    it "rejects invalid categories" do
-      invalid_categories = ['cat', 'dog', 'phd thesis', 1337, nil]
-      invalid_categories.each do |category|
-        orderproduct = Orderproduct.new(status: category, quantity: 1, order_id: @order.id, product_id: @goat.id)
+    it "rejects invalid statuses" do
+      invalid_statuses = ['cat', 'dog', 'phd thesis', 1337, nil]
+      invalid_statuses.each do |status|
+        orderproduct = Orderproduct.new(status: status, quantity: 1, order_id: @order.id, product_id: @goat.id)
         orderproduct.valid?.must_equal false
         orderproduct.errors.messages.must_include :status
       end
@@ -58,6 +56,12 @@ describe Orderproduct do
 
     it "a quantity needs to be an integer" do
       orderproduct = Orderproduct.new(status: "pending", quantity: "hello", order_id: @order.id, product_id: @goat.id)
+      orderproduct.valid?.must_equal false
+      orderproduct.errors.messages.must_include :quantity
+    end
+
+    it "a quantity needs to greater than 0" do
+      orderproduct = Orderproduct.new(status: "pending", quantity: -1, order_id: @order.id, product_id: @goat.id)
       orderproduct.valid?.must_equal false
       orderproduct.errors.messages.must_include :quantity
     end
