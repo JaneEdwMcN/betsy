@@ -2,7 +2,8 @@ class Product < ApplicationRecord
   belongs_to :user
   has_many :reviews
   has_many :orderproducts
-  belongs_to :category
+
+  has_and_belongs_to_many :categories
 
   def self.adjust_stock_count(product_id, count_sold)
     product = Product.find(product_id)

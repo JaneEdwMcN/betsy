@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_action :find_order
-  skip_before_action :find_order, only: [:fulfillment, :paid, :completed, :new, :completed, :cancelled, :destroy]
+  skip_before_action :find_order, only: [:fulfillment, :paid, :completed, :new, :completed, :cancelled]
+
 
   def new
     @order = Order.new
@@ -102,6 +103,7 @@ class OrdersController < ApplicationController
       redirect_back fallback_location: root_path
     end
   end
+
 
   private
 
