@@ -8,8 +8,13 @@ class ReviewsController < ApplicationController
 
   def create
     @review = Review.new(review_params)
-    @review.save
-    redirect_to product_path(@review.product_id)
+    if @review.save
+      flash[:success] = "Thanks for leaving a review!"
+      redirect_to product_path(@review.product_id)
+    else
+      flash[:warning] = "Review unsuccessful."
+      redirect_to product_path(@review.product_id)
+    end
   end
 
   private
