@@ -148,7 +148,7 @@ describe Order do
       end
 
       it "returns an error when no user is provided" do
-          tan = users(:tan)
+          tan = users(:tan) 
           orderproducts = Order.find_orderproducts(tan, "paid")
 
           assert_raises(NameError) {Order.products_sold_total(nil, orderproducts)}
