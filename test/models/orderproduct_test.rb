@@ -60,10 +60,26 @@ describe Orderproduct do
       orderproduct.errors.messages.must_include :quantity
     end
 
-    it "a quantity needs to greater than 0" do
+    it "a quantity needs to be greater than 0" do
       orderproduct = Orderproduct.new(status: "pending", quantity: -1, order_id: @order.id, product_id: @goat.id)
       orderproduct.valid?.must_equal false
       orderproduct.errors.messages.must_include :quantity
+    end
+
+    it "a quantity needs to be equal or less than an orderproduct's product's stock count" do
+      orderproduct = Orderproduct.new(status: "pending", quantity: -1, order_id: @order.id, product_id: @goat.id)
+      orderproduct.valid?.must_equal false
+      orderproduct.errors.messages.must_include :quantity
+
+      orderproduct = Orderproduct.new(status: "pending", quantity: 100, order_id: @order.id, product_id: @goat.id)
+      orderproduct.valid?.must_equal false
+      orderproduct.errors.messages.must_include :quantity
+
+      orderproduct = Orderproduct.new(status: "pending", quantity: 15, order_id: @order.id, product_id: @goat.id)
+      orderproduct.valid?.must_equal true
+
+      orderproduct = Orderproduct.new(status: "pending", quantity: 5, order_id: @order.id, product_id: @goat.id)
+      orderproduct.valid?.must_equal true
     end
 
     it "requires an order_id" do
