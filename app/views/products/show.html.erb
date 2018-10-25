@@ -56,7 +56,7 @@
       <% if product.id != @product.id %>
       <p><%= link_to image_tag(product.photo_url), product_path(product.id), class: "user-products-img" %><br>
         <%= link_to product.name.capitalize, product_path(product.id)%><br>
-        <%= link_to "$#{product.price}", product_path(product.id)%></p>
+        $<%= money_display(@product.price) %></p>
         <% end %>
         <% end %>
       </section>
@@ -92,7 +92,7 @@
         <% if product.id != @product.id %>
         <p><%= link_to image_tag(product.photo_url), product_path(product.id), class: "user-products-img" %><br>
           <%= link_to product.name.capitalize, product_path(product.id)%><br>
-          <%= link_to "$#{product.price}", product_path(product.id)%></p>
+          $<%= money_display(@product.price) %></p>
           <% end %>
           <% end %>
         </section>

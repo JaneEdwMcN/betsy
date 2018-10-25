@@ -1,13 +1,7 @@
 <section class="main-content">
   <% if @current_user == nil %>
   <h2> You must sign in to view the fulfillment page. </h2>
-<<<<<<< HEAD
-<% else %>
-<%= render partial: "fulfillment", locals: { status: "Orders" }%>
-<% end %>
-=======
   <% else %>
-  <%= render partial: "fulfillment" %>
+  <%= render partial: "fulfillment", locals: { status: "Orders" }%>
   <% end %>
 </section>
->>>>>>> ms/order
