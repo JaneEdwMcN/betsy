@@ -1,6 +1,6 @@
 <section class="main-content">
 <h1> Viewing order #<%= @order.id %> </h1>
-<% if @current_user.orders.include? (@order) %>
+<% if @current_user && (@current_user.orders.include? @order) %>
 <section class="order-text">
 <h3> Adoption Parent: <%= @order.name %></h3>
 <h3> Adoption Parent Email: <%= @order.email %></h3>
