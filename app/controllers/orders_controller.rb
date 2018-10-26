@@ -19,13 +19,8 @@ class OrdersController < ApplicationController
       @order.orderproducts.each do |orderproduct|
         orderproduct.destroy
       end
-<<<<<<< HEAD
       flash[:danger] = 'Unable to complete adoption request, creature not available.'
-      redirect_to root_path
-=======
-      flash.now[:danger] = 'Unable to complete order, not enough stock.'
       render :new, status: :bad_request
->>>>>>> e2c752b411b22b16d6a5af7f67f53b57f4a95bc5
     else
       @order.total_cost = @order.order_total
       @order.update(order_params)
@@ -118,7 +113,7 @@ class OrdersController < ApplicationController
 
     if @order.nil?
       flash.now[:danger] = "Cannot find adoption request ##{params[:order_id]}"
-        render :notfound, status: :not_found
+      render :notfound, status: :not_found
     end
   end
 
