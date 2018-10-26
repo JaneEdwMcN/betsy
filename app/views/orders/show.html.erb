@@ -9,15 +9,15 @@
 <h3> Delivery Zip Code: <%= @order.zip_code %></h3>
 <h3> Credit Card (Last Four Digits): <%= @order.cc_number.to_s.split("").last(4).join %></h3>
 <h3> Credit Card Expiration: <%= @order.cc_expiration %></h3>
-<h3> Order Date: <%= readable_date(@order.created_at) %></h3>
+<h3> Adoption Request Date: <%= readable_date(@order.created_at) %></h3>
 <br>
 <% else %>
 <section class="order-text">
 <h3> Adoption Parent: <%= @order.name %></h3>
 <h3> Delivery Address: <%= @order.mailing_address %></h3>
-<h3> Order Total: <%= money_display(@order.total_cost) %></h3>
-<h3> Order Status: <%= @order.status %></h3>
-<h3> Order Date: <%= readable_date(@order.created_at) %></h3>
+<h3> Adoption Total: <%= money_display(@order.total_cost) %></h3>
+<h3> Adoption Status: <%= @order.status %></h3>
+<h3> Adoption Request Date: <%= readable_date(@order.created_at) %></h3>
 <br>
 <% end %>
 
