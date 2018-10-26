@@ -104,7 +104,7 @@ describe Product do
   it "checks if product is in cart already" do
     product = products(:lamb)
     session = [{product.id=>3}]
-    binding.pry
+
     cart = product.in_cart?(session)
     expect(cart).must_be true
   end
