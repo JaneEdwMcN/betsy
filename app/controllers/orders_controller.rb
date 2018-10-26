@@ -31,8 +31,8 @@ class OrdersController < ApplicationController
         session[:cart] = nil
         redirect_to order_path(@order.id)
       else
-        flash.now[:danger] = flash[:messages] = @order.errors.messages
         @order.destroy
+        flash.now[:messages] = @order.errors.messages
         render :new, status: :bad_request
       end
     end
