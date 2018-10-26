@@ -17,8 +17,8 @@ class ProductsController < ApplicationController
       flash[:success] = "New creature added!"
       redirect_to product_path(@product.id)
     else
-      flash[:warning] = "Failed to save creature."
-      render :new, :status => :bad_request
+      flash.now[:messages] = @product.errors.messages
+      render :new, status: :bad_request
     end
   end
 

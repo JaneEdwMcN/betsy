@@ -13,13 +13,14 @@ class OrdersController < ApplicationController
     @order = Order.new
     @order.status = "pending"
     @order.save
+
     Orderproduct.create_product_orders(@order.id, session[:cart])
     if session[:cart].length != @order.orderproducts.length
       @order.orderproducts.each do |orderproduct|
         orderproduct.destroy
       end
-      flash[:danger] = 'Unable to complete order, not enough stock.'
-      redirect_to root_path
+      flash.now[:danger] = 'Unable to complete order, not enough stock.'
+      render :new, status: :bad_request
     else
       @order.total_cost = @order.order_total
       @order.update(order_params)
@@ -31,8 +32,8 @@ class OrdersController < ApplicationController
         session[:cart] = nil
         redirect_to order_path(@order.id)
       else
-        flash.now[:danger] = flash[:messages] = @order.errors.messages
         @order.destroy
+        flash.now[:messages] = @order.errors.messages
         render :new, status: :bad_request
       end
     end
@@ -95,13 +96,7 @@ class OrdersController < ApplicationController
   end
 
   def search
-    @order = Order.find_by(id: params[:order_id])
-    if @order
-      redirect_to order_path(@order)
-    else
-      flash[:danger] = "Order #{params[:order_id]} does not exist"
-      redirect_back fallback_location: root_path
-    end
+      redirect_to order_path(@order) if @order
   end
 
 
