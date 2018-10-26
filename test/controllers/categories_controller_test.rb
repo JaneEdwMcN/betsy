@@ -42,22 +42,24 @@ describe "new" do
   end
 end
 
-end
 
-describe "create" do
-  it "can create a category" do
-    category_hash = {
+  describe "create" do
+      let (:category_hash) do
+         {
       category: {
-        name: "Mystical",
-      }
-    }
-    
-    expect {
-      post categories_path, params: category_hash
-    }.must_change 'Category.count', 1
+        name: "Snake",
+        #product: products(:lamb)
+        }}
+      end
+      it "can create a category" do
+      expect {
+        post categories_path, params: category_hash
+      }.must_change 'Category.count', 1
 
-    must_respond_with  :redirect
+      must_respond_with  :redirect
 
-    expect(Category.last.name).must_equal category_hash[:category][:name]
-  end
+      expect(Category.last.name).must_equal category_hash[:category][:name]
+    end
+
+end
 end
