@@ -78,7 +78,5 @@ describe ReviewsController do
       assert_equal "You cannot review your own creatures!", flash[:warning]
     end
   end
-
-else
-
+  
 end
