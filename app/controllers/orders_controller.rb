@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :find_order
-  skip_before_action :find_order, only: [:fulfillment, :paid, :completed, :new, :completed, :cancelled]
+  skip_before_action :find_order, only: [:fulfillment, :paid, :completed, :new, :create, :completed, :cancelled]
 
 
   def new
@@ -112,7 +112,7 @@ class OrdersController < ApplicationController
 
     if @order.nil?
       flash.now[:danger] = "Cannot find the order #{params[:id]}"
-        render :notfound, status: :not_found
+      render :notfound, status: :not_found
     end
   end
 
