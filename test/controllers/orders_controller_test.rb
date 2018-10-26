@@ -90,7 +90,7 @@ describe OrdersController do
         post orders_path, params: bad_params
       }.wont_change 'Order.count'
 
-      expect(flash[:danger]).wont_be_nil
+      expect(flash[:messages]).must_include :name, :email
       must_respond_with :bad_request
       #won't create orphaned Orderproducts
       expect(Orderproduct.last.order_id).wont_be_nil
