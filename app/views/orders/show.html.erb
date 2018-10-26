@@ -16,7 +16,7 @@
 <h3> Delivery Zip Code: <%= @order.zip_code %></h3>
 <h3> Credit Card (Last Four Digits): <%= @order.cc_number.to_s.split("").last(4).join %></h3>
 <h3> Credit Card Expiration: <%= @order.cc_expiration %></h3>
-
+<h3> Order Date: <%= readable_date(@order.created_at) %></h3>
 <% else %>
 <section class="order-text">
 <h3> Adoption Parent: <%= @order.name %></h3>
