@@ -28,18 +28,6 @@ before_action :find_category, only: [:show, :destroy]
     end
   end
 
-  def destroy
-
-    if @category.products.count > 0
-      flash.now[:danger] = "Category contains active products, deletion failed."
-    else
-      @category.destroy
-      flash[:success] = "Category deleted successfully"
-    end
-
-    redirect_to categories_path
-  end
-
 private
   def find_category
     @category = Category.find_by(id: params[:id])

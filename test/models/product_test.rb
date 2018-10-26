@@ -83,22 +83,48 @@ describe Product do
     @product.valid?.must_equal true
   end
 
-  # it "adjusts stock count accoording to products sold" do
-  #   Product.adjust_stock_count(1,2)
-  #   expect(prod.stock_count).must_equal 8
+  it "adjusts stock count accoording to products sold" do
+    user = users(:tan)
+    category = categories(:mystical)
+    product = products(:lamb)
+
+    Product.adjust_stock_count(product.id, 2)
+    # Jackie
+    expect(product.stock_count).must_equal 8
+  end
+
+  it "gives average rating for review" do
+
+     product = products(:lamb)
+     rating = product.average_rating
+
+    expect(rating).must_equal 3
+  end
+
+  it "checks if product is in cart already" do
+    product = products(:lamb)
+    session = [{product.id=>3}]
+    binding.pry
+    cart = product.in_cart?(session)
+    expect(cart).must_be true
+  end
+
+  # def in_cart?(session)
+  #   session.each do |item|
+  #     item.each do |key, value|
+  #       return true if key.to_i == self.id
+  #     end
+  #   end
+  #   return false
+  # end
+  #
+  # def cart_adjust_quantity(session)
+  #   session.each do |item|
+  #     item.each do |id, quantity|
+  #       return self.stock_count - quantity if id.to_i == self.id
+  #     end
+  #   end
   # end
 
+
 end
-
-
-
-
-
-
-# Product
-# Name must be present
-# Name must be unique
-# Price must be present
-# Price must be a number
-# Price must be greater than 0
-# Product must belong to a User

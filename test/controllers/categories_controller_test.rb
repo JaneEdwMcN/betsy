@@ -35,28 +35,29 @@ describe "show" do
 end
 
 describe "new" do
-  it "will load the new book page" do
+  it "will load the new category page" do
     get new_category_path
 
     must_respond_with :success
   end
 end
 
+end
+
 describe "create" do
   it "can create a category" do
     category_hash = {
       category: {
-        name: categories(:mystical).id,
+        name: "Mystical",
       }
     }
-
+    binding.pry
     expect {
-      post category_path, params: category_hash
+      post categories_path, params: category_hash
     }.must_change 'Category.count', 1
 
     must_respond_with  :redirect
 
     expect(Category.last.name).must_equal category_hash[:category][:name]
   end
-end
 end
