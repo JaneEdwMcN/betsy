@@ -18,7 +18,7 @@
 
         <div class="parents">
           <li class="nav-item dropdown" role="button" data-toggle="dropdown", aria-haspopup="true" aria-expanded="false">
-            <%= link_to "By Parent", users_path, class: "nav-link dropdown-toggle" %></li>
+            <%= link_to "By Rescuer", users_path, class: "nav-link dropdown-toggle" %></li>
 
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <% @users.each do |user| %>
@@ -40,7 +40,7 @@
 
             <div class="search-order">
               <%= form_tag search_orders_path, method: :get do %>
-              <%= text_field_tag :order_id, nil, placeholder: "Search Order Id", class: 'form-control' %>
+              <%= text_field_tag :order_id, nil, placeholder: "Search Adoption Request Id", class: 'form-control' %>
               <% end %>
             </div>
 

@@ -1,5 +1,5 @@
 <section class="main-content">
-<h1 class="cart-heading-padding">Shopping Cart </h1>
+<h1 class="cart-heading-padding">Adoption Basket</h1>
 <% total = 0 %>
 <table class="table">
   <thead>
@@ -9,7 +9,7 @@
       <th scope="col">Price</th>
       <th scope="col">Total</th>
       <th scope="col">Quantity</th>
-      <th scope="col">Remove from Cart</th>
+      <th scope="col">Remove from Basket</th>
     </tr>
   </thead>
   <tbody>
@@ -31,19 +31,19 @@
         <%= f.submit "Update", class: "btn btn-outline-primary"%>
         <% end %>
       </td>
-      <td><%= link_to "Remove from Cart", remove_from_cart_path(product.id), class: "btn btn-outline-primary"%></td>
+      <td><%= link_to "Remove from Basket", remove_from_cart_path(product.id), class: "btn btn-outline-primary"%></td>
     </tr>
     <% end %>
   </tbody>
 </table>
 <% if total > 0 %>
 <section>
-  <h3>Cart Total: <%= money_display(total) %></h3>
-  <p><%= link_to "Checkout Cart", new_order_path, class: "btn btn-outline-primary"%></p>
+  <h3>Basket Total: <%= money_display(total) %></h3>
+  <p><%= link_to "Checkout Basket", new_order_path, class: "btn btn-outline-primary"%></p>
 </section>
 <% else %>
 <section>
-  <h3>Your cart is empty</h3>
+  <h3>Your basket is empty</h3>
 </section>
 <% end %>
 </section>

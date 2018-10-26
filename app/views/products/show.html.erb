@@ -21,7 +21,7 @@
       <h4 class="card-text"><em>All the <%= @product.name.capitalize.pluralize %> are in your cart!</em></h4><br>
       <p><%= link_to "Remove from Cart", remove_from_cart_path(@product.id), class: "btn btn-outline-primary"%></p>
       <% elsif option_values[0] == 0 && !in_cart %>
-      <h4 class="card-text"><em>Out of Stock!</em></h4><br>
+      <h4 class="card-text"><em>Creature unavailable!</em></h4><br>
       <% end %>
       <h4>Description</h4>
       <p><%= @product.description %></p>
@@ -50,7 +50,7 @@
   </section>
 
   <section class="user-products-container">
-    <h4 class="more-from"> More from Seller </h4>
+    <h4 class="more-from">More from this rescuer</h4>
     <section class="user-products-flex">
       <% @product.user.products.first(4).each do |product| %>
       <% if product.id != @product.id %>
@@ -86,7 +86,7 @@
       <% if @product.user != @current_user %>
       <p><%= link_to "Leave a Review", new_product_review_path(@product.id), class: "btn btn-outline-primary" %></p>
       <% end %>
-      <h4 class="more-from"> More from Seller </h4>
+      <h4 class="more-from">More from this rescuer</h4>
       <section class="user-products-flex">
         <% @product.user.products.first(4).each do |product| %>
         <% if product.id != @product.id %>

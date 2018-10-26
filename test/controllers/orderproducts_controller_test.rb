@@ -13,7 +13,7 @@ describe OrderproductsController do
       patch orderproduct_path(orderproduct1.id), params: status_hash
 
       must_respond_with  :redirect
-      assert_equal 'Status of ordered product has been changed.', flash[:success]
+      assert_equal 'Status of request creature has been changed.', flash[:success]
       updated_orderproduct1 = Orderproduct.find_by(id: orderproduct1.id)
 
       expect(updated_orderproduct1.status).must_equal status_hash[:orderproduct][:status]
