@@ -60,5 +60,6 @@ end
 
       expect(Category.last.name).must_equal category_hash[:category][:name]
     end
+
 end
 end

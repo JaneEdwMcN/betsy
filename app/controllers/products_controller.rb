@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   before_action :find_product
   before_action :require_product_owner, only: [:edit, :update, :destroy]
   skip_before_action :find_product, only: [:index, :cart_view, :new, :create, :home]
+  before_action :require_login, only: [:new]
 
   def index
     @products = Product.order(:name)
@@ -43,7 +44,7 @@ class ProductsController < ApplicationController
   private
   def require_product_owner
     if @current_user != @product.user
-      flash[:danger] = "Cannot edit another parent's creatures"
+      flash[:danger] = "Cannot edit another rescuer's creatures"
       redirect_to root_path
     end
   end

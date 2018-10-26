@@ -6,7 +6,7 @@ class Product < ApplicationRecord
   validates :name, :price, presence: true
   validates :name, uniqueness: true
   validates :price, presence: true, numericality: { greater_than: 0 }
-
+  validates_format_of :photo_url, :with => /\A[http]/
 
 
   def self.adjust_stock_count(product_id, count_sold)

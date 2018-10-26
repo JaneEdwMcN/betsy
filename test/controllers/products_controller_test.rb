@@ -66,6 +66,7 @@ describe ProductsController do
 
       must_respond_with  :redirect
 
+      binding.pry
       expect(Product.last.name).must_equal product_hash[:product][:name]
       end
 

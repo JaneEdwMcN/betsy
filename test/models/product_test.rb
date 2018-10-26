@@ -3,13 +3,15 @@ require "test_helper"
 describe Product do
   describe "relationships do" do
 
-    it "belongs to a category" do
-      @product = products(:lamb)
+    it "has and belongs to many categories" do
+      product = products(:lamb)
+      category1 = categories(:mystical)
+      category2 = categories(:dangerous)
+      product.categories << category1
+      product.categories << category2
 
-      cat = @product.category.id
-
-      cat.must_be_kind_of Integer
-      @product.category.must_be_kind_of Category
+      expect(product.categories.first).must_be_kind_of Category
+      expect(product.categories.length).must_equal 2
     end
 
     it "belongs to a user" do
@@ -83,13 +85,12 @@ describe Product do
     @product.valid?.must_equal true
   end
 
-  it "adjusts stock count accoording to products sold" do
-    user = users(:tan)
-    category = categories(:mystical)
+  it "adjusts stock count according to products sold" do
+
     product = products(:lamb)
 
     Product.adjust_stock_count(product.id, 2)
-    # Jackie
+    product.reload
     expect(product.stock_count).must_equal 8
   end
 
@@ -104,7 +105,6 @@ describe Product do
   it "checks if product is in cart already" do
     product = products(:lamb)
     session = [{product.id=>3}]
-    binding.pry
     cart = product.in_cart?(session)
     expect(cart).must_be true
   end

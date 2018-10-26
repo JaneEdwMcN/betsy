@@ -25,7 +25,7 @@ class Orderproduct < ApplicationRecord
   def quantity_in_stock?
     if self.product && self.quantity
       if self.quantity > self.product.stock_count
-        errors.add(:quantity, "Quantity must be in stock.")
+        errors.add(:quantity, "Quantity must be available.")
       end
     end
   end

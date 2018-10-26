@@ -1,5 +1,6 @@
 <section class="main-content">
-<h1> Viewing order #<%= @order.id %> </h1>
+
+<h1>Viewing Adoption Request #<%= @order.id %> </h1>
 <% if @current_user && (@current_user.orders.include? @order) %>
 <section class="order-text">
 <h3> Adoption Parent: <%= @order.name %></h3>
@@ -24,9 +25,9 @@
 
   <thead>
     <tr>
-      <th scope="col">Name</th>
+      <th scope="col">Creature Name</th>
       <th scope="col">Adoption Price</th>
-      <th scope="col">Quantity</th>
+      <th scope="col">Number of Creatures</th>
       <th scope="col">Total</th>
     </tr>
   </thead>

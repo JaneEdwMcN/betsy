@@ -4,7 +4,7 @@ class OrderproductsController < ApplicationController
   def update
     @orderproduct.status = params[:orderproduct][:status]
     if @orderproduct.save
-      flash[:success] = "Status of ordered product has been changed."
+      flash[:success] = "Status of requested creature has been changed."
       redirect_back(fallback_location: "get_orders")
     else
       flash[:warning] = "Status could not be changed."

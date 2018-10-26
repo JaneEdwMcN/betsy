@@ -59,7 +59,12 @@ ul {
 }
 
 #add_new_creature {
-  padding-top: 1em;
+  // padding-top: 1em;
+}
+
+
+#new-creature-form {
+  margin: 0%;
 }
 
 .header {
@@ -169,7 +174,20 @@ nav li:first-child {
 }
 
 .main-content {
-  margin: 10%;
+  margin-left: 10%;
+  margin-right:10%;
+
+}
+
+
+#add-category {
+  margin-left: 10%;
+  margin-right:10%;
+  margin-top: 0;
+}
+
+.main-container {
+ margin: 0%;
 }
 
 #main-img {
@@ -186,7 +204,7 @@ nav li:first-child {
 }
 
 .product-content {
-  margin-top: 10%
+  // margin-top: 10%
 }
 
 .user-login {
@@ -275,6 +293,8 @@ nav li:first-child {
   grid-row: 2 / 3;
   grid-column: 1 / 2;
   align-items: stretch;
+  padding-left: 10%;
+
 }
 
 .user-products-container {
@@ -321,4 +341,13 @@ nav li:first-child {
 .parent-name {
   padding-top: 2em;
   padding-left: 3em;
+}
+
+label {
+  padding-right: 10px;
+  padding-top: 10px;
+}
+
+.form-check-label {
+
 }

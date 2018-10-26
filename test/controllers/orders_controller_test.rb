@@ -62,7 +62,7 @@ describe OrdersController do
       }.must_change 'Order.count', 1
 
       must_respond_with :redirect
-      expect(flash[:success]).must_equal "Order successfully placed! (Order ##{Order.last.id})"
+      expect(flash[:success]).must_equal "Adoption request successfully placed! (Order ##{Order.last.id})"
       expect(Order.last.status).must_equal 'paid'
     end
 
@@ -166,7 +166,7 @@ describe OrdersController do
 
       must_respond_with :redirect
       expect(Order.find(id).name).must_equal "Monique Marie"
-      expect(flash[:danger]).must_equal 'Order was not updated.'
+      expect(flash[:danger]).must_equal "Adoption request was not updated."
     end
   end
   # => <ActionController::Parameters {"controller"=>"orders", "action"=>"show", "id"=>"5"} permitted: false>
@@ -198,7 +198,7 @@ describe OrdersController do
     it "blocks all fulfillment pages if user is not signed in" do
       get get_orders_path
       must_redirect_to root_path
-      expect(flash[:danger]).must_equal "Sorry, the fulfillment page is only for creature moms."
+      expect(flash[:danger]).must_equal "Sorry, the fulfillment page is only for creature rescuers."
 
       get cancelled_orders_path
       must_redirect_to root_path

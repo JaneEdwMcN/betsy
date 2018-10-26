@@ -11,7 +11,6 @@ product1:
   price: 100.0
   user: tan
   photo_url: https://i.imgur.com/NyKcY9y.jpg
-  category_id: 2
 
 
 lamb:

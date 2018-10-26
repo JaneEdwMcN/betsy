@@ -25,7 +25,7 @@ class ReviewsController < ApplicationController
   def cant_leave_review_for_own_product
     user = Product.find_by(id: params[:product_id]).user
     if @current_user == user
-      flash[:warning] = "You cannot review your own products!"
+      flash[:warning] = "You cannot review your own creatures!"
       redirect_to product_path(params[:product_id])
     end
   end
