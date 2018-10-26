@@ -1,7 +1,3 @@
 <section class="main-content">
-  <% if @current_user == nil %>
-  <h2> You must sign in to view the fulfillment page. </h2>
-  <% else %>
   <%= render partial: "fulfillment", locals: { status: "Cancelled Adoption Requests" } %>
-  <% end %>
 </section>

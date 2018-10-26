@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_action :find_order
-  skip_before_action :find_order, only: [:fulfillment, :paid, :completed, :new, :create, :completed, :cancelled]
-
+  skip_before_action :find_order, only: [:fulfillment, :paid, :new, :create, :completed, :cancelled]
+  before_action :require_login, only: [:fulfillment, :paid, :completed, :cancelled]
 
   def new
     @order = Order.new

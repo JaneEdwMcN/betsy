@@ -1,8 +1,5 @@
 <section class="main-content">
 
-
-<% if @current_user %>
-
   <%= form_with model: @product do |f|%>
 
   <h2><%= page_title %></h2>
@@ -48,7 +45,3 @@
   <%= f.submit "Save Creature", class: "btn btn-outline-primary" %>
 
   <% end %>
-<% else %>
-  <h3> Hi Animal Mom, sorry, you must be signed in to add inventory to your creature product line. </h3>
-<% end %>
-</section>

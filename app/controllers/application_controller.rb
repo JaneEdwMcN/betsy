@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
 
 
 
-
   private
   def build_cart
     session[:cart] = Array.new if !session[:cart]
@@ -44,6 +43,12 @@ class ApplicationController < ActionController::Base
     @user = User.find_by(id: params[:id])
   end
 
+  def require_login
+    if @current_user.nil?
+      flash[:danger] = "Sorry, you must sign in to view this page."
+      redirect_to root_path
+    end
+  end
 
   def all_users
     @users = User.all
