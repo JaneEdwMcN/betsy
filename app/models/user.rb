@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :products
-  has_many :orders
+  has_many :orderproducts, :through => :products
+  has_many :orders, :through => :orderproducts
 
   validates :name, uniqueness: true, presence: true
   validates :email, uniqueness: true, presence: true
