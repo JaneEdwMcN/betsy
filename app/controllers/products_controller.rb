@@ -30,7 +30,7 @@ class ProductsController < ApplicationController
   def update
     @product.update(product_params)
     if @product.save
-      flash[:success] = "Successfully updated creatures."
+      flash[:success] = "Successfully updated creature."
       redirect_to product_path(@product)
     else
       render :edit, :status => :bad_request
