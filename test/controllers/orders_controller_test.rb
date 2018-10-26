@@ -29,18 +29,18 @@ describe OrdersController do
 
     let (:bad_params) do
       {
-          order: {
-            name: nil,
-            email: nil,
-            mailing_address: nil,
-            zip_code: 44903,
-            cc_number: 8275928304958372,
-            cc_expiration: '04/21',
-            cc_cvv: 843,
-            status: nil,
-            total_cost: 8000
-          }
+        order: {
+          name: nil,
+          email: nil,
+          mailing_address: nil,
+          zip_code: 44903,
+          cc_number: 8275928304958372,
+          cc_expiration: '04/21',
+          cc_cvv: 843,
+          status: nil,
+          total_cost: 8000
         }
+      }
     end
 
     before do
@@ -95,7 +95,6 @@ describe OrdersController do
       #won't create orphaned Orderproducts
       expect(Orderproduct.last.order_id).wont_be_nil
     end
-
   end
 
   describe "new" do
@@ -114,7 +113,7 @@ describe OrdersController do
     end
   end
 
-describe "update" do
+  describe "update" do
     let (:order_params) do
       {
         order: {
@@ -132,19 +131,19 @@ describe "update" do
     end
     let (:bad_params) do
       {
-          order: {
-            name: nil,
-            email: nil,
-            mailing_address: nil,
-            zip_code: 44903,
-            cc_number: 8275928304958372,
-            cc_expiration: '04/21',
-            cc_cvv: 843,
-            status: nil,
-            total_cost: 8000
-          }
+        order: {
+          name: nil,
+          email: nil,
+          mailing_address: nil,
+          zip_code: 44903,
+          cc_number: 8275928304958372,
+          cc_expiration: '04/21',
+          cc_cvv: 843,
+          status: nil,
+          total_cost: 8000
         }
-      end
+      }
+    end
     it "succeeds in updating order status" do
       id = orders(:complete_order).id
 
@@ -170,12 +169,25 @@ describe "update" do
       expect(flash[:danger]).must_equal 'Order was not updated.'
     end
   end
+  # => <ActionController::Parameters {"controller"=>"orders", "action"=>"show", "id"=>"5"} permitted: false>
 
   describe "search" do
     it "allows a user to input an order number and display order" do
-      order_num_params = {:order_id=>"5"}
+
+      complete_order = orders(:complete_order)
+      order_num_params = {"id"=> complete_order.id.to_s}
+
       get search_orders_path, params: order_num_params
-      must_respond_with :found
+      must_respond_with get order_path(complete_order.id)
+    end
+
+    it "fails with invalid id" do
+
+      order_num_params = {"id"=> "hello"}
+
+      get search_orders_path, params: order_num_params
+      assert_response :not_found
+      expect(flash.keys).must_equal ["danger"]
     end
   end
 
