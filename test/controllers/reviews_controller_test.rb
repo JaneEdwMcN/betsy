@@ -75,7 +75,7 @@ describe ReviewsController do
       }.wont_change 'Review.count'
 
       must_respond_with  :redirect
-      assert_equal 'You cannot review your own products!', flash[:warning]
+      assert_equal "You cannot review your own creatures!", flash[:warning]
     end
   end
 
