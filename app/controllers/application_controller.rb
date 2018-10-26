@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
 
   def require_login
     if @current_user.nil?
-      flash[:danger] = "Sorry, you must sign in to view this page."
+      flash[:danger] = "Sorry, the fulfillment page is only for creature rescuers."
       redirect_to root_path
     end
   end
