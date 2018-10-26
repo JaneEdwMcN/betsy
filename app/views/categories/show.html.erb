@@ -22,7 +22,7 @@
           <small class="text-muted">(<%= product.reviews.length %>)</small>
         </p>
         <% end %>
-        <p class="card-text">$<%= money_display(product.price) %></p>
+        <p class="card-text"><%= money_display(product.price) %></p>
         <% if option_values[0] > 0 %>
         <p><%= form_with url: add_to_cart_path(product.id), method: :post do |f| %>
           <%= f.select :quantity, options_for_select(option_values) %>
