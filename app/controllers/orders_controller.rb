@@ -99,7 +99,7 @@ class OrdersController < ApplicationController
     if @order
       redirect_to order_path(@order)
     else
-      flash[:warning] = "Order #{params[:order_id]} does not exist"
+      flash[:danger] = "Order #{params[:order_id]} does not exist"
       redirect_back fallback_location: root_path
     end
   end
@@ -112,6 +112,7 @@ class OrdersController < ApplicationController
 
     if @order.nil?
       flash.now[:danger] = "Cannot find the order #{params[:id]}"
+        render :notfound, status: :not_found
     end
   end
 
