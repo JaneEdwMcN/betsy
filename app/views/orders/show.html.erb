@@ -1,4 +1,5 @@
 <section class="main-content">
+<<<<<<< HEAD
 <h1>Viewing Adoption Request #<%= @order.id %> </h1>
 
 <section class="order-text">
@@ -8,6 +9,28 @@
 <h3> Adoption Request Status: <%= @order.status %></h3>
 <h3> Adoption Request Date: <%= readable_date(@order.created_at) %></h3>
 
+=======
+<h1> Viewing order #<%= @order.id %> </h1>
+<% if @current_user && (@current_user.orders.include? @order) %>
+<section class="order-text">
+<h3> Adoption Parent: <%= @order.name %></h3>
+<h3> Adoption Parent Email: <%= @order.email %></h3>
+<h3> Delivery Street Address: <%= @order.mailing_address %></h3>
+<h3> Delivery Zip Code: <%= @order.zip_code %></h3>
+<h3> Credit Card (Last Four Digits): <%= @order.cc_number.to_s.split("").last(4).join %></h3>
+<h3> Credit Card Expiration: <%= @order.cc_expiration %></h3>
+<h3> Order Date: <%= readable_date(@order.created_at) %></h3>
+<br>
+<% else %>
+<section class="order-text">
+<h3> Adoption Parent: <%= @order.name %></h3>
+<h3> Delivery Address: <%= @order.mailing_address %></h3>
+<h3> Order Total: <%= money_display(@order.total_cost) %></h3>
+<h3> Order Status: <%= @order.status %></h3>
+<h3> Order Date: <%= readable_date(@order.created_at) %></h3>
+<br>
+<% end %>
+>>>>>>> e2c752b411b22b16d6a5af7f67f53b57f4a95bc5
 
 <table class="table">
 
@@ -23,9 +46,9 @@
   <% @order.orderproducts.each do |orderproduct| %>
     <tbody>
       <td><%= link_to orderproduct.product.name, product_path(orderproduct.product.id) %></td>
-      <td>$<%= money_display(orderproduct.product.price) %></td>
+      <td><%= money_display(orderproduct.product.price) %></td>
       <td><%= orderproduct.quantity %></td>
-      <td>$<%= money_display(orderproduct.product.price * orderproduct.quantity) %></td>
+      <td><%= money_display(orderproduct.product.price * orderproduct.quantity) %></td>
     </tbody>
   <% end %>
 </table>

@@ -47,11 +47,14 @@ describe Category do
     end
   end
 
-  describe 'category_list' do
-    it 'should return an array' do
-      categories = Category.category_list
-      expect(categories).must_be_instance_of Array
-      expect(categories).length.must_equal 2
+  describe 'self.category_list' do
+    it "can return all categories" do
+
+      result = Category.category_list
+      puts result
+
+      result.length.must_equal 4
     end
   end
+
 end

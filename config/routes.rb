@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   delete 'sessions/destroy', to: 'sessions#destroy', as: 'logout'
 
   get "/orders/search", to: "orders#search", as: 'search_orders'
-  resources :orders, except: [:delete, :edit]
+  resources :orders, except: [:delete, :edit, :index]
 
   resources :products do
     resources :reviews, only: [:new, :create]

@@ -9,9 +9,4 @@ class UsersController < ApplicationController
     render :notfound, status: :not_found unless @user
   end
 
-  private
-
-  def user_params
-    return params.require(:user).permit(:name, :email)
-  end
 end

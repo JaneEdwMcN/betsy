@@ -3,6 +3,7 @@ require "test_helper"
 describe User do
   describe "relations" do
     let(:kit) { users(:kit) }
+    let(:tan) { users(:tan) }
 
     it "has a list of products" do
       kit.must_respond_to :products
@@ -13,10 +14,18 @@ describe User do
     end
 
     it "has a list of orders" do
-      kit.must_respond_to :orders
+      tan.must_respond_to :orders
 
-      kit.products.each do |order|
-        product.must_be_kind_of Order
+      tan.orders.each do |order|
+        order.must_be_kind_of Order
+      end
+    end
+
+    it "has a list of orderproducts" do
+      tan.must_respond_to :orderproducts
+
+      tan.orderproducts.each do |orderproduct|
+        orderproduct.must_be_kind_of Orderproduct
       end
     end
   end

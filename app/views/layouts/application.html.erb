@@ -82,11 +82,33 @@
 
         </header>
 
+
         <main class="main-container">
 
             <section class="alert">
-              <% flash.each do |name, message| %>
-              <div class="alert alert-<%= name %>"><%= message %></div>
+              <% if flash[:messages] %>
+              <div class="alert alert-danger">
+              <h3> Request count not be completed. </h3>
+              <ul>
+                <% flash[:messages].each do |name, problem| %>
+                    <% if !problem.empty? %>
+                    <li><%= name.capitalize %>:
+                      <ul>
+                        <% problem.each do |validation| %>
+                          <li>
+                          <%= validation.capitalize %>
+                          </li>
+                        <% end %>
+                      </ul>
+                    <% end %>
+                    </li>
+                <% end %>
+              </ul>
+              </div>
+              <% else %>
+                <% flash.each do |name, message| %>
+                <div class="alert alert-<%= name %>"><%= message %></div>
+                <% end %>
               <% end %>
             </section>
             <%= yield %>

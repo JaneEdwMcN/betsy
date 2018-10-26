@@ -118,6 +118,26 @@ describe SessionsController do
       post add_to_cart_path(@lamb.id), params: invalid_quantity_hash
       expect(session[:cart]).must_equal []
     end
+
+    it "won't add item to cart if there isn't enough stock due to that item already being in cart" do
+      quantity_hash = { quantity: "5" }
+      post add_to_cart_path(@lamb.id), params: quantity_hash
+
+      large_quantity_hash = { quantity: "6" }
+      post add_to_cart_path(@lamb.id), params: large_quantity_hash
+      expect(flash[:warning]).wont_be_nil
+      expect(session[:cart]).must_equal [{@lamb.id.to_s => 5}]
+    end
+
+    it "won't add to cart if the product can't be found" do
+      quantity_hash = { quantity: "5" }
+      id = "hello"
+
+      post add_to_cart_path(id), params: quantity_hash
+
+      expect(session[:cart]).must_equal []
+      assert_response :not_found
+    end
   end
 
   describe 'remove_from_cart' do
