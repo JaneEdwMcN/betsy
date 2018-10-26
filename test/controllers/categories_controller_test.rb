@@ -51,7 +51,7 @@ describe "create" do
         name: "Mystical",
       }
     }
-    binding.pry
+    
     expect {
       post categories_path, params: category_hash
     }.must_change 'Category.count', 1

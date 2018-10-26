@@ -26,12 +26,12 @@
         <% if option_values[0] > 0 %>
         <p><%= form_with url: add_to_cart_path(product.id), method: :post do |f| %>
           <%= f.select :quantity, options_for_select(option_values) %>
-          <%= f.submit "Add to Cart", class: "btn btn-outline-primary"%>
+          <%= f.submit "Add to Basket", class: "btn btn-outline-primary"%>
           <% end %>
         </p>
         <% else %>
         <h4 class="card-text">All the <%= product.name.capitalize.pluralize %> are in your cart!</h4>
-        <p><%= link_to "Remove from Cart", remove_from_cart_path(product.id), class: "btn btn-outline-primary"%></p>
+        <p><%= link_to "Remove from Basket", remove_from_cart_path(product.id), class: "btn btn-outline-primary"%></p>
         <% end %>
         <% if logged_in? %>
         <% if current_user.id == product.user.id %>

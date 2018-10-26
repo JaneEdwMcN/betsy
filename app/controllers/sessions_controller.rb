@@ -36,19 +36,19 @@ class SessionsController < ApplicationController
             new_quantity = value + quantity
             if new_quantity <= @product.stock_count
               session[:cart][index][key] = value + quantity
-              flash[:success] = "Added to cart"
+              flash[:success] = "Added to basket"
             else
-              flash[:warning] = "Failure to add to cart. Not enough stock."
+              flash[:warning] = "Failure to add to basket. Not enough creatures available."
             end
           end
         end
       end
       if item == false
         session[:cart] << { id => quantity}
-        flash[:success] = "Added to cart"
+        flash[:success] = "Added to basket"
       end
     else
-      flash[:warning] = "Failure to add to cart. Invalid quantity."
+      flash[:warning] = "Failure to add to basket. Not enough creatures available."
     end
     redirect_back(fallback_location: root_path)
   end
@@ -72,12 +72,12 @@ class SessionsController < ApplicationController
         hash.each do |key, value|
           if key == id.to_s
             session[:cart][index][key] = quantity
-            flash[:success] = "Successfully updated cart."
+            flash[:success] = "Successfully updated basket."
           end
         end
       end
     else
-      flash[:warning] = "Failure to add to cart. Invalid quantity."
+      flash[:warning] = "Failure to add to basket. Invalid availability."
     end
     redirect_to cart_path
   end
@@ -88,7 +88,7 @@ class SessionsController < ApplicationController
       hash.each do |key, value|
         if key == id.to_s
           session[:cart].delete_at(index)
-          flash[:success] = "Successfully removed from cart."
+          flash[:success] = "Successfully removed from basket."
           redirect_back(fallback_location: root_path)
         end
       end

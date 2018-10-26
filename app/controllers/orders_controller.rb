@@ -19,7 +19,7 @@ class OrdersController < ApplicationController
       @order.orderproducts.each do |orderproduct|
         orderproduct.destroy
       end
-      flash.now[:danger] = 'Unable to complete order, not enough stock.'
+      flash[:danger] = 'Unable to complete adoption request, creature not available.'
       render :new, status: :bad_request
     else
       @order.total_cost = @order.order_total
@@ -28,7 +28,7 @@ class OrdersController < ApplicationController
         @order.reduce_stock
         @order.status = "paid"
         @order.save
-        flash[:success] = "Order successfully placed! (Order ##{@order.id})"
+        flash[:success] = "Adoption request successfully placed! (Order ##{@order.id})"
         session[:cart] = nil
         redirect_to order_path(@order.id)
       else
@@ -46,7 +46,7 @@ class OrdersController < ApplicationController
       flash[:success] = 'Status has been changed.'
       redirect_to order_path(@order.id)
     else
-      flash[:danger] = 'Order was not updated.'
+      flash[:danger] = 'Adoption request was not updated.'
       redirect_to order_path(@order.id)
     end
   end
@@ -57,7 +57,7 @@ class OrdersController < ApplicationController
       @total_revenue = Order.products_sold_total(@current_user, @orderproducts)
       @count = Order.count_orders(@current_user, nil)
     else
-      flash[:danger] = 'Sorry, the fulfillment page is only for creature moms.'
+      flash[:danger] = 'Sorry, the fulfillment page is only for creature rescuers.'
       redirect_to root_path
     end
   end
@@ -68,7 +68,7 @@ class OrdersController < ApplicationController
       @total_revenue = Order.products_sold_total(@current_user, @orderproducts)
       @count = Order.count_orders(@current_user, "paid")
     else
-      flash[:danger] = 'Sorry, the fulfillment page is only for creature moms.'
+      flash[:danger] = 'Sorry, the fulfillment page is only for creature rescuers.'
       redirect_to root_path
     end
   end
@@ -79,7 +79,7 @@ class OrdersController < ApplicationController
       @total_revenue = Order.products_sold_total(@current_user, @orderproducts)
       @count = Order.count_orders(@current_user, "completed")
     else
-      flash[:danger] = 'Sorry, the fulfillment page is only for creature moms.'
+      flash[:danger] = 'Sorry, the fulfillment page is only for creature rescuers.'
       redirect_to root_path
     end
   end
@@ -90,13 +90,19 @@ class OrdersController < ApplicationController
       @total_revenue = Order.products_sold_total(@current_user, @orderproducts)
       @count = Order.count_orders(@current_user, "cancelled")
     else
-      flash[:danger] = 'Sorry, the fulfillment page is only for creature moms.'
+      flash[:danger] = 'Sorry, the fulfillment page is only for creature rescuers.'
       redirect_to root_path
     end
   end
 
   def search
-      redirect_to order_path(@order) if @order
+    @order = Order.find_by(id: params[:order_id])
+    if @order
+      redirect_to order_path(@order)
+    else
+      flash[:danger] = "Adoption request #{params[:order_id]} does not exist"
+      redirect_back fallback_location: root_path
+    end
   end
 
 
@@ -106,7 +112,7 @@ class OrdersController < ApplicationController
     @order = Order.find_by(id: params[:id].to_i)
 
     if @order.nil?
-      flash.now[:danger] = "Cannot find the order #{params[:id]}"
+      flash.now[:danger] = "Cannot find adoption request ##{params[:order_id]}"
       render :notfound, status: :not_found
     end
   end

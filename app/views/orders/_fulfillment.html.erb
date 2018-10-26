@@ -7,7 +7,7 @@
     <%= link_to "Paid", paid_orders_path, class: "dropdown-item" %>
     <%= link_to "Completed", completed_orders_path, class: "dropdown-item" %>
     <%= link_to "Cancelled", cancelled_orders_path, class: "dropdown-item" %>
-    <%= link_to "All Orders", get_orders_path, class: "dropdown-item" %>
+    <%= link_to "All Adoptions", get_orders_path, class: "dropdown-item" %>
   </div>
 </div>
 <br>
@@ -20,8 +20,8 @@
       <th scope="col"> Cost </th>
       <th scope="col"> Count </th>
       <th scope="col"> Paid </th>
-      <th scope="col"> Order Date </th>
-      <th scope="col"> Order # </th>
+      <th scope="col"> Adoption Request Date </th>
+      <th scope="col"> Adoption Request # </th>
       <th scope="col"> Status </th>
     </tr>
   </thead>
@@ -59,6 +59,6 @@
         </table>
 
 <section class="orders_details">
-  <h3> Orders count: <%= @count %> </h3>
+  <h3> Adoption Requests' count: <%= @count %> </h3>
   <h3> Fundraising Revenue for all <%= status %>: <%= money_display(@total_revenue) %> </h3>
 </section>

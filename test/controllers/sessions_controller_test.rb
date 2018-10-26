@@ -73,7 +73,7 @@ describe SessionsController do
 
       get get_orders_path
       must_redirect_to root_path
-      expect(flash[:danger]).must_equal "Sorry, the fulfillment page is only for creature moms."
+      expect(flash[:danger]).must_equal "Sorry, the fulfillment page is only for creature rescuers."
     end
   end
 

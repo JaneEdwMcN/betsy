@@ -42,7 +42,7 @@ class ProductsController < ApplicationController
   private
   def require_product_owner
     if @current_user != @product.user
-      flash[:danger] = "Cannot edit another parent's creatures"
+      flash[:danger] = "Cannot edit another rescuer's creatures"
       redirect_to root_path
     end
   end

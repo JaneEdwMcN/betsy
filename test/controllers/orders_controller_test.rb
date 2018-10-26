@@ -198,7 +198,7 @@ describe OrdersController do
     it "blocks all fulfillment pages if user is not signed in" do
       get get_orders_path
       must_redirect_to root_path
-      expect(flash[:danger]).must_equal "Sorry, the fulfillment page is only for creature moms."
+      expect(flash[:danger]).must_equal "Sorry, the fulfillment page is only for creature rescuers."
 
       get cancelled_orders_path
       must_redirect_to root_path
