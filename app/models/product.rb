@@ -5,7 +5,8 @@ class Product < ApplicationRecord
   has_and_belongs_to_many :categories
   validates :name, :price, presence: true
   validates :name, uniqueness: true
-  validates :price, numericality: true
+  validates :price, presence: true, numericality: { greater_than: 0 }
+
 
 
   def self.adjust_stock_count(product_id, count_sold)
