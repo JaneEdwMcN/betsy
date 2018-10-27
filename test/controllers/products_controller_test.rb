@@ -29,14 +29,13 @@ describe ProductsController do
   describe "new" do
     it "will load the new product" do
       get new_product_path
-
-      must_respond_with :success
+      must_respond_with :redirect
     end
   end
 
   describe "create" do
-      let (:product_hash) do
-         {
+    it "can create a book" do
+      product_hash = {
       product: {
         name: "Tiger",
         stock_count: 10,
@@ -45,20 +44,6 @@ describe ProductsController do
         user_id: users(:tan).id,
         photo_url: "https://i.imgur.com/NyKcY9y.jpg"
         }}
-      end
-
-      let (:bad_hash) do
-        {
-     product: {
-       name: "Lion",
-       stock_count: 8,
-       description: "not cute",
-       user_id: users(:tan).id,
-       photo_url: "https://i.imgur.com/NyKcY9y.jpg"
-       }}
-     end
-
-      it "can create a product" do
 
       expect {
         post products_path, params: product_hash
@@ -67,17 +52,27 @@ describe ProductsController do
       must_respond_with  :redirect
 
       expect(Product.last.name).must_equal product_hash[:product][:name]
-      end
-
-      it "cannot create a product with invalid data" do
-        expect {
-          post products_path, params: bad_hash
-        }.must_change 'Product.count', 0
-
-        must_respond_with  :bad_request
-
-      end
     end
+
+    # it "will not create a product with invalid params" do
+    #   bad_hash = {
+    #   product: {
+    #        name: nil,
+    #        stock_count: 8,
+    #        price: 1100.0,
+    #        user_id: users(:tan).id,
+    #        description: "not cute",
+    #        photo_url: "https://i.imgur.com/NyKcY9y.jpg"
+    #        }}
+    #
+    #   expect {
+    #     post products_path, params: bad_hash
+    #   }.wont_change 'Product.count'
+    #
+    #   must_respond_with  :bad_request
+    #
+    # end
+  end
 
   describe "update" do
         let (:product_hash) do
@@ -112,6 +107,7 @@ describe ProductsController do
     must_respond_with :redirect
 
     product = Product.find_by(id: id)
+    product.reload
     must_respond_with :found
     must_respond_with  :redirect
     expect(product.name).must_equal product_hash[:product][:name]
@@ -131,21 +127,11 @@ describe ProductsController do
     }.wont_change 'Product.count'
 
     must_respond_with :redirect
-
     product = Product.find_by(id: id)
     expect(product.name).must_equal original_product.name
     expect(product.stock_count).must_equal original_product.stock_count
   end
 
-  # it "will respond with not_found for invalid ids" do
-  #   id = -1
-  #
-  #   expect {
-  #     patch book_path(id), params: book_hash
-  #   }.wont_change 'Book.count'
-  #
-  #   must_respond_with :not_found
-  # end
   end
 
 end

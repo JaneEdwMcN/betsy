@@ -44,6 +44,7 @@ describe Product do
   end
 
   it "has a list of reviews" do
+    @product = products(:lamb)
     @product.must_respond_to :reviews
 
     @product.reviews << reviews(:one)
@@ -55,7 +56,7 @@ describe Product do
   it "adds product when price is a number" do
     user = users(:tan)
     category = categories(:mystical)
-    @product = Product.new(name: "warthog", price: 3000, user_id: user.id, category_id: category.id)
+    @product = Product.new(name: "warthog", price: 3000, user_id: user.id, category_id: category.id, stock_count:4, photo_url:"https://i.imgur.com/eI9VU0v.jpg")
     @product.valid?.must_equal true
   end
 
@@ -63,7 +64,7 @@ describe Product do
     user = users(:tan)
     category = categories(:mystical)
 
-    @product = Product.new(name: "lamb", price: "xyz", price: 3000, user_id: user.id, category_id: category.id)
+    @product = Product.new(name: "lamb", price: "xyz", user_id: user.id, category_id: category.id)
     @product.valid?.must_equal false
     @product.errors.messages.must_include :price
   end
@@ -81,7 +82,7 @@ describe Product do
   it "adds a product when both name and price are present" do
     user = users(:tan)
     category = categories(:mystical)
-    @product = Product.new(name:"hippo", price: 4000, )
+    @product = Product.new(name: "warthog", price: 3000, user_id: user.id, category_id: category.id, stock_count:4, photo_url:"https://i.imgur.com/eI9VU0v.jpg")
     @product.valid?.must_equal true
   end
 
@@ -106,25 +107,21 @@ describe Product do
     product = products(:lamb)
     session = [{product.id=>3}]
     cart = product.in_cart?(session)
-    expect(cart).must_be true
+    expect(cart).must_equal true
   end
 
-  # def in_cart?(session)
-  #   session.each do |item|
-  #     item.each do |key, value|
-  #       return true if key.to_i == self.id
-  #     end
-  #   end
-  #   return false
-  # end
-  #
-  # def cart_adjust_quantity(session)
-  #   session.each do |item|
-  #     item.each do |id, quantity|
-  #       return self.stock_count - quantity if id.to_i == self.id
-  #     end
-  #   end
-  # end
+  it "checks if product is not in cart already" do
+    product = products(:lamb)
+    session = [{-1=>3}]
+    cart = product.in_cart?(session)
+    expect(cart).must_equal false
+  end
 
+  it "checks if cart quantity gets updated" do
+    product = products(:lamb)
+    session = [{product.id=>3}]
+    cart = product.cart_adjust_quantity(session)
+    expect(cart).must_equal 7
+  end
 
 end
