@@ -17,11 +17,12 @@ class Product < ApplicationRecord
   end
 
   def average_rating
+    rating = 0
     sum = self.reviews.reduce(0) do |sum, review|
       sum += review.rating
     end
-    return sum / self.reviews.length if self.reviews.length > 0
-    return sum
+    rating = sum / self.reviews.length if self.reviews.length > 0
+    return rating
   end
 
   def in_cart?(session)

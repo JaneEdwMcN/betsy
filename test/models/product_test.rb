@@ -103,6 +103,8 @@ describe Product do
     expect(rating).must_equal 3
   end
 
+  
+
   it "checks if product is in cart already" do
     product = products(:lamb)
     session = [{product.id=>3}]
