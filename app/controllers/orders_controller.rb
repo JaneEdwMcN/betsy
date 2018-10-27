@@ -96,11 +96,10 @@ class OrdersController < ApplicationController
   end
 
   def search
-    @order = Order.find_by(id: params[:order_id])
     if @order
       redirect_to order_path(@order)
     else
-      flash[:danger] = "Adoption request #{params[:order_id]} does not exist"
+      flash[:danger] = "Adoption request #{params[:id]} does not exist"
       redirect_back fallback_location: root_path
     end
   end
@@ -112,7 +111,7 @@ class OrdersController < ApplicationController
     @order = Order.find_by(id: params[:id].to_i)
 
     if @order.nil?
-      flash.now[:danger] = "Cannot find adoption request ##{params[:order_id]}"
+      flash.now[:danger] = "Cannot find adoption request ##{params[:id]}"
       render :notfound, status: :not_found
     end
   end
