@@ -35,10 +35,10 @@ describe "show" do
 end
 
 describe "new" do
-  it "will load the new category page" do
+  it "will load the new category" do
     get new_category_path
 
-    must_respond_with :success
+    must_respond_with :redirect
   end
 end
 
@@ -48,10 +48,17 @@ end
          {
       category: {
         name: "Snake",
-        #product: products(:lamb)
         }}
       end
-      it "can create a category" do
+
+      let (:wrong_hash) do
+         {
+      category: {
+        name: nil,
+        }}
+      end
+
+    it "can create a category" do
       expect {
         post categories_path, params: category_hash
       }.must_change 'Category.count', 1
@@ -60,6 +67,16 @@ end
 
       expect(Category.last.name).must_equal category_hash[:category][:name]
     end
+
+    it "cannot create a category with invalid data" do
+      expect {
+        post categories_path, params: wrong_hash
+      }.wont_change 'Category.count'
+
+      must_respond_with  :bad_request
+
+    end
+
 
 end
 end
