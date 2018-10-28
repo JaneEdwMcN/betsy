@@ -62,7 +62,7 @@ describe ProductsController do
     end
 
     it "will not create a product with invalid params" do
-      tan =users(:tan)
+      tan = users(:tan)
 
       perform_login(tan)
       bad_hash = {
@@ -71,7 +71,6 @@ describe ProductsController do
            stock_count: 8,
            description: "not cute",
            price: nil,
-           user_id: -1,
            user_id: users(:tan).id,
            photo_url: "https://i.imgur.com/NyKcY9y.jpg"
            }}
