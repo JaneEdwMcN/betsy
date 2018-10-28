@@ -14,7 +14,6 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
-
     if @product.save
       flash[:success] = "New creature added!"
       redirect_to product_path(@product.id)

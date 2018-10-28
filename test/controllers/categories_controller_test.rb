@@ -36,9 +36,12 @@ end
 
 describe "new" do
   it "will load the new category" do
+    kit =users(:kit)
+
+    perform_login(kit)
     get new_category_path
 
-    must_respond_with :redirect
+    must_respond_with :success
   end
 end
 
