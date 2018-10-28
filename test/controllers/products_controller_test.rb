@@ -147,4 +147,32 @@ describe "update" do
 
   end
 
+describe "tests require_product_owner" do
+  it "makes sure that only product owner edits animals" do
+    kit =users(:kit)
+
+    perform_login(kit)
+    product_hash = {
+    product: {
+        name: 'Lamb',
+        stock_count: 10,
+        description: "cute",
+        price: 100.0,
+        user_id: users(:kit).id,
+        photo_url: "https://i.imgur.com/NyKcY9y.jpg"
+      }}
+
+
+     id = products(:lamb).id
+     original_product = products(:lamb)
+     expect {
+       patch product_path(id), params: product_hash
+     }.wont_change 'Product.count'
+
+     must_respond_with :redirect
+     product = Product.find_by(id: id)
+     expect(product.name).must_equal original_product.name
+     expect(product.stock_count).must_equal original_product.stock_count
+  end
+end
 end
