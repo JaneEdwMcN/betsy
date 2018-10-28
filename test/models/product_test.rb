@@ -41,50 +41,53 @@ describe Product do
       @product.valid?.must_equal false
       @product.errors.messages.must_include :price
     end
-  end
 
-  it "has a list of reviews" do
-    @product = products(:lamb)
-    @product.must_respond_to :reviews
-
-    @product.reviews << reviews(:one)
-    @product.reviews.each do |review|
-      review.must_be_kind_of Review
+    it "adds product when price is a number" do
+      user = users(:tan)
+      category = categories(:mystical)
+      @product = Product.new(name: "warthog", price: 3000, user_id: user.id, category_id: category.id, stock_count:4, photo_url:"https://i.imgur.com/eI9VU0v.jpg")
+      @product.valid?.must_equal true
     end
+
+    it "does not add a product when price is not a number" do
+      user = users(:tan)
+      category = categories(:mystical)
+
+      @product = Product.new(name: "lamb", price: "xyz", user_id: user.id, category_id: category.id)
+      @product.valid?.must_equal false
+      @product.errors.messages.must_include :price
+    end
+
+    it "requires a unique name do" do
+      @product1 = Product.new(name: "lamb", price: 2000)
+      @product1.save
+      @product2 = Product.new(name: "lamb", price: 3000)
+      @product2.save
+
+
+      @product2.valid?.must_equal false
+    end
+
+    it "adds a product when both name and price are present" do
+      user = users(:tan)
+      category = categories(:mystical)
+      @product = Product.new(name: "warthog", price: 3000, user_id: user.id, category_id: category.id, stock_count:4, photo_url:"https://i.imgur.com/eI9VU0v.jpg")
+      @product.valid?.must_equal true
+    end
+
+    it "has a list of reviews" do
+      @product = products(:lamb)
+      @product.must_respond_to :reviews
+
+      @product.reviews << reviews(:one)
+      @product.reviews.each do |review|
+        review.must_be_kind_of Review
+      end
+    end
+
   end
-  #review cant belong to two items
-  it "adds product when price is a number" do
-    user = users(:tan)
-    category = categories(:mystical)
-    @product = Product.new(name: "warthog", price: 3000, user_id: user.id, category_id: category.id, stock_count:4, photo_url:"https://i.imgur.com/eI9VU0v.jpg")
-    @product.valid?.must_equal true
-  end
 
-  it "does not add a product when price is not a number" do
-    user = users(:tan)
-    category = categories(:mystical)
-
-    @product = Product.new(name: "lamb", price: "xyz", user_id: user.id, category_id: category.id)
-    @product.valid?.must_equal false
-    @product.errors.messages.must_include :price
-  end
-
-  it "requires a unique name do" do
-    @product1 = Product.new(name: "lamb", price: 2000)
-    @product1.save
-    @product2 = Product.new(name: "lamb", price: 3000)
-    @product2.save
-
-
-    @product2.valid?.must_equal false
-  end
-
-  it "adds a product when both name and price are present" do
-    user = users(:tan)
-    category = categories(:mystical)
-    @product = Product.new(name: "warthog", price: 3000, user_id: user.id, category_id: category.id, stock_count:4, photo_url:"https://i.imgur.com/eI9VU0v.jpg")
-    @product.valid?.must_equal true
-  end
+describe "custom methods" do
 
   it "adjusts stock count according to products sold" do
 
@@ -102,8 +105,6 @@ describe Product do
 
     expect(rating).must_equal 3
   end
-
-
 
   it "checks if product is in cart already" do
     product = products(:lamb)
@@ -126,4 +127,5 @@ describe Product do
     expect(cart).must_equal 7
   end
 
+end
 end

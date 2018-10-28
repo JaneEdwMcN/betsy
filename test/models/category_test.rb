@@ -16,7 +16,6 @@ describe Category do
       @category.name = nil
       result = @category.valid?
       result.must_equal false
-      #@category.must_include :name
     end
 
     it "is invalid with a duplicate name" do
@@ -24,26 +23,18 @@ describe Category do
       @category.name = dup_category.name
       result = @category.valid?
       result.must_equal false
-      # @category.must_include :name
     end
   end
 
-  describe "relations" do
+  describe "relationships" do
     before do
       @category = Category.new(name: 'test name')
     end
 
-
     it "connects products and product_ids" do
-      # Arrange
       product = Product.first
-
-      # Act
       @category.products << product
-
-      # Assert
       @category.product_ids.must_include product.id
-
     end
   end
 

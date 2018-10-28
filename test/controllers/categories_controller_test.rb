@@ -1,13 +1,21 @@
 require "test_helper"
 
 describe CategoriesController do
-  let (:categories_hash) do
-    {
-      category: {
-        name: 'Mammal'
-      }
-    }
+
+  let (:category_hash) do
+     {
+  category: {
+    name: "Snake",
+    }}
   end
+
+  let (:wrong_hash) do
+     {
+  category: {
+    name: nil,
+    }}
+  end
+
 describe "index" do
   it "should get index" do
     get categories_path
@@ -20,7 +28,6 @@ describe "show" do
     id = categories(:mystical).id
 
     get category_path(id)
-
     must_respond_with :success
   end
 
@@ -29,7 +36,6 @@ describe "show" do
     categories(:mystical).destroy
 
     get category_path(id)
-
     must_respond_with :not_found
   end
 end
@@ -37,30 +43,15 @@ end
 describe "new" do
   it "will load the new category" do
     kit =users(:kit)
-
     perform_login(kit)
-    get new_category_path
 
+    get new_category_path
     must_respond_with :success
   end
 end
 
 
   describe "create" do
-      let (:category_hash) do
-         {
-      category: {
-        name: "Snake",
-        }}
-      end
-
-      let (:wrong_hash) do
-         {
-      category: {
-        name: nil,
-        }}
-      end
-
     it "can create a category" do
       expect {
         post categories_path, params: category_hash
@@ -79,7 +70,5 @@ end
       must_respond_with  :bad_request
 
     end
-
-
 end
 end
