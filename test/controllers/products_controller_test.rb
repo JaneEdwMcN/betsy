@@ -1,6 +1,7 @@
 require "test_helper"
 
 describe ProductsController do
+
   describe "index" do
     it "should get index" do
       get products_path
@@ -86,9 +87,9 @@ describe ProductsController do
 describe "update" do
 
   it "will update a product with a valid post request" do
-    tan =users(:tan)
-
+    tan = users(:tan)
     perform_login(tan)
+
     product_hash = {
     product: {
         name: 'Lamb',
@@ -119,6 +120,7 @@ describe "update" do
   end
 
   it "will not update if the params are invalid" do
+
     tan =users(:tan)
 
     perform_login(tan)
@@ -144,13 +146,36 @@ describe "update" do
     expect(product.stock_count).must_equal original_product.stock_count
   end
 
+  it "will respond with not_found for invalid ids" do
+    tan = users(:tan)
+    perform_login(tan)
+
+    product_hash = {
+    product: {
+        name: 'Lamb',
+        stock_count: 10,
+        description: "cute",
+        price: 100.0,
+        user_id: users(:tan).id,
+        photo_url: "https://i.imgur.com/NyKcY9y.jpg"
+      }}
+
+    id = -1
+
+    expect {
+      patch product_path(id), params: product_hash
+    }.wont_change 'Product.count'
+
+    must_respond_with :not_found
   end
 
-describe "tests require_product_owner" do
-  it "makes sure that only product owner edits animals" do
-    kit =users(:kit)
+end
 
+describe "tests require_product_owner" do
+  it "does not allow non product owner to update product" do
+    kit =users(:kit)
     perform_login(kit)
+
     product_hash = {
     product: {
         name: 'Lamb',
@@ -160,7 +185,6 @@ describe "tests require_product_owner" do
         user_id: users(:kit).id,
         photo_url: "https://i.imgur.com/NyKcY9y.jpg"
       }}
-
 
      id = products(:lamb).id
      original_product = products(:lamb)
@@ -173,5 +197,6 @@ describe "tests require_product_owner" do
      expect(product.name).must_equal original_product.name
      expect(product.stock_count).must_equal original_product.stock_count
   end
+
 end
 end
